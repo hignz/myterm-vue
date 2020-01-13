@@ -81,9 +81,7 @@ export default {
         this.modules = res.data;
         this.loaded = true;
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(() => {})
       .finally(() => (this.isLoading = false));
   },
   methods: {

@@ -16,9 +16,7 @@ export default {
     colleges: ['IT Sligo', 'Athlone IT', 'Limerick IT']
   }),
   methods: {
-    onChange() {
-      console.log(this.colleges.indexOf(this.selectedCollege));
-    }
+    onChange() {}
   },
   computed: {
     collegeIndex() {

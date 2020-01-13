@@ -81,14 +81,12 @@ export default {
           this.courses = res;
           this.coursesLoading = false;
         })
-        .catch(err => console.log(err));
+        .catch(() => {});
     },
     onCollegeChange() {
       this.getCourses(this.selectedCollegeIndex);
     },
     openTimetable() {
-      console.log(this.selectedCourse);
-
       this.$router.push({
         path: 'timetable',
         query: {

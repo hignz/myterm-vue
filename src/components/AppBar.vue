@@ -40,7 +40,6 @@ export default {
       window.scrollTo(0, 0);
     },
     share() {
-      console.log('asdsad');
       if (navigator.share) {
         navigator.share({
           title: 'MDN',

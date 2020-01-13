@@ -77,7 +77,6 @@ export default {
   },
   mounted() {
     this.isDark = this.darkMode;
-    console.log(JSON.parse(localStorage.getItem('accentedBorders')));
     this.showAccentedBorders = this.accentedBorders;
   },
   computed: {

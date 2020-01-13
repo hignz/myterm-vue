@@ -14,7 +14,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.chartdata);
     this.renderChart(
       {
         labels: this.chartLabels,
