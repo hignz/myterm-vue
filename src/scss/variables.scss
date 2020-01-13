@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap');
+$body-font-family: 'Poppins', sans-serif !important;
+
+$sizenine: (
+  'base': #21252b,
+  'lighten-5': #343a40,
+  'lighten-4': #343a40,
+  'lighten-3': #343a40,
+  'lighten-2': #474f57,
+  'lighten-1': #343a40,
+  'darken-1': #343a40,
+  'darken-2': #343a40,
+  'darken-3': #343a40,
+  'darken-4': #343a40
+);
+@import "~vuetify/src/styles/styles";
+
+$colors: (
+  'sixnine': $sizenine,
+) !default;
+
+$material-dark: map-merge(
+  $material-dark,
+  (
+    "background": map-get($sizenine, 'base'),
+    'cards': map-get($sizenine, 'lighten-1'),
+    'chips': map-get($sizenine, 'lighten-2')
+  )
+);
+
+@import '~vuetify/src/styles/styles.sass';
+

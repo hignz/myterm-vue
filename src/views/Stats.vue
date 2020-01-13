@@ -1,0 +1,130 @@
+<template>
+  <div>
+    <AppBar title="Stats">
+      <v-tabs v-model="tab" centered icons-and-text>
+        <v-tab href="#tab-1">
+          Stuff
+          <v-icon>mdi-chart-pie</v-icon>
+        </v-tab>
+
+        <v-tab href="#tab-2">
+          Breakdown
+          <v-icon>mdi-table-of-contents</v-icon>
+        </v-tab>
+      </v-tabs>
+    </AppBar>
+    <v-container fluid>
+      <v-row justify="center">
+        <v-col cols="12" sm="12" md="5">
+          <v-tabs-items v-model="tab" v-if="loaded">
+            <v-tab-item value="tab-1">
+              <v-card flat class="accented-border">
+                <v-card-subtitle>Modules per day</v-card-subtitle>
+                <v-card-text>
+                  <Sparkline
+                    :values="moduleTotalsPerDay"
+                    :labels="[
+                      'Mon',
+                      'Tues',
+                      'Wed',
+                      'Thurs',
+                      'Fri',
+                      'Sat',
+                      'Sun'
+                    ]"
+                  />
+                  <p class="mt-8">Total modules</p>
+
+                  <PieChart
+                    v-if="moduleCounts"
+                    :chartData="moduleCounts"
+                    :chartLabels="moduleNames"
+                  ></PieChart>
+                  <p class="mt-6">9am starts: {{ nineOClockStarts }}</p>
+                </v-card-text>
+              </v-card>
+            </v-tab-item>
+            <v-tab-item value="tab-2">
+              <ModuleTable class="accented-border" :moduleData="moduleTotals" />
+            </v-tab-item>
+          </v-tabs-items>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+</template>
+
+<script>
+import { mapActions } from 'vuex';
+import AppBar from '../components/AppBar';
+import Sparkline from '../components/Sparkline';
+import ModuleTable from '../components/ModuleTable';
+import PieChart from '../components/PieChart';
+
+export default {
+  components: { AppBar, Sparkline, ModuleTable, PieChart },
+
+  data() {
+    return {
+      timetable: null,
+      modules: [],
+      tab: null,
+      loaded: false
+    };
+  },
+  created() {
+    const { code, college, sem } = this.$route.query;
+
+    this.fetchTimetable({ code, collegeIndex: college, semester: sem })
+      .then(res => {
+        this.timetable = res;
+        this.modules = res.data;
+        this.loaded = true;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => (this.isLoading = false));
+  },
+  methods: {
+    ...mapActions(['fetchTimetable'])
+  },
+  computed: {
+    moduleTotalsPerDay() {
+      return this.modules.map(el => el.length);
+    },
+    moduleDays() {
+      return this.modules
+        .map(el => {
+          return [...new Set(el.map(e => e.day.substring(0, 3)))];
+        })
+        .flat();
+    },
+    moduleTotals() {
+      const arr = [...new Set(this.modules.flat().map(el => el.name))];
+
+      return arr
+        .map(el => ({
+          name: el,
+          count: this.modules.flat().filter(elm => elm.name === el).length
+        }))
+        .sort((a, b) => b.count - a.count);
+    },
+    moduleCounts() {
+      return this.moduleTotals.map(el => el.count);
+    },
+    moduleNames() {
+      return this.moduleTotals.map(el => el.name);
+    },
+    nineOClockStarts() {
+      return this.modules.flat().filter(el => el.startTime === '9:00').length;
+    }
+  }
+};
+</script>
+
+<style scoped>
+.accented-border {
+  border: 0.5px solid var(--v-primary-base);
+}
+</style>
