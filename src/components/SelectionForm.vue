@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="isFormValid">
+  <v-form v-model="isFormValid" @submit.prevent="openTimetable">
     <v-select
       v-model="selectedCollege"
       :items="colleges"
@@ -8,10 +8,8 @@
       outlined
       :rules="[rules.required]"
       @change="onCollegeChange"
+      cache-items=""
     >
-      <template v-slot:prepend-inner>
-        <!-- <v-icon>mdi-school</v-icon> -->
-      </template>
     </v-select>
     <v-autocomplete
       v-model="selectedCourse"
@@ -26,20 +24,19 @@
       no-data-text="No courses found..."
       dense
       outlined
+      cache-items
+      open-on-clear
       :rules="[rules.required]"
       return-object
       :disabled="coursesLoading"
     >
-      <template v-slot:prepend-inner>
-        <!-- <v-icon>mdi-magnify</v-icon> -->
-      </template>
     </v-autocomplete>
     <v-btn
       outlined
       block
       color="primary"
-      @click="openTimetable"
       :disabled="!isFormValid"
+      type="submit"
     >
       <v-icon left>mdi-magnify</v-icon>
       Search
@@ -91,8 +88,7 @@ export default {
         path: 'timetable',
         query: {
           code: decodeURIComponent(this.selectedCourse.course).replace(),
-          college: this.selectedCollegeIndex,
-          sem: 0
+          college: this.selectedCollegeIndex
         }
       });
     }
