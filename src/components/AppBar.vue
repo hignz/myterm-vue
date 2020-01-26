@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app hide-on-scroll="">
+  <v-app-bar app hide-on-scroll class="d-md-none">
     <v-btn icon @click="onBack">
       <v-icon>mdi-arrow-left</v-icon>
     </v-btn>
@@ -13,10 +13,6 @@
     <template>
       <slot name="icon"></slot>
     </template>
-
-    <v-btn icon @click="share">
-      <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn>
 
     <template v-slot:extension v-if="this.$slots.default">
       <slot></slot>
@@ -38,15 +34,6 @@ export default {
     },
     scrollTotop() {
       window.scrollTo(0, 0);
-    },
-    share() {
-      if (navigator.share) {
-        navigator.share({
-          title: 'MDN',
-          text: 'Learn web development on MDN!',
-          url: 'https://developer.mozilla.org'
-        });
-      }
     }
   }
 };

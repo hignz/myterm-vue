@@ -1,37 +1,34 @@
 <template>
   <div>
-    <AppBar title="Stats">
+    <AppBar title="Stats" class="d-md-none">
       <v-tabs v-model="tab" centered icons-and-text>
         <v-tab href="#tab-1">
-          Stuff
-          <v-icon>mdi-chart-pie</v-icon>
+          Data
+          <v-icon>mdi-chart-line-variant</v-icon>
         </v-tab>
 
         <v-tab href="#tab-2">
           Breakdown
-          <v-icon>mdi-table-of-contents</v-icon>
+          <v-icon>mdi-table</v-icon>
         </v-tab>
       </v-tabs>
     </AppBar>
     <v-container fluid>
       <v-row justify="center">
-        <v-col cols="12" sm="12" md="5">
+        <v-col cols="12" sm="12" md="6">
           <v-tabs-items v-model="tab" v-if="loaded">
             <v-tab-item value="tab-1">
-              <v-card flat class="accented-border">
+              <v-card
+                flat
+                v-bind:class="{
+                  'accented-border': accentedBorders
+                }"
+              >
                 <v-card-subtitle>Modules per day</v-card-subtitle>
                 <v-card-text>
                   <Sparkline
                     :values="moduleTotalsPerDay"
-                    :labels="[
-                      'Mon',
-                      'Tues',
-                      'Wed',
-                      'Thurs',
-                      'Fri',
-                      'Sat',
-                      'Sun'
-                    ]"
+                    :labels="['Mon', 'Tues', 'Wed', 'Thurs', 'Fri']"
                   />
                   <p class="mt-8">Total modules</p>
 
@@ -45,7 +42,12 @@
               </v-card>
             </v-tab-item>
             <v-tab-item value="tab-2">
-              <ModuleTable class="accented-border" :moduleData="moduleTotals" />
+              <ModuleTable
+                v-bind:class="{
+                  'accented-border': accentedBorders
+                }"
+                :moduleData="moduleTotals"
+              />
             </v-tab-item>
           </v-tabs-items>
         </v-col>
@@ -78,7 +80,7 @@ export default {
     this.fetchTimetable({ code, collegeIndex: college, semester: sem })
       .then(res => {
         this.timetable = res;
-        this.modules = res.data;
+        this.modules = res.data.slice(0, 5);
         this.loaded = true;
       })
       .catch(() => {})

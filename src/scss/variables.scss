@@ -24,7 +24,9 @@ $material-dark: map-merge(
   (
     "background": map-get($sizenine, 'base'),
     'cards': map-get($sizenine, 'lighten-1'),
-    'chips': map-get($sizenine, 'lighten-2')
+    'chips': map-get($sizenine, 'lighten-2'),
+    'app-bar': map-get($sizenine, 'lighten-1'),
+    'bottom-navigation': map-get($sizenine, 'lighten-1'),
   )
 );
 

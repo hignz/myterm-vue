@@ -4,7 +4,7 @@
   <v-container v-if="timetable">
     <v-row no-gutters justify="center">
       <v-col sm="12" md="5">
-        <AppBar title="Timetable" v-if="!isLoading">
+        <AppBar title="Timetable" v-if="!isLoading" class="d-md-none">
           <template v-slot:icon>
             <v-btn icon @click="saveTimetable">
               <v-icon :color="heartIconColor">{{
@@ -14,27 +14,55 @@
           </template>
         </AppBar>
 
-        <v-card class="accented-border">
+        <v-card
+          v-bind:class="{
+            'accented-border': accentedBorders
+          }"
+        >
           <v-card-title class="body-2 justify-center text-center">{{
             timetable.title
           }}</v-card-title>
           <v-card-text class="text-center pb-2">
-            <v-chip pill class="mr-2">
-              <v-icon left color="primary">mdi-school</v-icon>
-              {{ timetable.college }}</v-chip
-            >
-            <v-chip pill @click="switchSemester"
-              >Semester
-              <v-avatar right color="primary">
-                {{ parseInt(timetable.semester) + 1 }}
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-chip class="mr-2" outlined v-on="on">
+                  <v-icon left color="primary">mdi-school</v-icon>
+                  {{ timetable.college }}</v-chip
+                >
+              </template>
+              <v-list dense>
+                <v-list-item
+                  v-for="(link, index) in links[courseOptions.college]"
+                  :key="index"
+                  @click="openLink(link.url)"
+                >
+                  <v-list-item-title>{{ link.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+            <v-chip @click="switchSemester" outlined class="py-1 my-1">
+              <span>Semester</span>
+              <v-avatar right light>
+                <span class="primary--text mt-1">{{
+                  parseInt(timetable.semester) + 1
+                }}</span>
               </v-avatar>
             </v-chip>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" text>
+            <v-btn color="primary" text @click="openShareMenu">
               <v-icon left>mdi-share-variant</v-icon>
               Share
             </v-btn>
+            <v-spacer />
+
+            <v-btn icon @click="saveTimetable" class="d-none d-md-flex">
+              <v-icon :color="heartIconColor">{{
+                isSaved ? 'mdi-heart' : 'mdi-heart-outline'
+              }}</v-icon>
+            </v-btn>
+
             <v-spacer />
             <v-btn color="primary" text @click="openStats">
               <v-icon left>mdi-chart-pie</v-icon>
@@ -42,7 +70,11 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-        <Timetable :timetable="timetable.data"></Timetable>
+        <Timetable
+          v-if="!timetable.empty"
+          :timetable="timetable.data"
+        ></Timetable>
+        <p v-else>No timetable found</p>
       </v-col>
     </v-row>
   </v-container>
@@ -59,7 +91,38 @@ export default {
     isLoading: false,
     timetable: null,
     courseData: null,
-    savedCourses: null
+    savedCourses: null,
+    links: [
+      [
+        {
+          title: 'Email',
+          url: 'http://outlook.com/mail.itsligo.ie'
+        },
+        {
+          title: 'Moodle',
+          url: 'https://vle.itsligo.ie/my/index.php'
+        },
+        {
+          title: 'Room booking',
+          url: 'https://libreserve.itsligo.ie/'
+        },
+        {
+          title: 'Virtual desktop',
+          url: 'https://vdesktop.itsligo.ie/logon/LogonPoint/index.html'
+        },
+        {
+          title: 'Library',
+          url: 'https://library.itsligo.ie/'
+        }
+      ],
+      [],
+      [
+        {
+          title: 'Moodle',
+          url: 'https://moodle.lit.ie/'
+        }
+      ]
+    ]
   }),
   created() {
     this.isLoading = true;
@@ -121,10 +184,22 @@ export default {
           sem: newSemester
         }
       });
+    },
+    openShareMenu() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'MyTerm',
+          text: 'Your timetable at a glance.',
+          url: 'https://myterm.me'
+        });
+      }
+    },
+    openLink(link) {
+      window.open(link);
     }
   },
   computed: {
-    ...mapState(['lastTimetableVisited']),
+    ...mapState(['lastTimetableVisited', 'accentedBorders']),
     filteredTimetable() {
       return this.timetable.data.filter(el => el.length);
     },
