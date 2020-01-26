@@ -16,8 +16,10 @@
 </template>
 
 <script>
+import vuetify from '../plugins/vuetify';
+
 const gradients = [
-  ['#56b6c2', '#F0F', '#FF0'],
+  [vuetify.framework.theme.defaults.dark.primary, '#F0F', '#FF0'],
   ['#f72047', '#ffd200', '#1feaea']
 ];
 export default {
@@ -44,6 +46,9 @@ export default {
       type: 'trend',
       autoLineWidth: false
     };
+  },
+  created() {
+    console.log(vuetify.framework.theme.defaults.dark.primary);
   }
 };
 </script>

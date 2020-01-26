@@ -3,7 +3,12 @@
     <AppBar title="Settings"></AppBar>
     <v-row justify="center">
       <v-col cols="12" sm="12" md="5">
-        <v-card flat>
+        <v-card
+          flat
+          v-bind:class="{
+            'accented-border': accentedBorders
+          }"
+        >
           <v-card-subtitle>Theme</v-card-subtitle>
           <v-card-text>
             <v-switch
@@ -103,3 +108,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.accented-border {
+  border: 0.5px solid var(--v-primary-base);
+}
+</style>

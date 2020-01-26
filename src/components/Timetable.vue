@@ -1,8 +1,7 @@
 <template>
   <v-expansion-panels class="mt-2 pb-0" v-if="timetable" multiple v-model="arr">
-    <template v-for="(day, index) in timetable">
+    <template v-for="(day, index) in timetable.slice(0, 5)">
       <v-expansion-panel
-        class="mt-2"
         v-bind:class="{
           'accented-border': accentedBorders
         }"

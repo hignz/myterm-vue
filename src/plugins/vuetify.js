@@ -6,6 +6,9 @@ Vue.use(Vuetify);
 if (!localStorage.getItem('accentColor')) {
   localStorage.setItem('accentColor', '#41D1AB');
 }
+if (!localStorage.getItem('darkMode')) {
+  localStorage.setItem('darkMode', true);
+}
 
 export default new Vuetify({
   theme: {
