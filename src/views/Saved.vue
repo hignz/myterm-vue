@@ -55,8 +55,6 @@ export default {
   },
   mounted() {
     this.savedCourses = JSON.parse(localStorage.getItem('savedCourses'));
-    console.log(!this.savedCourses || !this.savedCourses.length);
-    console.log(this.savedCourses);
   },
   methods: {
     openTimetable(course) {

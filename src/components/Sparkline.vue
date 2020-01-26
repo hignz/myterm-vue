@@ -46,9 +46,6 @@ export default {
       type: 'trend',
       autoLineWidth: false
     };
-  },
-  created() {
-    console.log(vuetify.framework.theme.defaults.dark.primary);
   }
 };
 </script>
