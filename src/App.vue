@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <NavBar />
     <v-content>
       <router-view :key="$route.fullPath"></router-view>
     </v-content>
@@ -9,12 +10,13 @@
 
 <script>
 import BottomNav from './components/BottomNav';
+import NavBar from './components/Navbar';
 import vuetify from './plugins/vuetify';
 import { mapState } from 'vuex';
 
 export default {
   name: 'App',
-  components: { BottomNav },
+  components: { BottomNav, NavBar },
   data: () => ({}),
   computed: {
     ...mapState(['darkMode'])
@@ -26,4 +28,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.active-nav {
+  border-top: 1px solid var(--v-primary-base);
+}
+
+html,
+body {
+  overflow-y: auto;
+}
+</style>
