@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels v-if="timetable" multiple v-model="arr">
-    <template v-for="(day, index) in timetable.slice(0, 5)">
+    <template v-for="(day, index) in timetableIndexes">
       <v-expansion-panel
         v-bind:class="{
           'accented-border': accentedBorders
@@ -16,7 +16,6 @@
         >
           {{ day[0].day }}
         </v-expansion-panel-header>
-        <v-divider v-if="index !== day.length" />
         <v-expansion-panel-content>
           <TimetableItem :day="day" :dayIndex="index"></TimetableItem>
         </v-expansion-panel-content>
@@ -60,6 +59,14 @@ export default {
     },
     currentDayOnTimetable() {
       return this.timetable[this.currentDayIndex].length > 0;
+    },
+    timetableIndexes() {
+      const weekDayCount = this.timetable.slice(0, 4).flat().length;
+      const weekendCount = this.timetable.slice(5, 8).flat().length;
+
+      return !weekDayCount && weekendCount
+        ? this.timetable.slice(5, 8)
+        : this.timetable.slice(0, 5);
     }
   }
 };
