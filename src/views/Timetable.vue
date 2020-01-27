@@ -1,6 +1,4 @@
 <template>
-  <!-- TODO -->
-  <!-- BREAKS -->
   <v-container v-if="timetable">
     <v-row no-gutters justify="center">
       <v-col sm="12" md="5">
@@ -15,11 +13,12 @@
         </AppBar>
 
         <v-card
+          class="mb-4"
           v-bind:class="{
             'accented-border': accentedBorders
           }"
         >
-          <v-card-title class="body-2 justify-center text-center">{{
+          <v-card-title class="subtitle-1 justify-center text-center">{{
             timetable.title
           }}</v-card-title>
           <v-card-text class="text-center pb-2">
@@ -51,12 +50,25 @@
             </v-chip>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" text @click="openShareMenu">
+            <v-btn
+              color="primary"
+              text
+              @click="openShareMenu"
+              v-if="canUseNavigator"
+            >
+              <v-icon left>mdi-share-variant</v-icon>
+              Share
+            </v-btn>
+
+            <v-btn color="primary" text @click="copyUrlToClipboard" v-else>
               <v-icon left>mdi-share-variant</v-icon>
               Share
             </v-btn>
             <v-spacer />
 
+            <!-- <v-btn>
+              Favourite
+            </v-btn> -->
             <v-btn icon @click="saveTimetable" class="d-none d-md-flex">
               <v-icon :color="heartIconColor">{{
                 isSaved ? 'mdi-heart' : 'mdi-heart-outline'
@@ -77,6 +89,12 @@
         <p v-else>No timetable found</p>
       </v-col>
     </v-row>
+    <v-snackbar v-model="snackbar" color="success">
+      URL copied to clipbaord!
+      <v-btn text @click="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -92,6 +110,7 @@ export default {
     timetable: null,
     courseData: null,
     savedCourses: null,
+    snackbar: false,
     links: [
       [
         {
@@ -190,16 +209,24 @@ export default {
         navigator.share({
           title: 'MyTerm',
           text: 'Your timetable at a glance.',
-          url: 'https://myterm.me'
+          url: this.timetableUrl
         });
       }
     },
     openLink(link) {
       window.open(link);
+    },
+    copyUrlToClipboard() {
+      navigator.clipboard.writeText(this.timetableUrl).then(() => {
+        this.snackbar = true;
+      });
     }
   },
   computed: {
-    ...mapState(['lastTimetableVisited', 'accentedBorders']),
+    ...mapState(['lastTimetableVisited', 'accentedBorders', 'darkMode']),
+    canUseNavigator() {
+      return navigator.share;
+    },
     filteredTimetable() {
       return this.timetable.data.filter(el => el.length);
     },
@@ -214,12 +241,20 @@ export default {
       );
     },
     heartIconColor() {
+      if (!this.darkMode) {
+        return this.isSaved ? 'primary' : '#666666';
+      }
       return this.isSaved ? 'primary' : 'white';
     },
     courseOptions() {
       return Object.keys(this.$route.query).length > 0
         ? this.$route.query
         : JSON.parse(this.lastTimetableVisited);
+    },
+    timetableUrl() {
+      return `https://myterm.me/timetable?code=${decodeURIComponent(
+        this.courseOptions.code
+      )}&college=${this.courseOptions.college}`;
     }
   }
 };
