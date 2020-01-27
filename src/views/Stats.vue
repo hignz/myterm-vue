@@ -1,15 +1,13 @@
 <template>
   <div>
     <AppBar title="Stats" class="d-md-none">
-      <v-tabs v-model="tab" centered icons-and-text>
+      <v-tabs v-model="tab" centered>
         <v-tab href="#tab-1">
           Data
-          <v-icon>mdi-chart-line-variant</v-icon>
         </v-tab>
 
         <v-tab href="#tab-2">
           Breakdown
-          <v-icon>mdi-table</v-icon>
         </v-tab>
       </v-tabs>
     </AppBar>
