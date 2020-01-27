@@ -1,6 +1,6 @@
 <template>
-  <v-container v-if="timetable">
-    <AppBar title="Timetable" v-if="!isLoading" class="d-md-none">
+  <v-container>
+    <AppBar title="Timetable" class="d-md-none">
       <template v-slot:icon>
         <v-btn
           icon
@@ -13,7 +13,7 @@
         </v-btn>
       </template>
     </AppBar>
-    <v-row justify="center">
+    <v-row justify="center" v-if="!isLoading">
       <v-col sm="12" md="5">
         <v-card
           class="mb-4"
