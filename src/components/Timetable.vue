@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels class="mt-2 pb-0" v-if="timetable" multiple v-model="arr">
+  <v-expansion-panels v-if="timetable" multiple v-model="arr">
     <template v-for="(day, index) in timetable.slice(0, 5)">
       <v-expansion-panel
         v-bind:class="{
@@ -72,9 +72,5 @@ export default {
 
 .primary--text {
   color: var(--v-primary-base);
-}
-
-.v-expansion-panel-content > div {
-  padding-bottom: 0px !important;
 }
 </style>

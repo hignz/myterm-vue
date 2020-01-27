@@ -3,7 +3,7 @@
     <v-select
       v-model="selectedCollege"
       :items="colleges"
-      label="Colleges"
+      label="College"
       dense
       outlined
       :rules="[rules.required]"
@@ -13,7 +13,7 @@
     </v-select>
     <v-autocomplete
       v-model="selectedCourse"
-      label="Courses"
+      label="Course"
       :items="courses"
       item-text="title"
       item-value="course"
