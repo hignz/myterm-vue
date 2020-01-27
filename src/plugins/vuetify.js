@@ -10,7 +10,7 @@ if (!localStorage.getItem('darkMode')) {
   localStorage.setItem('darkMode', true);
 }
 if (!localStorage.getItem('accentedBorders')) {
-  localStorage.setItem('accentedBorders', true);
+  localStorage.setItem('accentedBorders', false);
 }
 
 export default new Vuetify({
