@@ -14,7 +14,7 @@
       </template>
     </AppBar>
     <v-row justify="center" v-if="!isLoading">
-      <v-col sm="12" md="5">
+      <v-col sm="12" md="6">
         <v-card
           class="mb-4"
           v-bind:class="{
@@ -136,7 +136,7 @@ export default {
         },
         {
           title: 'Virtual desktop',
-          url: 'https://vdesktop.itsligo.ie/logon/LogonPoint/index.html'
+          url: 'https://vdesktop.itsligo.ie/Citrix/SligoWeb/'
         },
         {
           title: 'Library',
