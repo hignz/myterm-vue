@@ -19,7 +19,6 @@
           <v-tabs-items v-model="tab" v-if="loaded">
             <v-tab-item value="tab-1">
               <v-card
-                flat
                 v-bind:class="{
                   'accented-border': accentedBorders
                 }"

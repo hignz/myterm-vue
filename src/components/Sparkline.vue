@@ -21,8 +21,9 @@ import vuetify from '../plugins/vuetify';
 import { mapState } from 'vuex';
 
 const gradients = [
-  [vuetify.framework.theme.defaults.dark.primary, '#F0F', '#FF0'],
-  ['#f72047', '#ffd200', '#1feaea']
+  vuetify.framework.theme.defaults.dark.primary,
+  '#F0F',
+  '#FF0'
 ];
 export default {
   props: {
@@ -41,8 +42,8 @@ export default {
       radius: 10,
       padding: 16,
       lineCap: 'round',
-      gradient: gradients[0],
-      gradientDirection: 'top',
+      gradient: gradients,
+      gradientDirection: 'left',
       gradients,
       fill: false,
       type: 'trend',

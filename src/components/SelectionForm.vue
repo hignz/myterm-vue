@@ -8,7 +8,7 @@
       outlined
       :rules="[rules.required]"
       @change="onCollegeChange"
-      cache-items=""
+      cache-items
     >
     </v-select>
     <v-autocomplete
@@ -39,7 +39,7 @@
       type="submit"
     >
       <v-icon left>mdi-magnify</v-icon>
-      Search
+      Find
     </v-btn>
   </v-form>
 </template>
@@ -53,7 +53,7 @@ export default {
     isFormValid: false,
     selectedCollege: '',
     colleges: ['IT Sligo', 'Athlone IT', 'Limerick IT'],
-    selectedCourse: null,
+    selectedCourse: {},
     courses: [],
     coursesLoading: false,
     rules: {
@@ -87,7 +87,7 @@ export default {
       this.$router.push({
         path: 'timetable',
         query: {
-          code: decodeURIComponent(this.selectedCourse.course).replace(),
+          code: decodeURIComponent(this.selectedCourse.course),
           college: this.selectedCollegeIndex
         }
       });
