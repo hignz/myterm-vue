@@ -2,7 +2,7 @@
   <v-container fluid>
     <AppBar title="Settings"></AppBar>
     <v-row justify="center">
-      <v-col cols="12" sm="12" md="5">
+      <v-col cols="12" sm="12" md="6">
         <v-card>
           <v-card-subtitle>Theme</v-card-subtitle>
           <v-card-text>
