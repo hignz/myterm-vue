@@ -9,10 +9,15 @@
         <p class="mb-1 body-2" v-if="period.name && period.name.length > 1">
           {{ period.name }}
         </p>
-        <p class="mb-1 body-2">{{ period.room.split(' -')[0] }}</p>
+        <p
+          class="mb-1 body-2"
+          :class="{ 'mb-4': !(period.teacher && period.teacher.length > 1) }"
+        >
+          {{ period.room.split(' -')[0] }}
+        </p>
         <p
           class="body-2 grey--text"
-          v-if="period.teacher && period.teacher.length"
+          v-if="period.teacher && period.teacher.length > 1"
         >
           {{ period.teacher }}
         </p>
