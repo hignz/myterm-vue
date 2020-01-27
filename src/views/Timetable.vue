@@ -2,7 +2,11 @@
   <v-container v-if="timetable">
     <AppBar title="Timetable" v-if="!isLoading" class="d-md-none">
       <template v-slot:icon>
-        <v-btn icon @click="saveTimetable">
+        <v-btn
+          icon
+          @click="saveTimetable"
+          v-bind:class="{ 'animated heartBeat': isSaved }"
+        >
           <v-icon :color="heartIconColor">{{
             isSaved ? 'mdi-heart' : 'mdi-heart-outline'
           }}</v-icon>
