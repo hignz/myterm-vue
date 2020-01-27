@@ -37,7 +37,6 @@
                     :chartData="moduleCounts"
                     :chartLabels="moduleNames"
                   ></PieChart>
-                  <p class="mt-6">9am starts: {{ nineOClockStarts }}</p>
                 </v-card-text>
               </v-card>
             </v-tab-item>
@@ -57,7 +56,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import AppBar from '../components/AppBar';
 import Sparkline from '../components/Sparkline';
 import ModuleTable from '../components/ModuleTable';
@@ -90,6 +89,7 @@ export default {
     ...mapActions(['fetchTimetable'])
   },
   computed: {
+    ...mapState(['accentedBorders']),
     moduleTotalsPerDay() {
       return this.modules.map(el => el.length);
     },
@@ -101,7 +101,14 @@ export default {
         .flat();
     },
     moduleTotals() {
-      const arr = [...new Set(this.modules.flat().map(el => el.name))];
+      const arr = [
+        ...new Set(
+          this.modules
+            .flat()
+            .filter(e => !e.break)
+            .map(el => el.name)
+        )
+      ];
 
       return arr
         .map(el => ({
