@@ -10,6 +10,7 @@
     :type="type"
     :auto-line-width="autoLineWidth"
     auto-draw
+    :color="labelColor"
     :labels="labels"
     :show-labels="true"
   ></v-sparkline>
@@ -17,6 +18,7 @@
 
 <script>
 import vuetify from '../plugins/vuetify';
+import { mapState } from 'vuex';
 
 const gradients = [
   [vuetify.framework.theme.defaults.dark.primary, '#F0F', '#FF0'],
@@ -40,12 +42,18 @@ export default {
       padding: 16,
       lineCap: 'round',
       gradient: gradients[0],
-      gradientDirection: 'right',
+      gradientDirection: 'top',
       gradients,
       fill: false,
       type: 'trend',
       autoLineWidth: false
     };
+  },
+  computed: {
+    ...mapState(['darkMode']),
+    labelColor() {
+      return this.darkMode ? 'white' : 'black';
+    }
   }
 };
 </script>
