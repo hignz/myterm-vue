@@ -63,8 +63,8 @@ export default {
       showColorPicker: false,
       colorSelection: 0,
       colors: [
-        { name: 'Green', value: '#50fa7b' },
         { name: 'Cyan', value: '#41D1AB' },
+        { name: 'Green', value: '#50fa7b' },
         { name: 'Blue', value: '#72DDF7' },
         { name: 'Coral', value: '#ef596f' },
         { name: 'Pink', value: '#ff79c6' },
