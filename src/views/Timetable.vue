@@ -1,17 +1,16 @@
 <template>
   <v-container v-if="timetable">
+    <AppBar title="Timetable" v-if="!isLoading" class="d-md-none">
+      <template v-slot:icon>
+        <v-btn icon @click="saveTimetable">
+          <v-icon :color="heartIconColor">{{
+            isSaved ? 'mdi-heart' : 'mdi-heart-outline'
+          }}</v-icon>
+        </v-btn>
+      </template>
+    </AppBar>
     <v-row justify="center">
       <v-col sm="12" md="5">
-        <AppBar title="Timetable" v-if="!isLoading" class="d-md-none">
-          <template v-slot:icon>
-            <v-btn icon @click="saveTimetable">
-              <v-icon :color="heartIconColor">{{
-                isSaved ? 'mdi-heart' : 'mdi-heart-outline'
-              }}</v-icon>
-            </v-btn>
-          </template>
-        </AppBar>
-
         <v-card
           class="mb-4"
           v-bind:class="{
@@ -43,7 +42,7 @@
             <v-chip @click="switchSemester" outlined class="py-1 my-1">
               <span>Semester</span>
               <v-avatar right light>
-                <span class="primary--text mt-1">{{
+                <span class="primary--text">{{
                   parseInt(timetable.semester) + 1
                 }}</span>
               </v-avatar>
@@ -83,7 +82,16 @@
           v-if="!timetable.empty"
           :timetable="timetable.data"
         ></Timetable>
-        <p v-else>No timetable found</p>
+        <div class="text-center" v-else>
+          <v-icon class="my-4 grey--text" x-large>mdi-timetable</v-icon>
+          <p>
+            This timetable doesn't seem to have any classes.
+          </p>
+          <p>Are you sure you chose the correct course?</p>
+          <v-btn x-large color="primary" text :to="{ path: '/' }"
+            >Try again</v-btn
+          >
+        </div>
       </v-col>
     </v-row>
     <v-snackbar v-model="snackbar" color="success">
@@ -157,6 +165,7 @@ export default {
           college: res.college
         };
         this.timetable = res;
+
         this.savedCourses = JSON.parse(localStorage.getItem('savedCourses'));
       })
       .catch(() => {})
