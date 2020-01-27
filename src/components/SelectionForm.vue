@@ -21,7 +21,7 @@
       autocomplete="off"
       spellcheck="false"
       clearable
-      no-data-text="No courses found..."
+      no-data-text="No courses found. Ensure a college is selected..."
       dense
       outlined
       cache-items
