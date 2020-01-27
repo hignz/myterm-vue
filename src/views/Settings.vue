@@ -3,12 +3,7 @@
     <AppBar title="Settings"></AppBar>
     <v-row justify="center">
       <v-col cols="12" sm="12" md="5">
-        <v-card
-          flat
-          v-bind:class="{
-            'accented-border': accentedBorders
-          }"
-        >
+        <v-card>
           <v-card-subtitle>Theme</v-card-subtitle>
           <v-card-text>
             <v-switch
@@ -44,7 +39,7 @@
                 <v-switch
                   v-model="showAccentedBorders"
                   color="primary"
-                  label="Accented borders"
+                  label="Coloured borders"
                 ></v-switch>
               </v-col>
             </v-row>
@@ -68,10 +63,13 @@ export default {
       showColorPicker: false,
       colorSelection: 0,
       colors: [
+        { name: 'Green', value: '#50fa7b' },
         { name: 'Cyan', value: '#41D1AB' },
         { name: 'Blue', value: '#72DDF7' },
-        { name: 'Orange', value: '#FF7D00' },
-        { name: 'Yellow', value: '#CDD130' }
+        { name: 'Coral', value: '#ef596f' },
+        { name: 'Pink', value: '#ff79c6' },
+        { name: 'Purple', value: '#bd93f9' },
+        { name: 'Yellow', value: '#f1fa8c' }
       ],
       showAccentedBorders: false
     };
