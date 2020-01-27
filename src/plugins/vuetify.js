@@ -9,6 +9,9 @@ if (!localStorage.getItem('accentColor')) {
 if (!localStorage.getItem('darkMode')) {
   localStorage.setItem('darkMode', true);
 }
+if (!localStorage.getItem('accentedBorders')) {
+  localStorage.setItem('accentedBorders', true);
+}
 
 export default new Vuetify({
   theme: {
