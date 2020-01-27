@@ -66,9 +66,6 @@
             </v-btn>
             <v-spacer />
 
-            <!-- <v-btn>
-              Favourite
-            </v-btn> -->
             <v-btn icon @click="saveTimetable" class="d-none d-md-flex">
               <v-icon :color="heartIconColor">{{
                 isSaved ? 'mdi-heart' : 'mdi-heart-outline'
