@@ -14,7 +14,7 @@
       </template>
     </AppBar>
     <v-row justify="center" v-if="!isLoading">
-      <v-col sm="12" md="6">
+      <v-col sm="12" md="6" lg="5">
         <v-card
           class="mb-4"
           v-bind:class="{
