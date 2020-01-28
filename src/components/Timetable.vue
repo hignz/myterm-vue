@@ -17,7 +17,7 @@
           {{ day[0].day }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <TimetableItem :day="day" :dayIndex="index"></TimetableItem>
+          <Day :day="day" :dayIndex="index" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </template>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import TimetableItem from './TimetableItem';
+import Day from './Day';
 import { getDay } from 'date-fns';
 import { mapState } from 'vuex';
 
@@ -39,7 +39,7 @@ export default {
     this.arr = [this.currentDayOnTimetable ? this.currentDayIndex : null];
   },
   components: {
-    TimetableItem
+    Day
   },
   props: {
     timetable: {

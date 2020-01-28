@@ -1,7 +1,7 @@
 <template>
-  <v-menu offset-x offset-y="" absolute>
+  <v-menu offset-x offset-y absolute>
     <template v-slot:activator="{ on }">
-      <p class="primary--text pt-4" v-on="on">
+      <p class="text-center primary--text pt-4" v-on="on">
         Break: {{ breakFormatted(period.breakLength) }}
       </p>
     </template>
