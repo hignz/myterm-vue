@@ -24,7 +24,6 @@
       no-data-text="No courses found. Ensure a college is selected..."
       dense
       outlined
-      cache-items
       open-on-clear
       :rules="[rules.required]"
       return-object
@@ -53,7 +52,7 @@ export default {
     isFormValid: false,
     selectedCollege: '',
     colleges: ['IT Sligo', 'Athlone IT', 'Limerick IT'],
-    selectedCourse: {},
+    selectedCourse: null,
     courses: [],
     coursesLoading: false,
     rules: {
