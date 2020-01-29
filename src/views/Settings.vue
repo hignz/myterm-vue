@@ -1,6 +1,14 @@
 <template>
   <v-container fluid>
-    <AppBar title="Settings"></AppBar>
+    <AppBar title="Settings">
+      <template v-slot:icon>
+        <v-btn icon :to="{ path: '/about' }">
+          <v-icon class="grey--text">
+            mdi-help-circle
+          </v-icon>
+        </v-btn>
+      </template>
+    </AppBar>
     <v-row justify="center">
       <v-col cols="12" sm="12" md="6">
         <v-card>
@@ -44,9 +52,11 @@
               </v-col>
             </v-row>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions class="d-none d-md-flex">
             <v-spacer />
-            <v-btn text :to="{ path: '/about' }">About</v-btn>
+            <v-btn class="" text :to="{ path: '/about' }">
+              About
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
