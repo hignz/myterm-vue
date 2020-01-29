@@ -23,7 +23,7 @@
         >
           <v-card-title
             style="word-break: keep-all;"
-            class="subtitle-1 text-center"
+            class="subtitle-1 justify-center text-center"
             >{{ timetable.title }}</v-card-title
           >
           <v-card-text class="text-center pb-2">
