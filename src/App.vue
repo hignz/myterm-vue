@@ -2,8 +2,15 @@
   <v-app>
     <NavBar />
     <v-content>
+      <v-progress-linear
+        indeterminate
+        :active="loading"
+        :height="2"
+        color="primary"
+      ></v-progress-linear>
       <router-view :key="$route.fullPath"></router-view>
     </v-content>
+
     <BottomNav />
   </v-app>
 </template>
@@ -19,7 +26,7 @@ export default {
   components: { BottomNav, NavBar },
   data: () => ({}),
   computed: {
-    ...mapState(['darkMode'])
+    ...mapState(['darkMode', 'loading'])
   },
   created() {
     vuetify.framework.theme.dark = this.darkMode;

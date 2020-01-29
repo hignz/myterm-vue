@@ -21,9 +21,11 @@
             'accented-border': accentedBorders
           }"
         >
-          <v-card-title class="subtitle-1 justify-center text-center">{{
-            timetable.title
-          }}</v-card-title>
+          <v-card-title
+            style="word-break: keep-all;"
+            class="subtitle-1 justify-center text-center"
+            >{{ timetable.title }}</v-card-title
+          >
           <v-card-text class="text-center pb-2">
             <v-menu offset-y>
               <template v-slot:activator="{ on }">
@@ -52,7 +54,7 @@
               </v-avatar>
             </v-chip>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions class="mt-4">
             <v-btn
               color="primary"
               text

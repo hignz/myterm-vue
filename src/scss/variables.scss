@@ -1,34 +1,25 @@
+@import '~vuetify/src/styles/styles.sass';
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap');
 $body-font-family: 'Poppins', sans-serif !important;
 
-$sizenine: (
+$mytermDark: (
   'base': #21252b,
-  'lighten-5': #343a40,
-  'lighten-4': #343a40,
-  'lighten-3': #343a40,
   'lighten-2': #474f57,
   'lighten-1': #282c34,
   'darken-1': #343a40,
-  'darken-2': #343a40,
-  'darken-3': #343a40,
-  'darken-4': #343a40
 );
-@import "~vuetify/src/styles/styles";
 
 $colors: (
-  'sixnine': $sizenine,
+  'mytermDark': $mytermDark,
 ) !default;
 
 $material-dark: map-merge(
   $material-dark,
   (
-    "background": map-get($sizenine, 'base'),
-    'cards': map-get($sizenine, 'lighten-1'),
-    'chips': map-get($sizenine, 'lighten-2'),
-    'app-bar': map-get($sizenine, 'lighten-1'),
-    'bottom-navigation': map-get($sizenine, 'lighten-1'),
+    "background": map-get($mytermDark, 'base'),
+    'cards': map-get($mytermDark, 'lighten-1'),
+    'chips': map-get($mytermDark, 'lighten-2'),
+    'app-bar': map-get($mytermDark, 'lighten-1'),
+    'bottom-navigation': map-get($mytermDark, 'lighten-1'),
   )
 );
-
-@import '~vuetify/src/styles/styles.sass';
-

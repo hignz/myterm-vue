@@ -1,5 +1,5 @@
 {
-  "name": "myterm-vue",
+  "name": "myterm",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -35,6 +35,7 @@
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "^2.0.3",
     "vue-template-compiler": "^2.6.10",
-    "vuetify-loader": "^1.3.0"
+    "vuetify-loader": "^1.3.0",
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }
