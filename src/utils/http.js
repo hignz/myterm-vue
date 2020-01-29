@@ -1,6 +1,4 @@
 import axios from 'axios';
-// import router from '../router/index';
-// import store from '../store';
 
 const http = axios.create({
   baseURL: 'https://itsligo-utils.herokuapp.com/api'
