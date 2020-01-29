@@ -44,6 +44,10 @@
               </v-col>
             </v-row>
           </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn text :to="{ path: '/about' }">About</v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
