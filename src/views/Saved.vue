@@ -27,7 +27,7 @@
                   }}</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action class="mt-0">
-                  <v-btn icon @click="deleteCourse(course)" @click.stop>
+                  <v-btn icon @click="openDeleteDialog(course)" @click.stop>
                     <v-icon>mdi-delete</v-icon>
                   </v-btn>
                 </v-list-item-action>
@@ -46,6 +46,19 @@
         </p>
       </v-col>
     </v-row>
+    <v-dialog :width="400" v-model="showDialog">
+      <v-card>
+        <v-card-title>Delete course</v-card-title>
+        <v-card-text>
+          Are you sure?
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text @click="showDialog = !showDialog">Close</v-btn>
+          <v-btn color="error" @click="deleteCourse">Delete</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -58,7 +71,9 @@ export default {
   },
   data() {
     return {
-      savedCourses: null
+      savedCourses: null,
+      showDialog: false,
+      selectedCourse: null
     };
   },
   mounted() {
@@ -75,9 +90,18 @@ export default {
         }
       });
     },
-    deleteCourse(course) {
-      this.savedCourses = this.savedCourses.filter(el => el !== course);
+    deleteCourse() {
+      this.savedCourses = this.savedCourses.filter(
+        el => el !== this.selectedCourse
+      );
       localStorage.setItem('savedCourses', JSON.stringify(this.savedCourses));
+
+      this.showDialog = false;
+    },
+
+    openDeleteDialog(course) {
+      this.showDialog = true;
+      this.selectedCourse = course;
     }
   }
 };
