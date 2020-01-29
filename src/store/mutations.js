@@ -14,5 +14,8 @@ export default {
   [constants.TOGGLE_ACCENTED_BORDERS](state, value) {
     state.accentedBorders = value;
     localStorage.setItem('accentedBorders', value);
+  },
+  [constants.SET_LOADING](state, isLoading) {
+    state.loading = isLoading;
   }
 };

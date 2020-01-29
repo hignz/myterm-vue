@@ -9,12 +9,15 @@ export default {
       return res.data;
     });
   },
-  fetchTimetable(_, options) {
+  fetchTimetable({ commit }, options) {
+    commit(constants.SET_LOADING, true);
+
     const { code, collegeIndex, semester } = options;
 
     return http
       .get(`/timetable/?code=${code}&college=${collegeIndex}&sem=${semester}`)
       .then(res => {
+        commit(constants.SET_LOADING, false);
         return res.data;
       });
   },
@@ -26,5 +29,8 @@ export default {
   },
   toggleAccentedBorders({ commit }, value) {
     commit(constants.TOGGLE_ACCENTED_BORDERS, value);
+  },
+  setLoading({ commit }, isLoading) {
+    commit(constants.SET_LOADING, isLoading);
   }
 };
