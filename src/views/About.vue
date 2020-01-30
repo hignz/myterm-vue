@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <AppBar title="About"></AppBar>
-    <v-row>
-      <v-col>
+    <v-row justify="center">
+      <v-col cols="12" sm="6">
         <v-card>
           <v-card-text>
             <p class="grey--text text-center mt-4">v0.2.0</p>
