@@ -18,8 +18,11 @@
         <v-card
           class="mb-4"
           v-bind:class="{
-            'accented-border': accentedBorders
+            'accented-border': accentedBorders,
+            'light-border': !accentedBorders && darkMode,
+            'lighter-border': !accentedBorders && !darkMode
           }"
+          flat
         >
           <v-card-title
             style="word-break: keep-all;"
@@ -71,7 +74,12 @@
             </v-btn>
             <v-spacer />
 
-            <v-btn icon @click="saveTimetable" class="d-none d-md-flex">
+            <v-btn
+              icon
+              @click="saveTimetable"
+              class="d-none d-md-flex"
+              v-bind:class="{ 'animated heartBeat': isSaved }"
+            >
               <v-icon :color="heartIconColor">{{
                 isSaved ? 'mdi-heart' : 'mdi-heart-outline'
               }}</v-icon>
@@ -178,7 +186,7 @@ export default {
       .finally(() => (this.isLoading = false));
   },
   methods: {
-    ...mapActions(['fetchTimetable', 'setLastTimetableVisited']),
+    ...mapActions(['fetchTimetable', 'setLastTimetableVisited', 'isDark']),
     openStats() {
       this.$router.push({
         path: '/stats',
@@ -271,9 +279,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.accented-border {
-  border: 0.5px solid var(--v-primary-base);
-}
-</style>

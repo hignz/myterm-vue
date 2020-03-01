@@ -1,12 +1,15 @@
 <template>
-  <v-expansion-panels v-if="timetable" multiple v-model="arr">
+  <v-expansion-panels v-if="timetable" multiple v-model="arr" flat>
     <template v-for="(day, index) in timetableIndexes">
       <v-expansion-panel
-        v-bind:class="{
-          'accented-border': accentedBorders
-        }"
         v-if="day && day.length"
         :key="index"
+        class="mb-2"
+        v-bind:class="{
+          'accented-border': accentedBorders,
+          'light-border': !accentedBorders && darkMode,
+          'lighter-border': !accentedBorders && !darkMode
+        }"
       >
         <v-expansion-panel-header
           class="subtitle-1"
@@ -53,12 +56,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['accentedBorders']),
+    ...mapState(['accentedBorders', 'darkMode']),
     currentDayIndex() {
       return getDay(Date.now()) - 1;
     },
     currentDayOnTimetable() {
-      return this.timetable[this.currentDayIndex].length > 0;
+      return this.timetable[this.currentDayIndex]
+        ? this.timetable[this.currentDayIndex].length > 0
+        : false;
     },
     timetableIndexes() {
       const weekDayCount = this.timetable.slice(0, 4).flat().length;
@@ -73,10 +78,6 @@ export default {
 </script>
 
 <style scoped>
-.accented-border {
-  border: 0.5px solid var(--v-primary-base);
-}
-
 .primary--text {
   color: var(--v-primary-base);
 }

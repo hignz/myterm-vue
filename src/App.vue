@@ -37,7 +37,19 @@ export default {
 
 <style>
 .active-nav {
-  border-top: 1px solid var(--v-primary-base);
+  border-top: thin solid var(--v-primary-base) !important;
+}
+
+.accented-border {
+  border: thin solid var(--v-primary-base) !important;
+}
+
+.light-border {
+  border: thin solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.lighter-border {
+  border: thin solid rgba(220, 220, 220, 1) !important;
 }
 
 html,

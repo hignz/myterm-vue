@@ -18,8 +18,11 @@
             <v-tab-item value="tab-1">
               <v-card
                 v-bind:class="{
-                  'accented-border': accentedBorders
+                  'accented-border': accentedBorders,
+                  'light-border': !accentedBorders && darkMode,
+                  'lighter-border': !accentedBorders && !darkMode
                 }"
+                flat
               >
                 <v-card-subtitle>Modules per day</v-card-subtitle>
                 <v-card-text>
@@ -33,6 +36,8 @@
                     v-if="moduleCounts"
                     :chartData="moduleCounts"
                     :chartLabels="moduleNames"
+                    :width="300"
+                    :height="300"
                   ></PieChart>
                 </v-card-text>
               </v-card>
@@ -40,7 +45,9 @@
             <v-tab-item value="tab-2">
               <ModuleTable
                 v-bind:class="{
-                  'accented-border': accentedBorders
+                  'accented-border': accentedBorders,
+                  'light-border': !accentedBorders && darkMode,
+                  'lighter-border': !accentedBorders && !darkMode
                 }"
                 :moduleData="moduleTotals"
               />
@@ -86,7 +93,7 @@ export default {
     ...mapActions(['fetchTimetable'])
   },
   computed: {
-    ...mapState(['accentedBorders']),
+    ...mapState(['accentedBorders', 'darkMode']),
     moduleTotalsPerDay() {
       return this.modules.map(el => el.length);
     },
