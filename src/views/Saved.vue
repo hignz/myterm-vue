@@ -8,8 +8,16 @@
         md="6"
         v-if="savedCourses && savedCourses.length"
       >
-        <v-card>
-          <v-list dense nav three-line>
+        <v-card
+          v-bind:class="{
+            'accented-border': accentedBorders,
+            'dark-border': !accentedBorders && darkMode,
+            'light-border': !accentedBorders && !darkMode
+          }"
+          flat
+        >
+          <v-list dense nav three-line subheader>
+            <v-subheader>COURSES</v-subheader>
             <v-list-item-group>
               <v-list-item
                 v-for="(course, index) in savedCourses"
@@ -26,9 +34,14 @@
                     course.college
                   }}</v-list-item-subtitle>
                 </v-list-item-content>
-                <v-list-item-action class="mt-0">
-                  <v-btn icon @click="openDeleteDialog(course)" @click.stop>
-                    <v-icon>mdi-delete</v-icon>
+                <v-list-item-action class="mt-1">
+                  <v-btn
+                    small
+                    icon
+                    @click="openDeleteDialog(course)"
+                    @click.stop
+                  >
+                    <v-icon small>mdi-delete</v-icon>
                   </v-btn>
                 </v-list-item-action>
               </v-list-item>
@@ -38,24 +51,24 @@
       </v-col>
       <v-col class="text-center mt-4" cols="12" sm="12" md="6" v-else>
         <v-icon class="mb-4 grey--text" x-large>mdi-heart-broken</v-icon>
-        <p>
+        <p class="grey--text">
           You have no saved courses.
         </p>
-        <p>
+        <p class="grey--text">
           To save a course, navigate to a timetable and press the heart icon.
         </p>
       </v-col>
     </v-row>
     <v-dialog :width="400" v-model="showDialog">
       <v-card>
-        <v-card-title>Delete course</v-card-title>
+        <v-card-title>Remove course</v-card-title>
         <v-card-text>
-          Are you sure?
+          Are you sure you?
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn text @click="showDialog = !showDialog">Close</v-btn>
-          <v-btn color="error" @click="deleteCourse">Delete</v-btn>
+          <v-btn color="error" @click="deleteCourse">Remove</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -63,6 +76,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AppBar from '../components/AppBar';
 
 export default {
@@ -78,6 +92,9 @@ export default {
   },
   mounted() {
     this.savedCourses = JSON.parse(localStorage.getItem('savedCourses'));
+  },
+  computed: {
+    ...mapState(['accentedBorders', 'darkMode'])
   },
   methods: {
     openTimetable(course) {

@@ -37,6 +37,7 @@ export default {
       },
       {
         responsive: true,
+        height: 200,
         maintainAspectRatio: false,
         legend: {
           labels: {
