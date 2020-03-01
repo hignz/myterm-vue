@@ -19,8 +19,8 @@
           class="mb-4"
           v-bind:class="{
             'accented-border': accentedBorders,
-            'light-border': !accentedBorders && darkMode,
-            'lighter-border': !accentedBorders && !darkMode
+            'dark-border': !accentedBorders && darkMode,
+            'light-border': !accentedBorders && !darkMode
           }"
           flat
         >

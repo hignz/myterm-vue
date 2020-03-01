@@ -44,11 +44,11 @@ export default {
   border: thin solid var(--v-primary-base) !important;
 }
 
-.light-border {
+.dark-border {
   border: thin solid rgba(255, 255, 255, 0.12) !important;
 }
 
-.lighter-border {
+.light-border {
   border: thin solid rgba(220, 220, 220, 1) !important;
 }
 

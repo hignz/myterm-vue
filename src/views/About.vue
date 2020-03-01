@@ -6,7 +6,7 @@
         <v-card
           v-bind:class="{
             'accented-border': accentedBorders,
-            'light-border': !accentedBorders
+            'dark-border': !accentedBorders
           }"
           flat
         >

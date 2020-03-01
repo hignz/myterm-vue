@@ -19,8 +19,8 @@
               <v-card
                 v-bind:class="{
                   'accented-border': accentedBorders,
-                  'light-border': !accentedBorders && darkMode,
-                  'lighter-border': !accentedBorders && !darkMode
+                  'dark-border': !accentedBorders && darkMode,
+                  'light-border': !accentedBorders && !darkMode
                 }"
                 flat
               >
@@ -46,8 +46,8 @@
               <ModuleTable
                 v-bind:class="{
                   'accented-border': accentedBorders,
-                  'light-border': !accentedBorders && darkMode,
-                  'lighter-border': !accentedBorders && !darkMode
+                  'dark-border': !accentedBorders && darkMode,
+                  'light-border': !accentedBorders && !darkMode
                 }"
                 :moduleData="moduleTotals"
               />
