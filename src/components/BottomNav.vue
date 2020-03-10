@@ -23,7 +23,7 @@
 
     <v-btn :to="{ path: '/settings' }">
       <span>Settings</span>
-      <v-icon>mdi-settings</v-icon>
+      <v-icon>mdi-cog</v-icon>
     </v-btn>
   </v-bottom-navigation>
 </template>
