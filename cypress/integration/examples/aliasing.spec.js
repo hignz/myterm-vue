@@ -2,7 +2,7 @@
 /// <reference types="cypress" />
 
 it('select a college, a course then navigate to it', () => {
-  cy.visit('http://localhost:8080/');
+  cy.visit('https://myterm.me/');
   cy.get('.v-select__selections').click();
 
   cy.contains('IT Sligo').click();
