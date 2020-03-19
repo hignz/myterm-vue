@@ -2,9 +2,15 @@
   <v-container fill-height>
     <v-row justify="center" align="end" class="mb-24 ml-0">
       <v-col cols="12" sm="8" md="6" lg="5">
-        <p class="display-2 mb-12 text-center">
+        <v-img
+          class="mb-12"
+          max-height="175"
+          contain
+          :src="require('../assets/logo.png')"
+        ></v-img>
+        <!-- <p class="display-2 mb-12 text-center">
           My<span class="primary--text">Term</span>
-        </p>
+        </p> -->
         <SelectionForm></SelectionForm>
       </v-col>
     </v-row>
