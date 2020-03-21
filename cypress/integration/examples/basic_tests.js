@@ -16,6 +16,24 @@ it('select a college, a course then navigate to it', () => {
   cy.get('.v-btn--block > .v-btn__content').click();
 });
 
+it('select a course, navigate to saved timetable', () => {
+  cy.visit('https://myterm.me/');
+  cy.get('.v-select__selections').click();
+
+  cy.contains('IT Sligo').click();
+
+  cy.get('.v-input__append-inner')
+    .eq(1)
+    .click();
+  cy.get('.v-list-item__title')
+    .eq(4)
+    .click();
+  cy.get('.v-btn--block > .v-btn__content').click();
+
+  cy.visit('https://myterm.me/');
+  cy.get('.v-btn--flat:nth-child(2) > .v-btn__content > span').click();
+});
+
 // it('save a course to favourites', () => {
 //   // cy.visit('http://localhost:8080/');
 //   // cy.get('.v-btn--flat:nth-child(3) > .v-btn__content > span').click();
@@ -76,4 +94,11 @@ it('save and then remove a course from favourites', () => {
 
     cy.get('.v-list-item__subtitle:nth-child(2)').should('not.exist');
   });
+});
+
+it('about page available', () => {
+  cy.visit('https://myterm.me/');
+  cy.get('.container').click();
+  cy.get('.v-btn--flat:nth-child(3) > .v-btn__content > span').click();
+  cy.get('.primary--text > .v-btn__content').click();
 });
