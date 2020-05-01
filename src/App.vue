@@ -10,7 +10,6 @@
       ></v-progress-linear>
       <router-view :key="$route.fullPath"></router-view>
     </v-content>
-
     <BottomNav />
   </v-app>
 </template>

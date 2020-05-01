@@ -15,7 +15,9 @@
             <p class="grey--text text-center">By: Aaron Higgins</p>
           </v-card-text>
           <v-card-actions>
-            <v-btn block text color="primary" @click="openGithub">Github</v-btn>
+            <v-btn block text color="primary" @click="openGithub()"
+              >Github</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-col>

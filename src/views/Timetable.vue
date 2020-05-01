@@ -4,7 +4,7 @@
       <template v-slot:icon>
         <v-btn
           icon
-          @click="saveTimetable"
+          @click="saveTimetable()"
           v-bind:class="{ 'animated heartBeat': isSaved }"
         >
           <v-icon :color="heartIconColor">{{
@@ -49,7 +49,7 @@
               </v-list>
             </v-menu>
 
-            <v-chip @click="switchSemester" outlined class="py-1 my-1">
+            <v-chip @click="switchSemester()" outlined class="py-1 my-1">
               <span>Semester</span>
               <v-avatar right light>
                 <span class="primary--text">{{
@@ -87,7 +87,7 @@
             </v-btn>
 
             <v-spacer />
-            <v-btn color="primary" text @click="openStats">
+            <v-btn color="primary" text @click="openStats()">
               <v-icon left>mdi-chart-pie</v-icon>
               Stats
             </v-btn>

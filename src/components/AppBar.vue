@@ -1,10 +1,10 @@
 <template>
   <v-app-bar fixed hide-on-scroll class="d-md-none">
-    <v-btn icon @click="onBack">
+    <v-btn icon @click="onBack()">
       <v-icon>mdi-arrow-left</v-icon>
     </v-btn>
 
-    <v-toolbar-title @click="scrollTotop">
+    <v-toolbar-title @click="scrollTotop()">
       {{ title }}
     </v-toolbar-title>
 
