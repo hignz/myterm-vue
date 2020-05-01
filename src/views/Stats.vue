@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <AppBar title="Stats" class="d-md-none">
+  <v-container>
+    <AppBar title="Stats" v-if="$vuetify.breakpoint.smAndDown">
       <v-tabs v-model="tab" centered>
         <v-tab href="#tab-1">
-          Data
+          Modules
         </v-tab>
 
         <v-tab href="#tab-2">
@@ -11,60 +11,73 @@
         </v-tab>
       </v-tabs>
     </AppBar>
-    <v-container fluid>
-      <v-row justify="center">
-        <v-col cols="12" sm="12" md="6">
-          <v-tabs-items v-model="tab" v-if="loaded">
-            <v-tab-item value="tab-1">
-              <v-card
-                v-bind:class="{
-                  'accented-border': accentedBorders,
-                  'dark-border': !accentedBorders && darkMode,
-                  'light-border': !accentedBorders && !darkMode
-                }"
-                flat
-              >
-                <v-card-subtitle>Modules per day</v-card-subtitle>
-                <v-card-text>
-                  <Sparkline
-                    :values="moduleTotalsPerDay"
-                    :labels="['Mon', 'Tues', 'Wed', 'Thurs', 'Fri']"
-                  />
-                  <p class="mt-8">Total modules</p>
 
-                  <PieChart
-                    v-if="moduleCounts"
-                    :chartData="moduleCounts"
-                    :chartLabels="moduleNames"
-                    :width="300"
-                    :height="300"
-                  ></PieChart>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item value="tab-2">
-              <ModuleTable
-                v-bind:class="{
-                  'accented-border': accentedBorders,
-                  'dark-border': !accentedBorders && darkMode,
-                  'light-border': !accentedBorders && !darkMode
-                }"
-                :moduleData="moduleTotals"
-              />
-            </v-tab-item>
-          </v-tabs-items>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+    <v-row justify="center">
+      <v-col cols="12" sm="12" md="6">
+        <v-tabs
+          v-model="tab"
+          v-if="$vuetify.breakpoint.mdAndUp"
+          background-color="transparent"
+        >
+          <v-tab href="#tab-1">
+            Modules
+          </v-tab>
+
+          <v-tab href="#tab-2">
+            Breakdown
+          </v-tab>
+        </v-tabs>
+        <v-tabs-items v-model="tab" v-if="loaded">
+          <v-tab-item value="tab-1">
+            <v-card
+              v-bind:class="{
+                'accented-border': accentedBorders,
+                'dark-border': !accentedBorders && darkMode,
+                'light-border': !accentedBorders && !darkMode
+              }"
+              flat
+            >
+              <v-card-text>
+                <p class="mb-4">Per Day</p>
+                <Sparkline
+                  :values="moduleTotalsPerDay"
+                  :labels="['Mon', 'Tues', 'Wed', 'Thurs', 'Fri']"
+                />
+                <p class="mt-8">Total</p>
+
+                <PieChart
+                  v-if="moduleCounts"
+                  :chartData="moduleCounts"
+                  :chartLabels="moduleNames"
+                  :width="300"
+                  :height="300"
+                ></PieChart>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item value="tab-2">
+            <ModuleTable
+              v-bind:class="{
+                'accented-border': accentedBorders,
+                'dark-border': !accentedBorders && darkMode,
+                'light-border': !accentedBorders && !darkMode
+              }"
+              :moduleData="moduleTotals"
+            />
+          </v-tab-item>
+        </v-tabs-items>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
+
 import AppBar from '../components/AppBar';
-import Sparkline from '../components/Sparkline';
 import ModuleTable from '../components/ModuleTable';
 import PieChart from '../components/PieChart';
+import Sparkline from '../components/Sparkline';
 
 export default {
   components: { AppBar, Sparkline, ModuleTable, PieChart },
@@ -135,7 +148,7 @@ export default {
 </script>
 
 <style scoped>
-.accented-border {
+/* .accented-border {
   border: 0.5px solid var(--v-primary-base);
-}
+} */
 </style>

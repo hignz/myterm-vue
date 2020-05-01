@@ -16,7 +16,7 @@
           }"
           flat
         >
-          <v-list dense nav three-line subheader>
+          <v-list dense nav two-line subheader>
             <v-subheader>COURSES</v-subheader>
             <v-list-item-group>
               <v-list-item
@@ -26,21 +26,16 @@
               >
                 <v-list-item-content>
                   <v-list-item-title>{{ course.title }}</v-list-item-title>
-                  <v-list-item-subtitle
+                  <v-list-item-subtitle class="mt-1"
                     >Semester:
                     {{ parseInt(course.sem, 10) + 1 }}</v-list-item-subtitle
                   >
-                  <v-list-item-subtitle>{{
+                  <v-list-item-subtitle class="overline mt-2">{{
                     course.college
                   }}</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action class="mt-1">
-                  <v-btn
-                    small
-                    icon
-                    @click="openDeleteDialog(course)"
-                    @click.stop
-                  >
+                  <v-btn icon @click="openDeleteDialog(course)" @click.stop>
                     <v-icon small>mdi-delete</v-icon>
                   </v-btn>
                 </v-list-item-action>
@@ -77,6 +72,7 @@
 
 <script>
 import { mapState } from 'vuex';
+
 import AppBar from '../components/AppBar';
 
 export default {
