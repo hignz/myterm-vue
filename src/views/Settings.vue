@@ -36,6 +36,7 @@
                     v-for="color in colors"
                     :key="color.value"
                     pill
+                    outlined
                     @click="changeAccentColor(color)"
                   >
                     <v-avatar left :color="color.value"></v-avatar>
