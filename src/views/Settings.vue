@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <AppBar title="Settings">
       <template v-slot:icon>
         <v-btn icon :to="{ path: '/about' }">
@@ -22,19 +22,16 @@
           <v-card-text>
             <v-row>
               <v-col cols="12" sm="12" md="12">
-                <v-card-subtitle class="pl-0">Theme</v-card-subtitle>
+                <p>Theme</p>
                 <v-switch
                   v-model="isDark"
                   color="primary"
                   label="Dark mode"
                 ></v-switch>
               </v-col>
-            </v-row>
-
-            <v-row>
               <v-col cols="12" sm="12" md="12">
-                <v-card-subtitle class="pl-0">Accent colour</v-card-subtitle>
-                <v-chip-group v-model="colorSelection" class="my-2" mandatory>
+                <p>Accent colour</p>
+                <v-chip-group v-model="colorSelection" mandatory>
                   <v-chip
                     v-for="color in colors"
                     :key="color.value"
@@ -50,10 +47,8 @@
                 </v-chip-group>
                 <AccentColorPicker v-if="showColorPicker"></AccentColorPicker>
               </v-col>
-            </v-row>
-            <v-row>
               <v-col cols="12" sm="12" md="12">
-                <v-card-subtitle class="pl-0">Borders</v-card-subtitle>
+                <p>Borders</p>
                 <v-switch
                   v-model="showAccentedBorders"
                   color="primary"
@@ -75,10 +70,11 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 import AppBar from '../components/AppBar';
 import AccentColorPicker from '../components/AccentColorPicker';
 import vuetify from '../plugins/vuetify';
-import { mapState, mapActions } from 'vuex';
 
 export default {
   data() {
@@ -117,7 +113,7 @@ export default {
       vuetify.framework.theme.themes.light.primary = value;
       localStorage.setItem('accentColor', value);
 
-      this.showColorPicker = false;
+      // this.showColorPicker = false;
     }
   },
   watch: {
@@ -131,8 +127,4 @@ export default {
 };
 </script>
 
-<style>
-.accented-border {
-  border: 0.5px solid var(--v-primary-base);
-}
-</style>
+<style></style>

@@ -11,7 +11,7 @@
           flat
         >
           <v-card-text>
-            <p class="grey--text text-center mt-4">v0.2.0</p>
+            <p class="grey--text text-center mt-6">v0.2.1</p>
             <p class="grey--text text-center">By: Aaron Higgins</p>
           </v-card-text>
           <v-card-actions>

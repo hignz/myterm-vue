@@ -119,6 +119,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+
 import AppBar from '../components/AppBar';
 import Timetable from '../components/Timetable';
 
