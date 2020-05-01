@@ -16,10 +16,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import BottomNav from './components/BottomNav';
 import NavBar from './components/Navbar';
 import vuetify from './plugins/vuetify';
-import { mapState } from 'vuex';
 
 export default {
   name: 'App',

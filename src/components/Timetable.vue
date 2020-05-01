@@ -28,9 +28,10 @@
 </template>
 
 <script>
-import Day from './Day';
 import { getDay } from 'date-fns';
 import { mapState } from 'vuex';
+
+import Day from './Day';
 
 export default {
   data() {
