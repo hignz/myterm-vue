@@ -11,8 +11,7 @@
         </v-tab>
       </v-tabs>
     </AppBar>
-
-    <v-row justify="center">
+    <v-row justify="center" class="mt-12 mt-md-0">
       <v-col cols="12" sm="12" md="6">
         <v-tabs
           v-model="tab"
