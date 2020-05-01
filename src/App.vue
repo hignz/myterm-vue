@@ -57,4 +57,17 @@ html,
 body {
   overflow-y: auto;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #21252b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #282c34;
+  border-radius: 3px;
+}
 </style>
