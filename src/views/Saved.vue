@@ -63,7 +63,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn text @click="showDialog = !showDialog">Close</v-btn>
-          <v-btn color="error" @click="deleteCourse">Remove</v-btn>
+          <v-btn color="error" @click="deleteCourse()">Remove</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -110,6 +110,11 @@ export default {
       localStorage.setItem('savedCourses', JSON.stringify(this.savedCourses));
 
       this.showDialog = false;
+
+      this.$toast.error('Course removed', {
+        timeout: 2000,
+        position: 'bottom-center'
+      });
     },
 
     openDeleteDialog(course) {

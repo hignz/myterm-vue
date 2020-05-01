@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import http from '../utils/http';
-// import router from '../router/index.js';
 import * as constants from './constants';
 
 export default {
@@ -17,8 +16,11 @@ export default {
     return http
       .get(`/timetable/?code=${code}&college=${collegeIndex}&sem=${semester}`)
       .then(res => {
-        commit(constants.SET_LOADING, false);
         return res.data;
+      })
+      .catch()
+      .finally(() => {
+        commit(constants.SET_LOADING, false);
       });
   },
   setLastTimetableVisited({ commit }, value) {

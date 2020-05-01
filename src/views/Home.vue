@@ -1,7 +1,7 @@
 <template>
-  <v-container fill-height>
-    <v-row justify="center" align="end" class="mb-24 ml-0">
-      <v-col cols="12" sm="8" md="6" lg="5">
+  <v-container>
+    <v-row justify="center" class="mt-24">
+      <v-col sm="8" md="6" lg="4">
         <p class="display-2 mb-12 text-center">
           My<span class="primary--text">Term</span>
         </p>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-.mb-24 {
-  margin-bottom: 250px;
+.mt-24 {
+  margin-top: 5rem;
 }
 </style>

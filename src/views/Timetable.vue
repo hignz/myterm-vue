@@ -4,7 +4,7 @@
       <template v-slot:icon>
         <v-btn
           icon
-          @click="saveTimetable"
+          @click="saveTimetable()"
           v-bind:class="{ 'animated heartBeat': isSaved }"
         >
           <v-icon :color="heartIconColor">{{
@@ -16,6 +16,7 @@
     <v-row justify="center" v-if="!isLoading">
       <v-col sm="12" md="6" lg="5">
         <v-card
+          v-if="timetable"
           class="mb-4"
           v-bind:class="{
             'accented-border': accentedBorders,
@@ -48,7 +49,7 @@
               </v-list>
             </v-menu>
 
-            <v-chip @click="switchSemester" outlined class="py-1 my-1">
+            <v-chip @click="switchSemester()" outlined class="py-1 my-1">
               <span>Semester</span>
               <v-avatar right light>
                 <span class="primary--text">{{
@@ -61,14 +62,14 @@
             <v-btn
               color="primary"
               text
-              @click="openShareMenu"
+              @click="openShareMenu()"
               v-if="canUseNavigator"
             >
               <v-icon left>mdi-share-variant</v-icon>
               Share
             </v-btn>
 
-            <v-btn color="primary" text @click="copyUrlToClipboard" v-else>
+            <v-btn color="primary" text @click="copyUrlToClipboard()" v-else>
               <v-icon left>mdi-share-variant</v-icon>
               Share
             </v-btn>
@@ -86,34 +87,29 @@
             </v-btn>
 
             <v-spacer />
-            <v-btn color="primary" text @click="openStats">
+            <v-btn color="primary" text @click="openStats()">
               <v-icon left>mdi-chart-pie</v-icon>
               Stats
             </v-btn>
           </v-card-actions>
         </v-card>
         <Timetable
-          v-if="!timetable.empty"
+          v-if="timetable && !timetable.empty"
           :timetable="timetable.data"
         ></Timetable>
+
         <div class="text-center" v-else>
           <v-icon class="my-4 grey--text" x-large>mdi-timetable</v-icon>
-          <p>
+          <p class="grey--text">
             This timetable doesn't seem to have any classes.
           </p>
-          <p>Are you sure you chose the correct course?</p>
+          <p class="grey--text">Are you sure you chose the correct course?</p>
           <v-btn x-large color="primary" text :to="{ path: '/' }"
             >Try again</v-btn
           >
         </div>
       </v-col>
     </v-row>
-    <v-snackbar v-model="snackbar" color="success">
-      URL copied to clipbaord!
-      <v-btn text @click="snackbar = false">
-        Close
-      </v-btn>
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -130,7 +126,6 @@ export default {
     timetable: null,
     courseData: null,
     savedCourses: null,
-    snackbar: false,
     links: [
       [
         {
@@ -239,7 +234,10 @@ export default {
     },
     copyUrlToClipboard() {
       navigator.clipboard.writeText(this.timetableUrl).then(() => {
-        this.snackbar = true;
+        this.$toast.success('URL copied to clipbaord!', {
+          timeout: 2000,
+          position: 'bottom-center'
+        });
       });
     }
   },

@@ -5,6 +5,12 @@ import store from './store';
 import './registerServiceWorker';
 import vuetify from './plugins/vuetify';
 import VueGtag from 'vue-gtag';
+import Toast from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
+
+const options = {};
+
+Vue.use(Toast, options);
 
 Vue.config.productionTip = false;
 

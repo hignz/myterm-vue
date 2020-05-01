@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <AppBar title="Stats" v-if="$vuetify.breakpoint.smAndDown">
+  <v-container fluid>
+    <AppBar title="Stats" class="d-md-none">
       <v-tabs v-model="tab" centered>
         <v-tab href="#tab-1">
           Modules
