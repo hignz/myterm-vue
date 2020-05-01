@@ -22,7 +22,7 @@
           <v-card-text>
             <v-row>
               <v-col cols="12" sm="12" md="12">
-                <p class="pl-0">Theme</p>
+                <p>Theme</p>
                 <v-switch
                   v-model="isDark"
                   color="primary"
@@ -30,8 +30,8 @@
                 ></v-switch>
               </v-col>
               <v-col cols="12" sm="12" md="12">
-                <p class="pl-0">Accent colour</p>
-                <v-chip-group v-model="colorSelection" class="my-2" mandatory>
+                <p>Accent colour</p>
+                <v-chip-group v-model="colorSelection" mandatory>
                   <v-chip
                     v-for="color in colors"
                     :key="color.value"
@@ -48,7 +48,7 @@
                 <AccentColorPicker v-if="showColorPicker"></AccentColorPicker>
               </v-col>
               <v-col cols="12" sm="12" md="12">
-                <p class="pl-0">Borders</p>
+                <p>Borders</p>
                 <v-switch
                   v-model="showAccentedBorders"
                   color="primary"
