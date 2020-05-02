@@ -13,11 +13,6 @@ import Break from './Break';
 import Period from './Period';
 
 export default {
-  data() {
-    return {
-      showExtendedInfo: false
-    };
-  },
   components: {
     Break,
     Period
@@ -27,8 +22,9 @@ export default {
       type: Array,
       default: () => []
     }
-  }
+  },
+  data: () => ({
+    showExtendedInfo: false
+  })
 };
 </script>
-
-<style></style>

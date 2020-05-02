@@ -26,13 +26,13 @@ export default {
   setLastTimetableVisited({ commit }, value) {
     commit(constants.SET_LAST_VISITED_TIMETABLE, value);
   },
-  toggleDarkMode({ commit }, value) {
-    commit(constants.TOGGLE_DARK_THEME, value);
+  setLoading({ commit }, isLoading) {
+    commit(constants.SET_LOADING, isLoading);
   },
   toggleAccentedBorders({ commit }, value) {
     commit(constants.TOGGLE_ACCENTED_BORDERS, value);
   },
-  setLoading({ commit }, isLoading) {
-    commit(constants.SET_LOADING, isLoading);
+  toggleDarkMode({ commit }, value) {
+    commit(constants.TOGGLE_DARK_THEME, value);
   }
 };

@@ -4,7 +4,7 @@
     <v-row justify="center">
       <v-col cols="12" sm="6">
         <v-card
-          v-bind:class="{
+          :class="{
             'accented-border': accentedBorders,
             'dark-border': !accentedBorders
           }"
@@ -39,5 +39,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

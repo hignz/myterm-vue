@@ -18,7 +18,6 @@
 
 <script>
 export default {
-  data: () => ({}),
   props: {
     courses: {
       type: Array,
@@ -31,5 +30,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

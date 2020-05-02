@@ -24,18 +24,21 @@ import vuetify from './plugins/vuetify';
 export default {
   name: 'App',
   components: { BottomNav, NavBar },
-  data: () => ({}),
   computed: {
     ...mapState(['darkMode', 'loading'])
   },
   created() {
     vuetify.framework.theme.dark = this.darkMode;
-  },
-  methods: {}
+  }
 };
 </script>
 
 <style>
+html,
+body {
+  overflow-y: auto;
+}
+
 .active-nav {
   border-top: thin solid var(--v-primary-base) !important;
 }
@@ -50,11 +53,6 @@ export default {
 
 .light-border {
   border: thin solid rgba(220, 220, 220, 1) !important;
-}
-
-html,
-body {
-  overflow-y: auto;
 }
 
 ::-webkit-scrollbar {

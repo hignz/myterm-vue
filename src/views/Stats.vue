@@ -14,8 +14,8 @@
     <v-row justify="center" class="mt-12 mt-md-0">
       <v-col cols="12" sm="12" md="6">
         <v-tabs
-          v-model="tab"
           v-if="$vuetify.breakpoint.mdAndUp"
+          v-model="tab"
           background-color="transparent"
         >
           <v-tab href="#tab-1">
@@ -26,10 +26,10 @@
             Breakdown
           </v-tab>
         </v-tabs>
-        <v-tabs-items v-model="tab" v-if="loaded">
+        <v-tabs-items v-if="loaded" v-model="tab">
           <v-tab-item value="tab-1">
             <v-card
-              v-bind:class="{
+              :class="{
                 'accented-border': accentedBorders,
                 'dark-border': !accentedBorders && darkMode,
                 'light-border': !accentedBorders && !darkMode
@@ -46,8 +46,8 @@
 
                 <PieChart
                   v-if="moduleCounts"
-                  :chartData="moduleCounts"
-                  :chartLabels="moduleNames"
+                  :chart-data="moduleCounts"
+                  :chart-labels="moduleNames"
                   :width="300"
                   :height="300"
                 ></PieChart>
@@ -56,12 +56,12 @@
           </v-tab-item>
           <v-tab-item value="tab-2">
             <ModuleTable
-              v-bind:class="{
+              :class="{
                 'accented-border': accentedBorders,
                 'dark-border': !accentedBorders && darkMode,
                 'light-border': !accentedBorders && !darkMode
               }"
-              :moduleData="moduleTotals"
+              :module-data="moduleTotals"
             />
           </v-tab-item>
         </v-tabs-items>
@@ -81,29 +81,12 @@ import Sparkline from '../components/Sparkline';
 export default {
   components: { AppBar, Sparkline, ModuleTable, PieChart },
 
-  data() {
-    return {
-      timetable: null,
-      modules: [],
-      tab: null,
-      loaded: false
-    };
-  },
-  created() {
-    const { code, college, sem } = this.$route.query;
-
-    this.fetchTimetable({ code, collegeIndex: college, semester: sem })
-      .then(res => {
-        this.timetable = res;
-        this.modules = res.data.slice(0, 5);
-        this.loaded = true;
-      })
-      .catch(() => {})
-      .finally(() => (this.isLoading = false));
-  },
-  methods: {
-    ...mapActions(['fetchTimetable'])
-  },
+  data: () => ({
+    timetable: null,
+    modules: [],
+    tab: null,
+    loaded: false
+  }),
   computed: {
     ...mapState(['accentedBorders', 'darkMode']),
     moduleTotalsPerDay() {
@@ -142,12 +125,21 @@ export default {
     nineOClockStarts() {
       return this.modules.flat().filter(el => el.startTime === '9:00').length;
     }
+  },
+  created() {
+    const { code, college, sem } = this.$route.query;
+
+    this.fetchTimetable({ code, collegeIndex: college, semester: sem })
+      .then(res => {
+        this.timetable = res;
+        this.modules = res.data.slice(0, 5);
+        this.loaded = true;
+      })
+      .catch(() => {})
+      .finally(() => (this.isLoading = false));
+  },
+  methods: {
+    ...mapActions(['fetchTimetable'])
   }
 };
 </script>
-
-<style scoped>
-/* .accented-border {
-  border: 0.5px solid var(--v-primary-base);
-} */
-</style>

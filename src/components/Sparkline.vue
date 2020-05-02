@@ -37,20 +37,18 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      width: 2,
-      radius: 10,
-      padding: 16,
-      lineCap: 'round',
-      gradient: gradients,
-      gradientDirection: 'left',
-      gradients,
-      fill: false,
-      type: 'trend',
-      autoLineWidth: false
-    };
-  },
+  data: () => ({
+    width: 2,
+    radius: 10,
+    padding: 16,
+    lineCap: 'round',
+    gradient: gradients,
+    gradientDirection: 'left',
+    gradients,
+    fill: false,
+    type: 'trend',
+    autoLineWidth: false
+  }),
   computed: {
     ...mapState(['darkMode']),
     labelColor() {
@@ -59,5 +57,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

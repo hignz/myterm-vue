@@ -8,7 +8,7 @@
         <span>Search</span>
       </v-btn>
 
-      <v-btn text :to="{ path: '/timetable' }" v-if="lastTimetableVisited">
+      <v-btn v-if="lastTimetableVisited" text :to="{ path: '/timetable' }">
         <span>Timetable</span>
       </v-btn>
 
@@ -35,5 +35,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

@@ -16,18 +16,6 @@ const routes = [
     component: () => import('../views/About.vue')
   },
   {
-    path: '/timetable',
-    name: 'timetable',
-    props: true,
-    component: () => import('../views/Timetable.vue')
-  },
-  {
-    path: '/stats',
-    name: 'stats',
-    props: true,
-    component: () => import('../views/Stats.vue')
-  },
-  {
     path: '/saved',
     name: 'saved',
     component: () => import('../views/Saved.vue')
@@ -36,6 +24,18 @@ const routes = [
     path: '/settings',
     name: 'settings',
     component: () => import('../views/Settings.vue')
+  },
+  {
+    path: '/stats',
+    name: 'stats',
+    props: true,
+    component: () => import('../views/Stats.vue')
+  },
+  {
+    path: '/timetable',
+    name: 'timetable',
+    props: true,
+    component: () => import('../views/Timetable.vue')
   },
   {
     path: '*',

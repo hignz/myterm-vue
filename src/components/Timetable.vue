@@ -1,11 +1,11 @@
 <template>
-  <v-expansion-panels v-if="timetable" multiple v-model="arr" flat>
+  <v-expansion-panels v-if="timetable" v-model="arr" multiple flat>
     <template v-for="(day, index) in timetableIndexes">
       <v-expansion-panel
         v-if="day && day.length"
         :key="index"
         class="mb-2"
-        v-bind:class="{
+        :class="{
           'accented-border': accentedBorders,
           'dark-border': !accentedBorders && darkMode,
           'light-border': !accentedBorders && !darkMode
@@ -13,14 +13,14 @@
       >
         <v-expansion-panel-header
           class="subtitle-1"
-          v-bind:class="{
+          :class="{
             'primary--text font-weight-bold': isCurrentDay(index)
           }"
         >
           {{ day[0].day }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <Day :day="day" :dayIndex="index" />
+          <Day :day="day" :day-index="index" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </template>
@@ -34,14 +34,6 @@ import { mapState } from 'vuex';
 import Day from './Day';
 
 export default {
-  data() {
-    return {
-      arr: null
-    };
-  },
-  created() {
-    this.arr = [this.currentDayOnTimetable ? this.currentDayIndex : null];
-  },
   components: {
     Day
   },
@@ -51,11 +43,9 @@ export default {
       default: () => []
     }
   },
-  methods: {
-    isCurrentDay(dayIndex) {
-      return this.currentDayIndex === dayIndex;
-    }
-  },
+  data: () => ({
+    arr: null
+  }),
   computed: {
     ...mapState(['accentedBorders', 'darkMode']),
     currentDayIndex() {
@@ -73,6 +63,14 @@ export default {
       return !weekDayCount && weekendCount
         ? this.timetable.slice(5, 8)
         : this.timetable.slice(0, 5);
+    }
+  },
+  created() {
+    this.arr = [this.currentDayOnTimetable ? this.currentDayIndex : null];
+  },
+  methods: {
+    isCurrentDay(dayIndex) {
+      return this.currentDayIndex === dayIndex;
     }
   }
 };

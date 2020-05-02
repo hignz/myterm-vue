@@ -14,7 +14,7 @@
       <slot name="icon"></slot>
     </template>
 
-    <template v-slot:extension v-if="this.$slots.default">
+    <template v-if="this.$slots.default" v-slot:extension>
       <slot></slot>
     </template>
   </v-app-bar>
@@ -38,5 +38,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

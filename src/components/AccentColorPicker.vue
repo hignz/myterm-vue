@@ -10,12 +10,10 @@
 import vuetify from '../plugins/vuetify';
 
 export default {
-  data() {
-    return {
-      type: 'hex',
-      hex: '#696969'
-    };
-  },
+  data: () => ({
+    type: 'hex',
+    hex: '#696969'
+  }),
   computed: {
     color: {
       get() {
@@ -40,5 +38,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

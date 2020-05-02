@@ -3,13 +3,13 @@
     <AppBar title="Saved"></AppBar>
     <v-row justify="center">
       <v-col
+        v-if="savedCourses && savedCourses.length"
         cols="12"
         sm="12"
         md="6"
-        v-if="savedCourses && savedCourses.length"
       >
         <v-card
-          v-bind:class="{
+          :class="{
             'accented-border': accentedBorders,
             'dark-border': !accentedBorders && darkMode,
             'light-border': !accentedBorders && !darkMode
@@ -44,7 +44,7 @@
           </v-list>
         </v-card>
       </v-col>
-      <v-col class="text-center mt-4" cols="12" sm="12" md="6" v-else>
+      <v-col v-else class="text-center mt-4" cols="12" sm="12" md="6">
         <v-icon class="mb-4 grey--text" x-large>mdi-heart-broken</v-icon>
         <p class="grey--text">
           You have no saved courses.
@@ -54,7 +54,7 @@
         </p>
       </v-col>
     </v-row>
-    <v-dialog :width="400" v-model="showDialog">
+    <v-dialog v-model="showDialog" :width="400">
       <v-card>
         <v-card-title>Remove course</v-card-title>
         <v-card-text>
@@ -79,18 +79,16 @@ export default {
   components: {
     AppBar
   },
-  data() {
-    return {
-      savedCourses: null,
-      showDialog: false,
-      selectedCourse: null
-    };
+  data: () => ({
+    savedCourses: null,
+    showDialog: false,
+    selectedCourse: null
+  }),
+  computed: {
+    ...mapState(['accentedBorders', 'darkMode'])
   },
   mounted() {
     this.savedCourses = JSON.parse(localStorage.getItem('savedCourses'));
-  },
-  computed: {
-    ...mapState(['accentedBorders', 'darkMode'])
   },
   methods: {
     openTimetable(course) {
@@ -124,5 +122,3 @@ export default {
   }
 };
 </script>
-
-<style></style>
