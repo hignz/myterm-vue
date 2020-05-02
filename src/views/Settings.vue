@@ -12,7 +12,7 @@
     <v-row justify="center">
       <v-col cols="12" sm="12" md="6">
         <v-card
-          v-bind:class="{
+          :class="{
             'accented-border': accentedBorders,
             'dark-border': !accentedBorders && darkMode,
             'light-border': !accentedBorders && !darkMode
@@ -78,33 +78,39 @@ import AccentColorPicker from '../components/AccentColorPicker';
 import vuetify from '../plugins/vuetify';
 
 export default {
-  data() {
-    return {
-      isDark: false,
-      showColorPicker: false,
-      colorSelection: 0,
-      colors: [
-        { name: 'Cyan', value: '#41D1AB' },
-        { name: 'Green', value: '#50fa7b' },
-        { name: 'Blue', value: '#72DDF7' },
-        { name: 'Coral', value: '#ef596f' },
-        { name: 'Pink', value: '#ff79c6' },
-        { name: 'Purple', value: '#bd93f9' },
-        { name: 'Yellow', value: '#f1fa8c' }
-      ],
-      showAccentedBorders: true
-    };
-  },
   components: {
     AppBar,
     AccentColorPicker
   },
+  data: () => ({
+    isDark: false,
+    showColorPicker: false,
+    colorSelection: 0,
+    colors: [
+      { name: 'Cyan', value: '#41D1AB' },
+      { name: 'Green', value: '#50fa7b' },
+      { name: 'Blue', value: '#72DDF7' },
+      { name: 'Coral', value: '#ef596f' },
+      { name: 'Pink', value: '#ff79c6' },
+      { name: 'Purple', value: '#bd93f9' },
+      { name: 'Yellow', value: '#f1fa8c' }
+    ],
+    showAccentedBorders: true
+  }),
+  computed: {
+    ...mapState(['darkMode', 'accentedBorders'])
+  },
+  watch: {
+    isDark: function(newValue) {
+      this.$store.dispatch('toggleDarkMode', newValue);
+    },
+    showAccentedBorders: function(newValue) {
+      this.$store.dispatch('toggleAccentedBorders', newValue);
+    }
+  },
   mounted() {
     this.isDark = this.darkMode;
     this.showAccentedBorders = this.accentedBorders;
-  },
-  computed: {
-    ...mapState(['darkMode', 'accentedBorders'])
   },
   methods: {
     ...mapActions(['setDarkMode']),
@@ -114,18 +120,8 @@ export default {
       vuetify.framework.theme.themes.light.primary = value;
       localStorage.setItem('accentColor', value);
 
-      // this.showColorPicker = false;
-    }
-  },
-  watch: {
-    isDark: function(newValue) {
-      this.$store.dispatch('toggleDarkMode', newValue);
-    },
-    showAccentedBorders: function(newValue) {
-      this.$store.dispatch('toggleAccentedBorders', newValue);
+      this.showColorPicker = false;
     }
   }
 };
 </script>
-
-<style></style>

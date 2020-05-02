@@ -14,6 +14,9 @@ export default {
       default: null
     }
   },
+  computed: {
+    ...mapState(['darkMode'])
+  },
   mounted() {
     this.renderChart(
       {
@@ -69,11 +72,6 @@ export default {
     if (this.$data._chart) {
       this.$data._chart.destroy();
     }
-  },
-  computed: {
-    ...mapState(['darkMode'])
   }
 };
 </script>
-
-<style></style>

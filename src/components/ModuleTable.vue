@@ -16,20 +16,16 @@ export default {
       default: () => []
     }
   },
-  data() {
-    return {
-      headers: [
-        {
-          text: 'Module',
-          align: 'left',
-          sortable: true,
-          value: 'name'
-        },
-        { text: 'Per week', value: 'count' }
-      ]
-    };
-  }
+  data: () => ({
+    headers: [
+      {
+        text: 'Module',
+        align: 'left',
+        sortable: true,
+        value: 'name'
+      },
+      { text: 'Per week', value: 'count' }
+    ]
+  })
 };
 </script>
-
-<style></style>

@@ -1,18 +1,17 @@
 import Vue from 'vue';
+import VueGtag from 'vue-gtag';
+import Toast from 'vue-toastification';
+
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import './registerServiceWorker';
 import vuetify from './plugins/vuetify';
-import VueGtag from 'vue-gtag';
-import Toast from 'vue-toastification';
+import './registerServiceWorker';
 import 'vue-toastification/dist/index.css';
 
-const options = {};
-
-Vue.use(Toast, options);
-
 Vue.config.productionTip = false;
+
+Vue.use(Toast, {});
 
 Vue.use(
   VueGtag,

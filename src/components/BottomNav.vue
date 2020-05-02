@@ -11,7 +11,7 @@
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
-    <v-btn :to="{ path: '/timetable' }" v-if="lastTimetableVisited">
+    <v-btn v-if="lastTimetableVisited" :to="{ path: '/timetable' }">
       <span>Timetable</span>
       <v-icon>mdi-timetable</v-icon>
     </v-btn>

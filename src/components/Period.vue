@@ -1,24 +1,24 @@
 <template>
-  <div @click="showExtendedInfo = !showExtendedInfo" class="text-center">
-    <p class="mt-4 mb-1 body-2" v-if="period.startTime">
+  <div class="text-center" @click="showExtendedInfo = !showExtendedInfo">
+    <p v-if="period.startTime" class="mt-4 mb-1 body-2">
       {{ period.startTime }} - {{ period.endTime }}
     </p>
-    <p class="mb-1 body-2" v-if="period.name && period.name.length > 1">
+    <p v-if="period.name && period.name.length > 1" class="mb-1 body-2">
       {{ period.name }}
     </p>
     <p
-      class="mb-1 body-2"
       v-if="period.room"
+      class="mb-1 body-2"
       :class="{ 'mb-4': !(period.teacher && period.teacher.length > 1) }"
     >
       {{ period.room.split(' -')[0] }}
     </p>
-    <p class="mb-1 body-2" v-if="showExtendedInfo">
+    <p v-if="showExtendedInfo" class="mb-1 body-2">
       {{ period.room.split(' -')[1] }} - {{ period.type }}
     </p>
     <p
-      class="body-2 grey--text"
       v-if="period.teacher && period.teacher.length > 1"
+      class="body-2 grey--text"
     >
       {{ period.teacher }}
     </p>
@@ -27,18 +27,14 @@
 
 <script>
 export default {
-  data() {
-    return {
-      showExtendedInfo: false
-    };
-  },
   props: {
     period: {
       type: Object,
       default: () => {}
     }
-  }
+  },
+  data: () => ({
+    showExtendedInfo: false
+  })
 };
 </script>
-
-<style></style>

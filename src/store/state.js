@@ -1,6 +1,6 @@
 export default {
-  lastTimetableVisited: localStorage.getItem('courseQuery') || null,
+  accentedBorders: JSON.parse(localStorage.getItem('accentedBorders')) || null,
   darkMode: JSON.parse(localStorage.getItem('darkMode')) || null,
-  loading: false,
-  accentedBorders: JSON.parse(localStorage.getItem('accentedBorders')) || null
+  lastTimetableVisited: localStorage.getItem('courseQuery') || null,
+  loading: false
 };

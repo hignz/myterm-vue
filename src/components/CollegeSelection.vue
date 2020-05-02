@@ -15,9 +15,6 @@ export default {
     selectedCollege: '',
     colleges: ['IT Sligo', 'Athlone IT', 'Limerick IT']
   }),
-  methods: {
-    onChange() {}
-  },
   computed: {
     collegeIndex() {
       return this.colleges.indexOf(this.selectedCollege);
@@ -25,5 +22,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

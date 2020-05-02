@@ -6,16 +6,16 @@ export default {
     state.lastTimetableVisited = lastTimetableVisited;
     localStorage.setItem('courseQuery', lastTimetableVisited);
   },
-  [constants.TOGGLE_DARK_THEME](state, value) {
-    state.darkMode = value;
-    vuetify.framework.theme.dark = value;
-    localStorage.setItem('darkMode', value);
+  [constants.SET_LOADING](state, isLoading) {
+    state.loading = isLoading;
   },
   [constants.TOGGLE_ACCENTED_BORDERS](state, value) {
     state.accentedBorders = value;
     localStorage.setItem('accentedBorders', value);
   },
-  [constants.SET_LOADING](state, isLoading) {
-    state.loading = isLoading;
+  [constants.TOGGLE_DARK_THEME](state, value) {
+    state.darkMode = value;
+    vuetify.framework.theme.dark = value;
+    localStorage.setItem('darkMode', value);
   }
 };

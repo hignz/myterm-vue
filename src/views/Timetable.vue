@@ -4,8 +4,8 @@
       <template v-slot:icon>
         <v-btn
           icon
+          :class="{ 'animated heartBeat': isSaved }"
           @click="saveTimetable()"
-          v-bind:class="{ 'animated heartBeat': isSaved }"
         >
           <v-icon :color="heartIconColor">{{
             isSaved ? 'mdi-heart' : 'mdi-heart-outline'
@@ -13,12 +13,12 @@
         </v-btn>
       </template>
     </AppBar>
-    <v-row justify="center" v-if="!isLoading">
+    <v-row v-if="!isLoading" justify="center">
       <v-col sm="12" md="6" lg="5">
         <v-card
           v-if="timetable"
           class="mb-4"
-          v-bind:class="{
+          :class="{
             'accented-border': accentedBorders,
             'dark-border': !accentedBorders && darkMode,
             'light-border': !accentedBorders && !darkMode
@@ -49,37 +49,38 @@
               </v-list>
             </v-menu>
 
-            <v-chip @click="switchSemester()" outlined class="py-1 my-1">
+            <v-chip outlined class="py-1 my-1" @click="switchSemester()">
               <span>Semester</span>
               <v-avatar right light>
                 <span class="primary--text">{{
-                  parseInt(timetable.semester) + 1
+                  parseInt(timetable.semester, 10) + 1
                 }}</span>
               </v-avatar>
             </v-chip>
           </v-card-text>
           <v-card-actions class="mt-4">
             <v-btn
+              v-if="canUseNavigator"
               color="primary"
               text
               @click="openShareMenu()"
-              v-if="canUseNavigator"
             >
               <v-icon left>mdi-share-variant</v-icon>
               Share
             </v-btn>
 
-            <v-btn color="primary" text @click="copyUrlToClipboard()" v-else>
+            <v-btn v-else color="primary" text @click="copyUrlToClipboard()">
               <v-icon left>mdi-share-variant</v-icon>
               Share
             </v-btn>
+
             <v-spacer />
 
             <v-btn
               icon
-              @click="saveTimetable"
               class="d-none d-md-flex"
-              v-bind:class="{ 'animated heartBeat': isSaved }"
+              :class="{ 'animated heartBeat': isSaved }"
+              @click="saveTimetable"
             >
               <v-icon :color="heartIconColor">{{
                 isSaved ? 'mdi-heart' : 'mdi-heart-outline'
@@ -98,7 +99,7 @@
           :timetable="timetable.data"
         ></Timetable>
 
-        <div class="text-center" v-else>
+        <div v-else class="text-center">
           <v-icon class="my-4 grey--text" x-large>mdi-timetable</v-icon>
           <p class="grey--text">
             This timetable doesn't seem to have any classes.
@@ -125,7 +126,7 @@ export default {
     isLoading: false,
     timetable: null,
     courseData: null,
-    savedCourses: null,
+    savedCourses: [],
     links: [
       [
         {
@@ -158,6 +159,36 @@ export default {
       ]
     ]
   }),
+  computed: {
+    ...mapState(['lastTimetableVisited', 'accentedBorders', 'darkMode']),
+    canUseNavigator() {
+      return navigator.share;
+    },
+    filteredTimetable() {
+      return this.timetable.data.filter(el => el.length);
+    },
+    isSaved() {
+      return (
+        this.savedCourses.filter(el => el.id === this.courseData.id).length > 0
+      );
+    },
+    heartIconColor() {
+      if (!this.darkMode) {
+        return this.isSaved ? 'primary' : '#666666';
+      }
+      return this.isSaved ? 'primary' : 'white';
+    },
+    courseOptions() {
+      return Object.keys(this.$route.query).length > 0
+        ? this.$route.query
+        : JSON.parse(this.lastTimetableVisited);
+    },
+    timetableUrl() {
+      return `https://myterm.me/timetable?code=${decodeURIComponent(
+        this.courseOptions.code
+      )}&college=${this.courseOptions.college}`;
+    }
+  },
   created() {
     this.isLoading = true;
 
@@ -172,7 +203,8 @@ export default {
           code,
           collegeIndex: college,
           sem: res.semester,
-          college: res.college
+          college: res.college,
+          id: res._id
         };
         this.timetable = res;
 
@@ -190,17 +222,9 @@ export default {
       });
     },
     saveTimetable() {
-      if (this.savedCourses === null) {
-        this.savedCourses = [];
-      }
-
       if (this.isSaved) {
         this.savedCourses = this.savedCourses.filter(
-          el =>
-            !(
-              el.title === this.courseData.title &&
-              el.sem === this.courseData.sem
-            )
+          el => el.id !== this.courseData.id
         );
       } else {
         this.savedCourses.push(this.courseData);
@@ -239,41 +263,6 @@ export default {
           position: 'bottom-center'
         });
       });
-    }
-  },
-  computed: {
-    ...mapState(['lastTimetableVisited', 'accentedBorders', 'darkMode']),
-    canUseNavigator() {
-      return navigator.share;
-    },
-    filteredTimetable() {
-      return this.timetable.data.filter(el => el.length);
-    },
-    isSaved() {
-      if (this.savedCourses === null) return false;
-
-      return (
-        this.savedCourses.filter(
-          el =>
-            el.title === this.courseData.title && el.sem === this.courseData.sem
-        ).length > 0
-      );
-    },
-    heartIconColor() {
-      if (!this.darkMode) {
-        return this.isSaved ? 'primary' : '#666666';
-      }
-      return this.isSaved ? 'primary' : 'white';
-    },
-    courseOptions() {
-      return Object.keys(this.$route.query).length > 0
-        ? this.$route.query
-        : JSON.parse(this.lastTimetableVisited);
-    },
-    timetableUrl() {
-      return `https://myterm.me/timetable?code=${decodeURIComponent(
-        this.courseOptions.code
-      )}&college=${this.courseOptions.college}`;
     }
   }
 };

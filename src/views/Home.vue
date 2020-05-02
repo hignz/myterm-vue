@@ -15,11 +15,8 @@
 import SelectionForm from '../components/SelectionForm';
 
 export default {
-  name: 'home',
-  components: { SelectionForm },
-  data: () => ({}),
-  created() {},
-  methods: {}
+  name: 'Home',
+  components: { SelectionForm }
 };
 </script>
 

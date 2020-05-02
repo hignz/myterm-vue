@@ -7,8 +7,8 @@
       dense
       outlined
       :rules="[rules.required]"
-      @change="onCollegeChange"
       cache-items
+      @change="onCollegeChange"
     >
     </v-select>
     <v-autocomplete
@@ -94,5 +94,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

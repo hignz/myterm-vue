@@ -22,21 +22,20 @@
 
 <script>
 export default {
-  data() {
-    return {
-      items: [
-        {
-          title: 'Room booking',
-          url: 'https://libreserve.itsligo.ie/'
-        }
-      ]
-    };
-  },
   props: {
     period: {
-      type: Object
+      type: Object,
+      default: () => {}
     }
   },
+  data: () => ({
+    items: [
+      {
+        title: 'Room booking',
+        url: 'https://libreserve.itsligo.ie/'
+      }
+    ]
+  }),
   methods: {
     breakFormatted(length) {
       return length >= 60 ? `${length / 60} hour` : `${length} minutes`;
@@ -47,5 +46,3 @@ export default {
   }
 };
 </script>
-
-<style></style>
