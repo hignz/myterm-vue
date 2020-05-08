@@ -64,9 +64,6 @@ export default {
       return this.colleges.indexOf(this.selectedCollege);
     }
   },
-  // created() {
-  //   this.getCourses(0);
-  // },
   methods: {
     ...mapActions(['fetchModules', 'fetchCourses']),
     getCourses(collegeIndex) {
