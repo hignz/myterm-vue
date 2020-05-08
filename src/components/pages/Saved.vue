@@ -16,7 +16,7 @@
           }"
           flat
         >
-          <v-list dense nav two-line subheader>
+          <v-list nav two-line subheader dense>
             <v-subheader>COURSES</v-subheader>
             <v-list-item-group>
               <v-list-item
@@ -72,13 +72,14 @@
 
 <script>
 import { mapState } from 'vuex';
-
-import AppBar from '../components/AppBar';
+import AppBar from '@/components/shared/AppBar';
+import genericMetaInfo from '@/mixins/genericMetaInfo';
 
 export default {
   components: {
     AppBar
   },
+  mixins: [genericMetaInfo],
   data: () => ({
     savedCourses: null,
     showDialog: false,
@@ -109,7 +110,7 @@ export default {
 
       this.showDialog = false;
 
-      this.$toast.error('Course removed', {
+      this.$toast.error('Removed from favourites', {
         timeout: 2000,
         position: 'bottom-center'
       });

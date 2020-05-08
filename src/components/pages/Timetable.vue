@@ -69,7 +69,13 @@
               Share
             </v-btn>
 
-            <v-btn v-else color="primary" text @click="copyUrlToClipboard()">
+            <v-btn
+              v-else
+              color="primary"
+              text
+              class="font-weight-bold"
+              @click="copyUrlToClipboard()"
+            >
               <v-icon left>mdi-share-variant</v-icon>
               Share
             </v-btn>
@@ -88,7 +94,12 @@
             </v-btn>
 
             <v-spacer />
-            <v-btn color="primary" text @click="openStats()">
+            <v-btn
+              class="font-weight-bold"
+              color="primary"
+              text
+              @click="openStats()"
+            >
               <v-icon left>mdi-chart-pie</v-icon>
               Stats
             </v-btn>
@@ -117,11 +128,13 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 
-import AppBar from '../components/AppBar';
-import Timetable from '../components/Timetable';
+import AppBar from '@/components/shared/AppBar';
+import Timetable from '@/components/shared/Timetable';
+import timetableMetaInfo from '@/mixins/timetableMetaInfo';
 
 export default {
   components: { AppBar, Timetable },
+  mixins: [timetableMetaInfo],
   data: () => ({
     isLoading: false,
     timetable: null,
@@ -210,7 +223,6 @@ export default {
 
         this.savedCourses = JSON.parse(localStorage.getItem('savedCourses'));
       })
-      .catch(() => {})
       .finally(() => (this.isLoading = false));
   },
   methods: {
@@ -258,9 +270,10 @@ export default {
     },
     copyUrlToClipboard() {
       navigator.clipboard.writeText(this.timetableUrl).then(() => {
-        this.$toast.success('URL copied to clipbaord!', {
+        this.$toast.success('URL copied!', {
           timeout: 2000,
-          position: 'bottom-center'
+          position: 'bottom-center',
+          closeButton: false
         });
       });
     }

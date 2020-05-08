@@ -1,14 +1,6 @@
 <template>
   <v-container>
-    <AppBar title="Settings">
-      <template v-slot:icon>
-        <v-btn icon :to="{ path: '/about' }">
-          <v-icon class="grey--text">
-            mdi-help-circle
-          </v-icon>
-        </v-btn>
-      </template>
-    </AppBar>
+    <AppBar title="Settings"> </AppBar>
     <v-row justify="center">
       <v-col cols="12" sm="12" md="6">
         <v-card
@@ -58,12 +50,6 @@
               </v-col>
             </v-row>
           </v-card-text>
-          <v-card-actions class="d-none d-md-flex">
-            <v-spacer />
-            <v-btn color="primary" text :to="{ path: '/about' }">
-              About
-            </v-btn>
-          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -73,15 +59,17 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 
-import AppBar from '../components/AppBar';
-import AccentColorPicker from '../components/AccentColorPicker';
-import vuetify from '../plugins/vuetify';
+import AppBar from '@/components/shared/AppBar';
+import AccentColorPicker from '@/components/shared/AccentColorPicker';
+import vuetify from '@/plugins/vuetify';
+import genericMetaInfo from '@/mixins/genericMetaInfo';
 
 export default {
   components: {
     AppBar,
     AccentColorPicker
   },
+  mixins: [genericMetaInfo],
   data: () => ({
     isDark: false,
     showColorPicker: false,

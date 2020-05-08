@@ -3,20 +3,25 @@
     <v-toolbar-title class="mr-12 align-center">
       <span class="title">My<span class="primary--text">Term</span> </span>
     </v-toolbar-title>
-    <v-btn-toggle group rounded>
-      <v-btn text :to="{ path: '/' }">
+    <v-btn-toggle group>
+      <v-btn text :to="{ path: '/' }" active-class="active">
         <span>Search</span>
       </v-btn>
 
-      <v-btn v-if="lastTimetableVisited" text :to="{ path: '/timetable' }">
+      <v-btn
+        v-if="lastTimetableVisited"
+        text
+        :to="{ path: '/timetable' }"
+        active-class="active"
+      >
         <span>Timetable</span>
       </v-btn>
 
-      <v-btn text :to="{ path: '/saved' }">
+      <v-btn text :to="{ path: '/saved' }" active-class="active">
         <span>Saved</span>
       </v-btn>
 
-      <v-btn text :to="{ path: '/settings' }">
+      <v-btn text :to="{ path: '/settings' }" active-class="active">
         <span>Settings</span>
       </v-btn>
     </v-btn-toggle>
@@ -35,3 +40,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.v-btn--active.active::before {
+  opacity: 0 !important;
+}
+.v-btn--active.active {
+  border-bottom: 1px solid var(--v-primary-base) !important;
+}
+</style>

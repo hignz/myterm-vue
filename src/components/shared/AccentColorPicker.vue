@@ -1,13 +1,14 @@
 <template>
   <v-color-picker
     v-model="color"
+    show-swatches
     mode="hexa"
     :hide-mode-switch="true"
   ></v-color-picker>
 </template>
 
 <script>
-import vuetify from '../plugins/vuetify';
+import vuetify from '@/plugins/vuetify';
 
 export default {
   data: () => ({

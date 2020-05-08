@@ -73,14 +73,15 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 
-import AppBar from '../components/AppBar';
-import ModuleTable from '../components/ModuleTable';
-import PieChart from '../components/PieChart';
-import Sparkline from '../components/Sparkline';
+import AppBar from '@/components/shared/AppBar';
+import ModuleTable from '@/components/shared/ModuleTable';
+import PieChart from '@/components/shared/PieChart';
+import Sparkline from '@/components/shared/Sparkline';
+import genericMetaInfo from '@/mixins/genericMetaInfo';
 
 export default {
   components: { AppBar, Sparkline, ModuleTable, PieChart },
-
+  mixins: [genericMetaInfo],
   data: () => ({
     timetable: null,
     modules: [],

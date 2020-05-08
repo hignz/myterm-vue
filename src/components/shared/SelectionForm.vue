@@ -1,13 +1,13 @@
 <template>
-  <v-form v-model="isFormValid" @submit.prevent="openTimetable">
+  <v-form ref="form" v-model="isFormValid" @submit.prevent="openTimetable()">
     <v-select
       v-model="selectedCollege"
       :items="colleges"
       label="College"
       dense
       outlined
+      :disabled="isLoading"
       :rules="[rules.required]"
-      cache-items
       @change="onCollegeChange"
     >
     </v-select>
@@ -17,25 +17,25 @@
       :items="courses"
       item-text="title"
       item-value="course"
-      :loading="coursesLoading"
+      :loading="isLoading"
       autocomplete="off"
+      :disabled="isLoading"
       spellcheck="false"
       clearable
-      no-data-text="No courses found. Ensure a college is selected..."
+      no-data-text="Select a college first..."
       dense
       outlined
       open-on-clear
       :rules="[rules.required]"
       return-object
-      :disabled="coursesLoading"
     >
     </v-autocomplete>
     <v-btn
       outlined
       block
       color="primary"
-      :disabled="!isFormValid"
       type="submit"
+      :disabled="!isFormValid"
     >
       <v-icon left>mdi-magnify</v-icon>
       Find
@@ -51,12 +51,12 @@ export default {
   data: () => ({
     isFormValid: false,
     selectedCollege: '',
-    colleges: ['IT Sligo', 'Athlone IT', 'Limerick IT'],
+    colleges: ['IT Sligo'],
     selectedCourse: null,
     courses: [],
-    coursesLoading: false,
+    isLoading: false,
     rules: {
-      required: value => !!value || 'Required.'
+      required: value => !!value || ''
     }
   }),
   computed: {
@@ -64,18 +64,18 @@ export default {
       return this.colleges.indexOf(this.selectedCollege);
     }
   },
-  created() {
-    this.getCourses();
-  },
+  // created() {
+  //   this.getCourses(0);
+  // },
   methods: {
     ...mapActions(['fetchModules', 'fetchCourses']),
     getCourses(collegeIndex) {
-      this.coursesLoading = true;
+      this.isLoading = true;
 
       this.fetchCourses(collegeIndex)
         .then(res => {
           this.courses = res;
-          this.coursesLoading = false;
+          this.isLoading = false;
         })
         .catch(() => {});
     },
@@ -83,6 +83,10 @@ export default {
       this.getCourses(this.selectedCollegeIndex);
     },
     openTimetable() {
+      if (!this.$refs.form.validate()) {
+        return;
+      }
+
       this.$router.push({
         path: 'timetable',
         query: {
