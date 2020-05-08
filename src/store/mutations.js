@@ -6,8 +6,8 @@ export default {
     state.lastTimetableVisited = lastTimetableVisited;
     localStorage.setItem('courseQuery', lastTimetableVisited);
   },
-  [constants.SET_LOADING](state, isLoading) {
-    state.loading = isLoading;
+  [constants.SET_FETCHING](state, isFetching) {
+    state.fetching = isFetching;
   },
   [constants.TOGGLE_ACCENTED_BORDERS](state, value) {
     state.accentedBorders = value;
