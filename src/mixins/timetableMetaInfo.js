@@ -1,0 +1,38 @@
+export default {
+  metaInfo() {
+    if (this.isLoading || this.notFound) {
+      return {};
+    }
+
+    const { title, college } = this.timetable;
+    const defaultKeywords = ['Timetables, IT Sligo, Limerick IT'];
+    const description = `The timetable of course ${title} of ${college}`;
+    const ogTitle = `${title} timetable`;
+
+    return {
+      title: `${title} | ${college}`,
+      meta: [
+        {
+          name: 'description',
+          content: `${title}, ${college}, ${description}, MyTerm.me allows users to view and save timetables of IT Sligo and Limerick IT`
+        },
+        {
+          name: 'keywords',
+          content: defaultKeywords
+        },
+        {
+          name: 'og:description',
+          content: description
+        },
+        {
+          name: 'og:title',
+          content: ogTitle
+        },
+        {
+          name: 'twitter:description',
+          content: description
+        }
+      ]
+    };
+  }
+};

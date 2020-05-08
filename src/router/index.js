@@ -1,52 +1,47 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import VueMeta from 'vue-meta';
+import Home from '../components/pages/Home';
 
 Vue.use(VueRouter);
-
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/About.vue')
-  },
-  {
-    path: '/saved',
-    name: 'saved',
-    component: () => import('../views/Saved.vue')
-  },
-  {
-    path: '/settings',
-    name: 'settings',
-    component: () => import('../views/Settings.vue')
-  },
-  {
-    path: '/stats',
-    name: 'stats',
-    props: true,
-    component: () => import('../views/Stats.vue')
-  },
-  {
-    path: '/timetable',
-    name: 'timetable',
-    props: true,
-    component: () => import('../views/Timetable.vue')
-  },
-  {
-    path: '*',
-    redirect: '/'
-  }
-];
+Vue.use(VueMeta);
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/saved',
+      name: 'Saved',
+      component: () => import('../components/pages/Saved')
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: () => import('../components/pages/Settings')
+    },
+    {
+      path: '/stats',
+      name: 'Stats',
+      props: true,
+      component: () => import('../components/pages/Stats')
+    },
+    {
+      path: '/timetable',
+      name: 'Timetable',
+      props: true,
+      component: () => import('../components/pages/Timetable')
+    },
+    {
+      path: '*',
+      redirect: '/'
+    }
+  ]
 });
 
 export default router;

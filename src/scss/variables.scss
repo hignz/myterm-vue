@@ -1,6 +1,25 @@
+$body-font-family: 'Poppins', sans-serif !important;
+
+.v-application {
+  .display-1,
+  .display-2,
+  .display-3,
+  .display-4,
+  .headline,
+  .title,
+  .subtitle-1,
+  .subtitle-2,
+  .body-1,
+  .body-2,
+  .caption,
+  .overline {
+    font-family: $body-font-family !important;
+  }
+}
+
 @import '~vuetify/src/styles/styles.sass';
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap');
-$body-font-family: 'Poppins', sans-serif !important;
+@import '~vuetify/src/styles/settings/_variables.scss';
 
 $mytermDark: (
   'base': #21252b,
@@ -33,3 +52,14 @@ $material-light: (
   'cards': #fafafa,
   'chips': #ffffff,
 );
+
+$vt-color-success: #41D1AB;
+$vt-color-error: #EF596F;
+
+@import "vue-toastification/src/scss/_variables";
+@import "vue-toastification/src/scss/_toastContainer";
+@import "vue-toastification/src/scss/_toast";
+@import "vue-toastification/src/scss/_closeButton";
+@import "vue-toastification/src/scss/_progressBar";
+@import "vue-toastification/src/scss/_icon";
+@import "vue-toastification/src/scss/animations/_bounce";

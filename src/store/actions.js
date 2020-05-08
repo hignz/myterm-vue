@@ -9,25 +9,29 @@ export default {
     });
   },
   fetchTimetable({ commit }, options) {
-    commit(constants.SET_LOADING, true);
+    commit(constants.SET_FETCHING, true);
 
     const { code, collegeIndex, semester } = options;
 
     return http
-      .get(`/timetable/?code=${code}&college=${collegeIndex}&sem=${semester}`)
+      .get(
+        `/timetable/?code=${code}&college=${collegeIndex}${
+          semester ? `&sem=${semester}` : ''
+        }`
+      )
       .then(res => {
         return res.data;
       })
       .catch()
       .finally(() => {
-        commit(constants.SET_LOADING, false);
+        commit(constants.SET_FETCHING, false);
       });
   },
   setLastTimetableVisited({ commit }, value) {
     commit(constants.SET_LAST_VISITED_TIMETABLE, value);
   },
   setLoading({ commit }, isLoading) {
-    commit(constants.SET_LOADING, isLoading);
+    commit(constants.SET_FETCHING, isLoading);
   },
   toggleAccentedBorders({ commit }, value) {
     commit(constants.TOGGLE_ACCENTED_BORDERS, value);

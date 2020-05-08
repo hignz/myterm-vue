@@ -19,7 +19,7 @@
 <script>
 import { mapState } from 'vuex';
 
-import vuetify from '../plugins/vuetify';
+import vuetify from '@/plugins/vuetify';
 
 const gradients = [
   vuetify.framework.theme.defaults.dark.primary,

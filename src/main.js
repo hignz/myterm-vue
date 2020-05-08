@@ -8,6 +8,7 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import './registerServiceWorker';
 import 'vue-toastification/dist/index.css';
+import './scss/variables.scss';
 
 Vue.config.productionTip = false;
 

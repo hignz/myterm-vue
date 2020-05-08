@@ -4,7 +4,7 @@
     <v-content>
       <v-progress-linear
         indeterminate
-        :active="loading"
+        :active="fetching"
         :height="2"
         color="primary"
       ></v-progress-linear>
@@ -17,15 +17,15 @@
 <script>
 import { mapState } from 'vuex';
 
-import BottomNav from './components/BottomNav';
-import NavBar from './components/Navbar';
-import vuetify from './plugins/vuetify';
+import BottomNav from '@/components/shared/BottomNav';
+import NavBar from '@/components/shared/Navbar';
+import vuetify from '@/plugins/vuetify';
 
 export default {
   name: 'App',
   components: { BottomNav, NavBar },
   computed: {
-    ...mapState(['darkMode', 'loading'])
+    ...mapState(['darkMode', 'fetching'])
   },
   created() {
     vuetify.framework.theme.dark = this.darkMode;
