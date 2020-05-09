@@ -6,7 +6,7 @@
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
       </v-col>
-      <v-col class="text-center mr-2">
+      <v-col class="text-center mr-3">
         <v-toolbar-title @click="scrollTotop()">
           {{ title }}
         </v-toolbar-title>

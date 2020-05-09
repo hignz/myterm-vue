@@ -18,24 +18,24 @@ const router = new VueRouter({
     {
       path: '/saved',
       name: 'Saved',
-      component: () => import('../components/pages/Saved')
+      component: () => import('@/components/pages/Saved')
     },
     {
       path: '/settings',
       name: 'Settings',
-      component: () => import('../components/pages/Settings')
+      component: () => import('@/components/pages/Settings')
     },
     {
       path: '/stats',
       name: 'Stats',
       props: true,
-      component: () => import('../components/pages/Stats')
+      component: () => import('@/components/pages/Stats')
     },
     {
       path: '/timetable',
       name: 'Timetable',
       props: true,
-      component: () => import('../components/pages/Timetable')
+      component: () => import('@/components/pages/Timetable')
     },
     {
       path: '*',
