@@ -10,7 +10,7 @@ export default {
     const ogTitle = `${title} timetable`;
 
     return {
-      title: `${title} | ${college}`,
+      title: `${title} · Timetable | MyTerm`,
       meta: [
         {
           name: 'description',
