@@ -181,9 +181,10 @@ export default {
       return this.timetable.data.filter(el => el.length);
     },
     isSaved() {
-      return (
-        this.savedCourses.filter(el => el.id === this.courseData.id).length > 0
-      );
+      return this.savedCourses
+        ? this.savedCourses.filter(el => el.id === this.courseData.id).length >
+            0
+        : false;
     },
     heartIconColor() {
       if (!this.darkMode) {
@@ -221,7 +222,8 @@ export default {
         };
         this.timetable = res;
 
-        this.savedCourses = JSON.parse(localStorage.getItem('savedCourses'));
+        this.savedCourses =
+          JSON.parse(localStorage.getItem('savedCourses')) || [];
       })
       .finally(() => (this.isLoading = false));
   },
