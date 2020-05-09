@@ -30,8 +30,8 @@ export default {
   setLastTimetableVisited({ commit }, value) {
     commit(constants.SET_LAST_VISITED_TIMETABLE, value);
   },
-  setLoading({ commit }, isLoading) {
-    commit(constants.SET_FETCHING, isLoading);
+  setFetching({ commit }, isFetching) {
+    commit(constants.SET_FETCHING, isFetching);
   },
   toggleAccentedBorders({ commit }, value) {
     commit(constants.TOGGLE_ACCENTED_BORDERS, value);

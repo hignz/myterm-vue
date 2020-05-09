@@ -2,9 +2,9 @@
   <v-bottom-navigation
     class="d-md-none"
     grow
+    shift
     app
     active-class="active-nav"
-    shift
   >
     <v-btn :to="{ path: '/' }">
       <span>Search</span>
@@ -41,9 +41,5 @@ export default {
 <style>
 .v-item-group.v-bottom-navigation .v-btn.v-size--default {
   height: inherit;
-}
-
-.active-nav {
-  border-top: 1px solid var(--v-primary-base);
 }
 </style>

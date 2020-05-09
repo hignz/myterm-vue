@@ -226,7 +226,12 @@ export default {
       .finally(() => (this.isLoading = false));
   },
   methods: {
-    ...mapActions(['fetchTimetable', 'setLastTimetableVisited', 'isDark']),
+    ...mapActions([
+      'fetchTimetable',
+      'setLastTimetableVisited',
+      'isDark',
+      'setFetching'
+    ]),
     openStats() {
       this.$router.push({
         path: '/stats',
@@ -277,6 +282,10 @@ export default {
         });
       });
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.setFetching(false);
+    next();
   }
 };
 </script>

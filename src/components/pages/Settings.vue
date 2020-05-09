@@ -34,7 +34,11 @@
                     <v-avatar left :color="color.value"></v-avatar>
                     {{ color.name }}
                   </v-chip>
-                  <v-chip pill @click="showColorPicker = !showColorPicker">
+                  <v-chip
+                    pill
+                    outlined
+                    @click="showColorPicker = !showColorPicker"
+                  >
                     Custom
                   </v-chip>
                 </v-chip-group>
