@@ -1,45 +1,23 @@
 <template>
-  <v-bottom-navigation
-    class="d-md-none"
-    grow
-    shift
-    app
-    active-class="active-nav"
-  >
-    <v-btn :to="{ path: '/' }">
-      <span>Search</span>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
-
-    <v-btn v-if="lastTimetableVisited" :to="{ path: '/timetable' }">
-      <span>Timetable</span>
-      <v-icon>mdi-timetable</v-icon>
-    </v-btn>
-
-    <v-btn :to="{ path: '/saved' }">
-      <span>Saved</span>
-      <v-icon>mdi-heart</v-icon>
-    </v-btn>
-
-    <v-btn :to="{ path: '/settings' }">
-      <span>Settings</span>
-      <v-icon>mdi-cog</v-icon>
-    </v-btn>
+  <v-bottom-navigation class="d-md-none" grow shift app>
+    <NavigationItem
+      v-for="item in items"
+      :key="item.text"
+      :item="item"
+      :show-icon="true"
+      active-class="active-nav"
+    />
   </v-bottom-navigation>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import NavigationItem from '@/components/shared/NavigationItem';
+import navigationItems from '@/mixins/navigationItems';
 
 export default {
-  computed: {
-    ...mapState(['lastTimetableVisited'])
-  }
+  components: {
+    NavigationItem
+  },
+  mixins: [navigationItems]
 };
 </script>
-
-<style>
-.v-item-group.v-bottom-navigation .v-btn.v-size--default {
-  height: inherit;
-}
-</style>
