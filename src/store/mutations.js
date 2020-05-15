@@ -13,7 +13,7 @@ export default {
     state.accentedBorders = value;
     localStorage.setItem('accentedBorders', value);
   },
-  [constants.TOGGLE_DARK_THEME](state, value) {
+  [constants.TOGGLE_DARK_MODE](state, value) {
     state.darkMode = value;
     vuetify.framework.theme.dark = value;
     localStorage.setItem('darkMode', value);

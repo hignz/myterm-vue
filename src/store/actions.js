@@ -37,6 +37,6 @@ export default {
     commit(constants.TOGGLE_ACCENTED_BORDERS, value);
   },
   toggleDarkMode({ commit }, value) {
-    commit(constants.TOGGLE_DARK_THEME, value);
+    commit(constants.TOGGLE_DARK_MODE, value);
   }
 };

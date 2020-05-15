@@ -28,21 +28,18 @@
         </v-tabs>
         <v-tabs-items v-if="loaded" v-model="tab">
           <v-tab-item value="tab-1">
-            <v-card
-              :class="{
-                'accented-border': accentedBorders,
-                'dark-border': !accentedBorders && darkMode,
-                'light-border': !accentedBorders && !darkMode
-              }"
-              flat
-            >
+            <v-card :class="accentedBorder" flat>
               <v-card-text>
-                <p class="mb-4">Per Day</p>
+                <p class="mb-4">
+                  Per Day
+                </p>
                 <Sparkline
                   :values="moduleTotalsPerDay"
                   :labels="['Mon', 'Tues', 'Wed', 'Thurs', 'Fri']"
                 />
-                <p class="mt-8">Total</p>
+                <p class="mt-8">
+                  Total
+                </p>
 
                 <PieChart
                   v-if="moduleCounts"
@@ -50,19 +47,12 @@
                   :chart-labels="moduleNames"
                   :width="300"
                   :height="300"
-                ></PieChart>
+                />
               </v-card-text>
             </v-card>
           </v-tab-item>
           <v-tab-item value="tab-2">
-            <ModuleTable
-              :class="{
-                'accented-border': accentedBorders,
-                'dark-border': !accentedBorders && darkMode,
-                'light-border': !accentedBorders && !darkMode
-              }"
-              :module-data="moduleTotals"
-            />
+            <ModuleTable :module-data="moduleTotals" />
           </v-tab-item>
         </v-tabs-items>
       </v-col>
@@ -71,17 +61,23 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions } from 'vuex';
 
 import AppBar from '@/components/shared/AppBar';
 import ModuleTable from '@/components/shared/ModuleTable';
 import PieChart from '@/components/shared/PieChart';
 import Sparkline from '@/components/shared/Sparkline';
 import genericMetaInfo from '@/mixins/genericMetaInfo';
+import accentedBorder from '@/mixins/accentedBorder';
 
 export default {
-  components: { AppBar, Sparkline, ModuleTable, PieChart },
-  mixins: [genericMetaInfo],
+  components: {
+    AppBar,
+    Sparkline,
+    ModuleTable,
+    PieChart
+  },
+  mixins: [genericMetaInfo, accentedBorder],
   data: () => ({
     timetable: null,
     modules: [],
@@ -89,15 +85,12 @@ export default {
     loaded: false
   }),
   computed: {
-    ...mapState(['accentedBorders', 'darkMode']),
     moduleTotalsPerDay() {
       return this.modules.map(el => el.length);
     },
     moduleDays() {
       return this.modules
-        .map(el => {
-          return [...new Set(el.map(e => e.day.substring(0, 3)))];
-        })
+        .map(el => [...new Set(el.map(e => e.day.substring(0, 3)))])
         .flat();
     },
     moduleTotals() {
@@ -137,7 +130,9 @@ export default {
         this.loaded = true;
       })
       .catch(() => {})
-      .finally(() => (this.isLoading = false));
+      .finally(() => {
+        this.isLoading = false;
+      });
   },
   methods: {
     ...mapActions(['fetchTimetable'])

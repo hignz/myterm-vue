@@ -4,12 +4,15 @@
     :items="moduleData"
     :items-per-page="15"
     class="elevation-0"
-  >
-  </v-data-table>
+    :class="accentedBorder"
+  />
 </template>
 
 <script>
+import accentedBorder from '@/mixins/accentedBorder';
+
 export default {
+  mixins: [accentedBorder],
   props: {
     moduleData: {
       type: Array,
