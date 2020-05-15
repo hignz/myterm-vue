@@ -13,7 +13,10 @@
     >
       {{ period.room.split(' -')[0] }}
     </p>
-    <p v-if="showExtendedInfo" class="mb-1 body-2">
+    <p
+      v-if="showExtendedInfo"
+      class="mb-1 body-2 animate__animated animate__bounceIn animate__fast"
+    >
       {{ period.room.split(' -')[1] }} - {{ period.type }}
     </p>
     <p
