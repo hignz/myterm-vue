@@ -5,11 +5,7 @@
         v-if="day && day.length"
         :key="index"
         class="mb-2"
-        :class="{
-          'accented-border': accentedBorders,
-          'dark-border': !accentedBorders && darkMode,
-          'light-border': !accentedBorders && !darkMode
-        }"
+        :class="accentedBorder"
       >
         <v-expansion-panel-header
           class="subtitle-1"
@@ -28,15 +24,14 @@
 </template>
 
 <script>
-import { getDay } from 'date-fns';
-import { mapState } from 'vuex';
-
+import accentedBorder from '@/mixins/accentedBorder';
 import Day from './Day';
 
 export default {
   components: {
     Day
   },
+  mixins: [accentedBorder],
   props: {
     timetable: {
       type: Array,
@@ -47,9 +42,8 @@ export default {
     arr: null
   }),
   computed: {
-    ...mapState(['accentedBorders', 'darkMode']),
     currentDayIndex() {
-      return getDay(Date.now()) - 1;
+      return new Date().getDay() - 1;
     },
     currentDayOnTimetable() {
       return this.timetable[this.currentDayIndex]
@@ -57,7 +51,7 @@ export default {
         : false;
     },
     timetableIndexes() {
-      const weekDayCount = this.timetable.slice(0, 4).flat().length;
+      const weekDayCount = this.timetable.slice(0, 5).flat().length;
       const weekendCount = this.timetable.slice(5, 8).flat().length;
 
       return !weekDayCount && weekendCount
@@ -66,18 +60,17 @@ export default {
     }
   },
   created() {
-    this.arr = [this.currentDayOnTimetable ? this.currentDayIndex : null];
+    const emptyDays = this.timetable.slice(0, 5).filter(el => el.length === 0)
+      .length;
+
+    this.arr = [
+      this.currentDayOnTimetable ? this.currentDayIndex - emptyDays : null
+    ];
   },
   methods: {
-    isCurrentDay(dayIndex) {
-      return this.currentDayIndex === dayIndex;
+    isCurrentDay(timetableIndex) {
+      return this.currentDayIndex === timetableIndex;
     }
   }
 };
 </script>
-
-<style scoped>
-.primary--text {
-  color: var(--v-primary-base);
-}
-</style>
