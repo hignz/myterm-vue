@@ -14,7 +14,8 @@ export default {
       meta: [
         {
           name: 'description',
-          content: `${title}, ${college}, ${description}, MyTerm.me allows users to view and save timetables of IT Sligo and Limerick IT`
+          content: `${title}, ${college}, ${description}, 
+                    MyTerm.me allows users to view and save timetables of IT Sligo and Limerick IT`
         },
         {
           name: 'keywords',

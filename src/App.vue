@@ -7,8 +7,8 @@
         :active="fetching"
         :height="2"
         color="primary"
-      ></v-progress-linear>
-      <router-view :key="$route.fullPath"></router-view>
+      />
+      <router-view :key="$route.fullPath" />
     </v-content>
     <BottomNav />
   </v-app>
@@ -16,6 +16,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import 'animate.css';
 
 import BottomNav from '@/components/shared/BottomNav';
 import NavBar from '@/components/shared/Navbar';

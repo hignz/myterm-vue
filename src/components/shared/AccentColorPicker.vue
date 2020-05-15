@@ -4,7 +4,7 @@
     show-swatches
     mode="hexa"
     :hide-mode-switch="true"
-  ></v-color-picker>
+  />
 </template>
 
 <script>

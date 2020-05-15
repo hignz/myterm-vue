@@ -7,7 +7,9 @@
     :active-class="activeClass"
   >
     <span>{{ item.text }}</span>
-    <v-icon v-if="showIcon">{{ item.icon }}</v-icon>
+    <v-icon v-if="showIcon">
+      {{ item.icon }}
+    </v-icon>
   </v-btn>
 </template>
 

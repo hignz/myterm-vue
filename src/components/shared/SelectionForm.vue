@@ -9,8 +9,7 @@
       :disabled="isLoading"
       :rules="[rules.required]"
       @change="onCollegeChange"
-    >
-    </v-select>
+    />
     <v-autocomplete
       v-model="selectedCourse"
       label="Course"
@@ -28,8 +27,7 @@
       open-on-clear
       :rules="[rules.required]"
       return-object
-    >
-    </v-autocomplete>
+    />
     <v-btn
       outlined
       block
@@ -37,7 +35,9 @@
       type="submit"
       :disabled="!isFormValid"
     >
-      <v-icon left>mdi-magnify</v-icon>
+      <v-icon left>
+        mdi-magnify
+      </v-icon>
       Find
     </v-btn>
   </v-form>

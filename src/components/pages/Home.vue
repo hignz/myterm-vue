@@ -7,7 +7,7 @@
             <p class="display-2 mb-12 text-center">
               My<span class="primary--text">Term</span>
             </p>
-            <SelectionForm></SelectionForm>
+            <SelectionForm />
           </v-col>
         </v-row>
       </main>
@@ -20,7 +20,7 @@
         <p class="pb-0 mb-0 subtitle-2">
           is a service for students of the IT Sligo and Limerick IT that
           provides access to student timetables, save functionality and quick
-          access to useful resourses such as student email, Moodle and room
+          access to useful resources such as student email, Moodle and room
           bookings.
         </p>
         <p class="mt-6 mb-0">

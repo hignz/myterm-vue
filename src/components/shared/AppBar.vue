@@ -12,14 +12,14 @@
         </v-toolbar-title>
       </v-col>
       <v-col class="text-right">
-        <v-spacer></v-spacer>
+        <v-spacer />
         <template>
-          <slot name="icon"></slot>
+          <slot name="icon" />
         </template>
       </v-col>
     </v-row>
     <template v-if="this.$slots.default" v-slot:extension>
-      <slot></slot>
+      <slot />
     </template>
   </v-app-bar>
 </template>

@@ -13,12 +13,11 @@
     :color="labelColor"
     :labels="labels"
     :show-labels="true"
-  ></v-sparkline>
+  />
 </template>
 
 <script>
 import { mapState } from 'vuex';
-
 import vuetify from '@/plugins/vuetify';
 
 const gradients = [

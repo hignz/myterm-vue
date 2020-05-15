@@ -1,25 +1,14 @@
 <template>
   <v-container>
-    <AppBar title="Settings"> </AppBar>
+    <AppBar title="Settings" />
     <v-row justify="center">
       <v-col cols="12" sm="12" md="6">
-        <v-card
-          :class="{
-            'accented-border': accentedBorders,
-            'dark-border': !accentedBorders && darkMode,
-            'light-border': !accentedBorders && !darkMode
-          }"
-          flat
-        >
+        <v-card :class="accentedBorder" flat>
           <v-card-text>
             <v-row>
-              <v-col cols="12" sm="12" md="12">
+              <v-col cols="12" sm="12" md="12" class="pt-0">
                 <p>Theme</p>
-                <v-switch
-                  v-model="isDark"
-                  color="primary"
-                  label="Dark mode"
-                ></v-switch>
+                <v-switch v-model="isDark" color="primary" label="Dark mode" />
               </v-col>
               <v-col cols="12" sm="12" md="12">
                 <p>Accent colour</p>
@@ -31,7 +20,7 @@
                     outlined
                     @click="changeAccentColor(color)"
                   >
-                    <v-avatar left :color="color.value"></v-avatar>
+                    <v-avatar left :color="color.value" />
                     {{ color.name }}
                   </v-chip>
                   <v-chip
@@ -42,7 +31,10 @@
                     Custom
                   </v-chip>
                 </v-chip-group>
-                <AccentColorPicker v-if="showColorPicker"></AccentColorPicker>
+                <AccentColorPicker
+                  v-if="showColorPicker"
+                  class="mt-4 animate__animated animate__fadeIn animate__faster"
+                />
               </v-col>
               <v-col cols="12" sm="12" md="12">
                 <p>Borders</p>
@@ -50,7 +42,7 @@
                   v-model="showAccentedBorders"
                   color="primary"
                   label="Coloured borders"
-                ></v-switch>
+                />
               </v-col>
             </v-row>
           </v-card-text>
@@ -61,19 +53,20 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 import AppBar from '@/components/shared/AppBar';
 import AccentColorPicker from '@/components/shared/AccentColorPicker';
 import vuetify from '@/plugins/vuetify';
 import genericMetaInfo from '@/mixins/genericMetaInfo';
+import accentedBorder from '@/mixins/accentedBorder';
 
 export default {
   components: {
     AppBar,
     AccentColorPicker
   },
-  mixins: [genericMetaInfo],
+  mixins: [genericMetaInfo, accentedBorder],
   data: () => ({
     isDark: false,
     showColorPicker: false,
@@ -89,15 +82,12 @@ export default {
     ],
     showAccentedBorders: true
   }),
-  computed: {
-    ...mapState(['darkMode', 'accentedBorders'])
-  },
   watch: {
-    isDark: function(newValue) {
-      this.$store.dispatch('toggleDarkMode', newValue);
+    isDark(newValue) {
+      this.toggleDarkMode(newValue);
     },
-    showAccentedBorders: function(newValue) {
-      this.$store.dispatch('toggleAccentedBorders', newValue);
+    showAccentedBorders(newValue) {
+      this.toggleAccentedBorders(newValue);
     }
   },
   mounted() {
@@ -105,9 +95,9 @@ export default {
     this.showAccentedBorders = this.accentedBorders;
   },
   methods: {
-    ...mapActions(['setDarkMode']),
+    ...mapActions(['toggleDarkMode', 'toggleAccentedBorders']),
     changeAccentColor(color) {
-      const value = color.value;
+      const { value } = color;
       vuetify.framework.theme.themes.dark.primary = value;
       vuetify.framework.theme.themes.light.primary = value;
       localStorage.setItem('accentColor', value);
