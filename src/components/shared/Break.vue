@@ -38,7 +38,11 @@ export default {
   }),
   methods: {
     breakFormatted(length) {
-      return length >= 60 ? `${length / 60} hour` : `${length} minutes`;
+      const hours = length / 60;
+
+      return length >= 60
+        ? `${hours} hour${hours === 1 ? '' : 's'}`
+        : `${length} minutes`;
     },
     navigateTo(url) {
       window.open(url);
