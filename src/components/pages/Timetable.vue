@@ -178,7 +178,7 @@
           </v-btn>
         </template>
         <v-btn fab dark small color="primary darken-2" @click="saveTimetable()">
-          <v-icon>mdi-heart</v-icon>
+          <v-icon>{{ isSaved ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
         </v-btn>
         <v-btn fab dark small color="primary darken-3" @click="openShareMenu()">
           <v-icon>mdi-share-variant</v-icon>
@@ -376,5 +376,9 @@ export default {
   bottom: 60px;
   right: 0;
   z-index: 1;
+}
+
+.v-btn:not(.v-btn--text):not(.v-btn--outlined):hover:before {
+  opacity: 0 !important;
 }
 </style>
