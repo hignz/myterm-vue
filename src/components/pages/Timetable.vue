@@ -85,11 +85,11 @@ export default {
       });
   },
   methods: {
-    ...mapActions(['fetchTimetable', 'setFetching', 'setOnCurrentClass'])
+    ...mapActions(['fetchTimetable', 'setFetching', 'setCurrentClass'])
   },
   beforeRouteLeave(to, from, next) {
     this.setFetching(false);
-    this.setOnCurrentClass(null);
+    this.setCurrentClass(null);
     next();
   }
 };

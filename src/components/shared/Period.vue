@@ -73,11 +73,11 @@ export default {
   },
   created() {
     if (this.isToday && this.isClassNow) {
-      this.setOnCurrentClass(this.period);
+      this.setCurrentClass(this.period);
     }
   },
   methods: {
-    ...mapActions(['setOnCurrentClass'])
+    ...mapActions(['setCurrentClass'])
   }
 };
 </script>
