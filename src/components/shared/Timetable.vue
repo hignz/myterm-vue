@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels v-if="timetable" v-model="arr" multiple flat>
-    <template v-for="(day, index) in timetableIndexes">
+    <template v-for="(day, index) in filteredTimetable">
       <v-expansion-panel
         v-if="day && day.length"
         :key="index"
@@ -16,7 +16,7 @@
           {{ day[0].day }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <Day :day="day" :day-index="index" />
+          <Day :day="day" :is-today="isCurrentDay(index)" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </template>
@@ -26,6 +26,7 @@
 <script>
 import accentedBorder from '@/mixins/accentedBorder';
 import Day from './Day';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -39,37 +40,39 @@ export default {
     }
   },
   data: () => ({
-    arr: null
+    arr: null,
+    days: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ]
   }),
   computed: {
-    currentDayIndex() {
+    ...mapState(['showWeekends']),
+    todaysIndex() {
       return new Date().getDay() - 1;
     },
-    currentDayOnTimetable() {
-      return this.timetable[this.currentDayIndex]
-        ? this.timetable[this.currentDayIndex].length > 0
-        : false;
-    },
-    timetableIndexes() {
-      const weekDayCount = this.timetable.slice(0, 5).flat().length;
-      const weekendCount = this.timetable.slice(5, 8).flat().length;
-
-      return !weekDayCount && weekendCount
-        ? this.timetable.slice(5, 8)
-        : this.timetable.slice(0, 5);
+    filteredTimetable() {
+      return this.showWeekends ? this.timetable : this.timetable.slice(0, 5);
     }
   },
   created() {
-    const emptyDays = this.timetable.slice(0, 5).filter(el => el.length === 0)
-      .length;
+    const today = this.getToday();
 
-    this.arr = [
-      this.currentDayOnTimetable ? this.currentDayIndex - emptyDays : null
-    ];
+    this.arr = this.filteredTimetable
+      .filter(el => el.length)
+      .map((el, i) => (el[0].day === today ? i : null));
   },
   methods: {
     isCurrentDay(timetableIndex) {
-      return this.currentDayIndex === timetableIndex;
+      return this.todaysIndex === timetableIndex;
+    },
+    getToday() {
+      return this.days[this.todaysIndex];
     }
   }
 };
