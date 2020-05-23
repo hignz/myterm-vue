@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="d-none d-md-flex elevation-0" app :color="themeColor">
+  <v-app-bar class="d-none d-md-flex elevation-0" :color="themeColor" app dense>
     <v-toolbar-title class="mr-12 align-center">
       <span class="title">My<span class="primary--text">Term</span> </span>
     </v-toolbar-title>

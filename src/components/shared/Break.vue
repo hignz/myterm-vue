@@ -1,5 +1,5 @@
 <template>
-  <v-menu offset-x offset-y absolute>
+  <v-menu bottom origin="center center" transition="scale-transition" absolute>
     <template v-slot:activator="{ on }">
       <p class="text-center primary--text pt-4" v-on="on">
         Break: {{ breakFormatted(period.breakLength) }}
@@ -11,10 +11,10 @@
         :key="index"
         @click="navigateTo(item.url)"
       >
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
         <v-list-item-icon>
-          <v-icon>mdi-library</v-icon>
+          <v-icon color="primary">mdi-google-classroom</v-icon>
         </v-list-item-icon>
+        <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -31,7 +31,7 @@ export default {
   data: () => ({
     items: [
       {
-        title: 'Room booking',
+        title: 'Room Booking',
         url: 'https://libreserve.itsligo.ie/'
       }
     ]

@@ -22,8 +22,8 @@ $body-font-family: 'Poppins', sans-serif !important;
 
 $mytermDark: (
   'base': #21252b,
-  'lighten-2': #474f57,
   'lighten-1': #282c34,
+  'lighten-2': #474f57,
   'darken-1': #343a40,
 );
 
@@ -36,7 +36,7 @@ $material-dark: map-merge(
   (
     "background": map-get($mytermDark, 'base'),
     'cards': map-get($mytermDark, 'lighten-1'),
-    'chips': map-get($mytermDark, 'lighten-2'),
+    'chips': map-get($mytermDark, 'lighten-1'),
     'app-bar': map-get($mytermDark, 'lighten-1'),
     'bottom-navigation': map-get($mytermDark, 'lighten-1'),
   )

@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form" v-model="isFormValid" @submit.prevent="openTimetable()">
+  <v-form ref="form" v-model="valid" @submit.prevent="openTimetable()">
     <v-select
       v-model="selectedCollege"
       :items="colleges"
@@ -8,7 +8,7 @@
       outlined
       :disabled="isLoading"
       :rules="[rules.required]"
-      @change="onCollegeChange"
+      @change="onCollegeChange()"
     />
     <v-autocomplete
       v-model="selectedCourse"
@@ -28,17 +28,8 @@
       :rules="[rules.required]"
       return-object
     />
-    <v-btn
-      outlined
-      block
-      color="primary"
-      type="submit"
-      :disabled="!isFormValid"
-    >
-      <v-icon left>
-        mdi-magnify
-      </v-icon>
-      Find
+    <v-btn outlined block color="primary" type="submit" :disabled="!valid">
+      Open
     </v-btn>
   </v-form>
 </template>
@@ -49,15 +40,15 @@ import { mapActions } from 'vuex';
 export default {
   components: {},
   data: () => ({
-    isFormValid: false,
-    selectedCollege: '',
     colleges: ['IT Sligo'],
-    selectedCourse: null,
     courses: [],
     isLoading: false,
     rules: {
       required: value => !!value || ''
-    }
+    },
+    selectedCollege: '',
+    selectedCourse: null,
+    valid: false
   }),
   computed: {
     selectedCollegeIndex() {
@@ -65,19 +56,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchModules', 'fetchCourses']),
-    getCourses(collegeIndex) {
-      this.isLoading = true;
-
-      this.fetchCourses(collegeIndex)
+    ...mapActions(['fetchCourses']),
+    onCollegeChange() {
+      this.fetchCourses(this.selectedCollegeIndex)
         .then(res => {
           this.courses = res;
-          this.isLoading = false;
         })
-        .catch(() => {});
-    },
-    onCollegeChange() {
-      this.getCourses(this.selectedCollegeIndex);
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     openTimetable() {
       if (!this.$refs.form.validate()) {

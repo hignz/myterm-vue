@@ -2,7 +2,7 @@
   <div>
     <div v-for="(period, i) in day" :key="i">
       <Break v-if="period.break" :period="period" />
-      <Period :period="period" />
+      <Period :period="period" :is-today="isToday" />
       <v-divider v-if="i !== day.length - 1" />
     </div>
   </div>
@@ -21,10 +21,11 @@ export default {
     day: {
       type: Array,
       default: () => []
+    },
+    isToday: {
+      type: Boolean,
+      default: false
     }
-  },
-  data: () => ({
-    showExtendedInfo: false
-  })
+  }
 };
 </script>
