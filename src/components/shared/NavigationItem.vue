@@ -1,8 +1,6 @@
 <template>
   <v-btn
-    v-if="
-      item.showOnFirstLoad || (!item.showOnFirstLoad && lastTimetableVisited)
-    "
+    v-if="item.showOnFirstLoad || (!item.showOnFirstLoad && recentQuery)"
     :to="{ path: item.route }"
     :active-class="activeClass"
   >
@@ -32,7 +30,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['lastTimetableVisited'])
+    ...mapState(['recentQuery'])
   }
 };
 </script>
