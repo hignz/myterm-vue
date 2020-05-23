@@ -7,12 +7,12 @@
           <v-card-text>
             <v-row>
               <v-col cols="12" sm="12" md="12" class="pt-0">
-                <p>Theme</p>
+                <p class="caption">THEME</p>
                 <v-switch v-model="isDark" color="primary" label="Dark mode" />
               </v-col>
               <v-col cols="12" sm="12" md="12">
-                <p>Accent colour</p>
-                <v-chip-group v-model="colorSelection" mandatory>
+                <p class="caption">ACCENT COLOR</p>
+                <v-chip-group>
                   <v-chip
                     v-for="color in colors"
                     :key="color.value"
@@ -37,11 +37,19 @@
                 />
               </v-col>
               <v-col cols="12" sm="12" md="12">
-                <p>Borders</p>
+                <p class="caption">BORDERS</p>
                 <v-switch
                   v-model="showAccentedBorders"
                   color="primary"
                   label="Coloured borders"
+                />
+              </v-col>
+              <v-col cols="12" sm="12" md="12">
+                <p>Timetable</p>
+                <v-switch
+                  v-model="weekends"
+                  color="primary"
+                  label="Show weekends"
                 />
               </v-col>
             </v-row>
@@ -53,7 +61,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 import AppBar from '@/components/shared/AppBar';
 import AccentColorPicker from '@/components/shared/AccentColorPicker';
@@ -70,7 +78,6 @@ export default {
   data: () => ({
     isDark: false,
     showColorPicker: false,
-    colorSelection: 0,
     colors: [
       { name: 'Cyan', value: '#41D1AB' },
       { name: 'Green', value: '#50fa7b' },
@@ -80,22 +87,34 @@ export default {
       { name: 'Purple', value: '#bd93f9' },
       { name: 'Yellow', value: '#f1fa8c' }
     ],
-    showAccentedBorders: true
+    showAccentedBorders: true,
+    weekends: true
   }),
+  computed: {
+    ...mapState(['showWeekends'])
+  },
   watch: {
     isDark(newValue) {
       this.toggleDarkMode(newValue);
     },
     showAccentedBorders(newValue) {
       this.toggleAccentedBorders(newValue);
+    },
+    weekends(newValue) {
+      this.toggleShowWeekends(newValue);
     }
   },
-  mounted() {
+  created() {
     this.isDark = this.darkMode;
     this.showAccentedBorders = this.accentedBorders;
+    this.weekends = this.showWeekends;
   },
   methods: {
-    ...mapActions(['toggleDarkMode', 'toggleAccentedBorders']),
+    ...mapActions([
+      'toggleDarkMode',
+      'toggleAccentedBorders',
+      'toggleShowWeekends'
+    ]),
     changeAccentColor(color) {
       const { value } = color;
       vuetify.framework.theme.themes.dark.primary = value;
