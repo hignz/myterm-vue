@@ -26,7 +26,7 @@
             Breakdown
           </v-tab>
         </v-tabs>
-        <v-tabs-items v-if="loaded" v-model="tab">
+        <v-tabs-items v-if="!isLoading" v-model="tab">
           <v-tab-item value="tab-1">
             <v-card :class="accentedBorder" flat>
               <v-card-text>
@@ -79,19 +79,13 @@ export default {
   },
   mixins: [genericMetaInfo, accentedBorder],
   data: () => ({
-    timetable: null,
     modules: [],
     tab: null,
-    loaded: false
+    isLoading: false
   }),
   computed: {
     moduleTotalsPerDay() {
       return this.modules.map(el => el.length);
-    },
-    moduleDays() {
-      return this.modules
-        .map(el => [...new Set(el.map(e => e.day.substring(0, 3)))])
-        .flat();
     },
     moduleTotals() {
       const arr = [
@@ -115,21 +109,17 @@ export default {
     },
     moduleNames() {
       return this.moduleTotals.map(el => el.name);
-    },
-    nineOClockStarts() {
-      return this.modules.flat().filter(el => el.startTime === '9:00').length;
     }
   },
   created() {
+    this.isLoading = true;
+
     const { code, college, sem } = this.$route.query;
 
-    this.fetchTimetable({ code, collegeIndex: college, semester: sem })
+    this.fetchTimetable({ code, college, sem })
       .then(res => {
-        this.timetable = res;
         this.modules = res.data.slice(0, 5);
-        this.loaded = true;
       })
-      .catch(() => {})
       .finally(() => {
         this.isLoading = false;
       });
