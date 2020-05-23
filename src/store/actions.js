@@ -34,8 +34,8 @@ export default {
   setFetching({ commit }, isFetching) {
     commit(constants.SET_FETCHING, isFetching);
   },
-  setOnCurrentClass({ commit }, item) {
-    commit(constants.SET_ONGOING_PERIOD, item);
+  setCurrentClass({ commit }, item) {
+    commit(constants.SET_CURRENT_CLASS, item);
   },
   toggleAccentedBorders({ commit }, value) {
     commit(constants.TOGGLE_ACCENTED_BORDERS, value);
