@@ -63,9 +63,20 @@ export default {
   created() {
     const today = this.getToday();
 
-    this.arr = this.filteredTimetable
-      .filter(el => el.length)
-      .map((el, i) => (el[0].day === today ? i : null));
+    // Find the index of the current day
+    this.arr = this.filteredTimetable.map((el, i) =>
+      el.length && el[0].day === today ? i : null
+    );
+
+    // If the current day is not on the timetable, open every timetable entry
+    if (this.arr.every(el => el === null)) {
+      const arrLength = this.arr.length;
+      this.arr = [];
+
+      for (let index = 0; index < arrLength; index++) {
+        this.arr.push(index);
+      }
+    }
   },
   methods: {
     isCurrentDay(timetableIndex) {
