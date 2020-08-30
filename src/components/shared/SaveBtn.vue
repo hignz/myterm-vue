@@ -5,19 +5,20 @@
     :small="isSmall"
     dark
     :class="{
-      'animate__animated animate__heartBeat': isSaved && !isFab,
+      heartbeat: isSaved && !isFab,
       'primary darken-2': isFab
     }"
     @click="save()"
   >
     <v-icon :color="iconColor">{{
-      isSaved ? 'mdi-heart' : 'mdi-heart-outline'
+      isSaved ? mdiHeart : mdiHeartOutline
     }}</v-icon>
   </v-btn>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import { mdiHeart, mdiHeartOutline } from '@mdi/js';
 
 export default {
   props: {
@@ -34,13 +35,19 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      mdiHeart,
+      mdiHeartOutline
+    };
+  },
   computed: {
     ...mapState(['darkMode', 'currentTimetable', 'savedCourses']),
     iconColor() {
       if (this.isFab) {
         return;
       }
-      return this.isSaved ? 'primary' : this.darkMode ? 'white' : '#666666';
+      return this.isSaved ? 'primary' : this.darkMode ? 'white' : '#212121';
     },
     isSaved() {
       return this.savedCourses.some(el => el.id === this.currentTimetable._id);
@@ -59,4 +66,32 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.heartbeat {
+  animation-name: heartBeat;
+  animation-duration: 1.3s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+
+  14% {
+    transform: scale(1.3);
+  }
+
+  28% {
+    transform: scale(1);
+  }
+
+  42% {
+    transform: scale(1.3);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+}
+</style>
