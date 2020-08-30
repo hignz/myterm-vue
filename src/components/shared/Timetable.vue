@@ -5,7 +5,7 @@
         v-if="day && day.length"
         :key="index"
         class="mb-2"
-        :class="accentedBorder"
+        :class="darkMode ? 'dark-border' : 'light-border'"
       >
         <v-expansion-panel-header
           class="subtitle-1"
@@ -24,15 +24,13 @@
 </template>
 
 <script>
-import accentedBorder from '@/mixins/accentedBorder';
-import Day from './Day';
 import { mapState } from 'vuex';
+import Day from './Day';
 
 export default {
   components: {
     Day
   },
-  mixins: [accentedBorder],
   props: {
     timetable: {
       type: Array,
@@ -40,50 +38,37 @@ export default {
     }
   },
   data: () => ({
-    arr: null,
-    days: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
-    ]
+    arr: []
   }),
   computed: {
-    ...mapState(['showWeekends']),
+    ...mapState(['showWeekends', 'darkMode']),
     todaysIndex() {
-      return new Date().getDay() - 1;
+      const index = new Date().getDay() - 1;
+      return index === -1 ? 6 : index;
     },
     filteredTimetable() {
       return this.showWeekends ? this.timetable : this.timetable.slice(0, 5);
     }
   },
   created() {
-    const today = this.getToday();
-
-    // Find the index of the current day
-    this.arr = this.filteredTimetable.map((el, i) =>
-      el.length && el[0].day === today ? i : null
-    );
-
-    // If the current day is not on the timetable, open every timetable entry
-    if (this.arr.every(el => el === null)) {
-      const arrLength = this.arr.length;
-      this.arr = [];
-
-      for (let index = 0; index < arrLength; index++) {
-        this.arr.push(index);
-      }
-    }
+    this.setExpandedDay();
   },
   methods: {
     isCurrentDay(timetableIndex) {
       return this.todaysIndex === timetableIndex;
     },
-    getToday() {
-      return this.days[this.todaysIndex];
+    setExpandedDay() {
+      let acc = 0;
+      for (let i = 0; i < this.filteredTimetable.length; i++) {
+        const day = this.filteredTimetable[i];
+        if (day.length) {
+          if (this.isCurrentDay(i)) {
+            this.arr.push(acc);
+            return;
+          }
+          acc += 1;
+        }
+      }
     }
   }
 };
