@@ -1,22 +1,14 @@
 <template>
-  <v-app-bar fixed hide-on-scroll class="d-md-none elevation-2">
+  <v-app-bar hide-on-scroll flat app>
     <v-row justify="center" align="center">
-      <v-col class="text-left">
-        <v-btn icon large @click="onBack()">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col class="text-center">
-        <v-toolbar-title @click="scrollTotop()">
-          {{ title }}
-        </v-toolbar-title>
-      </v-col>
-      <v-col class="text-right">
-        <v-spacer />
-        <template>
-          <slot name="icon" />
-        </template>
-      </v-col>
+      <v-btn text class="font-weight-bold" @click="onBack()">
+        <v-icon class="mr-2">{{ mdiArrowLeft }}</v-icon>
+        {{ title }}
+      </v-btn>
+      <v-spacer />
+      <template>
+        <slot name="icon" />
+      </template>
     </v-row>
     <template v-if="this.$slots.default" v-slot:extension>
       <slot />
@@ -25,6 +17,8 @@
 </template>
 
 <script>
+import { mdiArrowLeft } from '@mdi/js';
+
 export default {
   props: {
     title: {
@@ -32,12 +26,14 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      mdiArrowLeft
+    };
+  },
   methods: {
     onBack() {
       this.$router.go(-1);
-    },
-    scrollTotop() {
-      window.scrollTo(0, 0);
     }
   }
 };
