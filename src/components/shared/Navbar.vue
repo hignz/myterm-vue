@@ -1,7 +1,7 @@
 <template>
-  <v-app-bar class="d-none d-md-flex elevation-0" :color="themeColor" app dense>
-    <v-toolbar-title class="mr-12 align-center">
-      <span class="title">My<span class="primary--text">Term</span> </span>
+  <v-app-bar class="d-none d-md-flex elevation-0" app dense>
+    <v-toolbar-title class="mr-12 title">
+      <span>My<span class="primary--text">Term</span></span>
     </v-toolbar-title>
     <v-btn-toggle group>
       <NavigationItem
@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import NavigationItem from '@/components/shared/NavigationItem';
 import navigationItems from '@/mixins/navigationItems';
 
@@ -24,13 +23,7 @@ export default {
   components: {
     NavigationItem
   },
-  mixins: [navigationItems],
-  computed: {
-    ...mapState(['darkMode']),
-    themeColor() {
-      return this.darkMode ? '#21252b' : '#ffffff';
-    }
-  }
+  mixins: [navigationItems]
 };
 </script>
 
