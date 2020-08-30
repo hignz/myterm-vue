@@ -1,94 +1,77 @@
 <template>
-  <v-card v-if="currentTimetable" class="mb-4" :class="accentedBorder" flat>
-    <v-card-title
-      style="word-break: keep-all;"
-      class="subtitle-1 justify-center text-center"
-    >
+  <v-card v-if="currentTimetable" class="mb-4" outlined flat>
+    <v-card-title style="word-break: keep-all" class="subtitle-1">
       {{ currentTimetable.title }}
     </v-card-title>
-    <v-card-text class="pb-2">
-      <v-row>
-        <v-col offset="2" offset-md="4" class="py-0">
-          <v-chip-group>
-            <v-menu offset-y>
-              <template v-slot:activator="{ on }" class="d-none d-md-flex">
-                <v-chip class="d-none d-md-flex" outlined v-on="on">
-                  <v-icon left color="primary">
-                    mdi-school
-                  </v-icon>
-                  {{ currentTimetable.college }}
-                </v-chip>
-              </template>
-              <v-list dense>
-                <v-list-item
-                  v-for="(link, index) in links[courseOptions.college]"
-                  :key="index"
-                  @click="openLink(link.url)"
-                >
-                  <v-list-item-title>{{ link.title }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
+    <v-card-subtitle>
+      <v-menu v-if="$vuetify.breakpoint.mdAndUp" offset-y max-width="200">
+        <template v-slot:activator="{ on }">
+          <p class="pointer caption" v-on="on">
+            {{ currentTimetable.college }}
+          </p>
+        </template>
+        <v-list dense>
+          <v-list-item
+            v-for="(link, index) in links[courseOptions.college]"
+            :key="index"
+            @click="openLink(link.url)"
+          >
+            <v-list-item-title>{{ link.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-bottom-sheet
+        v-if="$vuetify.breakpoint.smAndDown"
+        v-model="bottomSheet"
+      >
+        <template v-slot:activator="{ on }">
+          <p v-on="on">
+            {{ currentTimetable.college }}
+          </p>
+        </template>
+        <v-list>
+          <v-subheader>Open</v-subheader>
+          <v-list-item
+            v-for="(link, index) in links[courseOptions.college]"
+            :key="index"
+            @click="openLink(link.url)"
+          >
+            <v-icon class="ml-2 mr-6 my-4" color="primary">
+              {{ link.icon }}
+            </v-icon>
+            <v-list-item-title>{{ link.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-bottom-sheet>
+    </v-card-subtitle>
+    <v-card-actions>
+      <v-chip class="pa-4" outlined @click="switchSemester()">
+        Semester
+        <v-avatar right light>
+          <span class="primary--text">{{
+            parseInt(currentTimetable.semester, 10) + 1
+          }}</span>
+        </v-avatar>
+      </v-chip>
 
-            <v-bottom-sheet v-model="sheet">
-              <template v-slot:activator="{ on }" class="d-sm-flex d-none">
-                <v-chip class="d-xs-flex d-md-none mr-1" outlined v-on="on">
-                  <v-icon left color="primary">
-                    mdi-school
-                  </v-icon>
-                  {{ currentTimetable.college }}
-                </v-chip>
-              </template>
-              <v-list>
-                <v-subheader>Open</v-subheader>
-                <v-list-item
-                  v-for="(link, index) in links[courseOptions.college]"
-                  :key="index"
-                  @click="openLink(link.url)"
-                >
-                  <v-list-item-avatar>
-                    <v-avatar>
-                      <v-icon color="primary">
-                        {{ link.icon }}
-                      </v-icon>
-                    </v-avatar>
-                  </v-list-item-avatar>
-                  <v-list-item-title>{{ link.title }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-bottom-sheet>
+      <v-spacer />
+      <SaveBtn v-if="$vuetify.breakpoint.mdAndUp" />
 
-            <v-chip class="ml-1" outlined @click="switchSemester()">
-              <span>Semester</span>
-              <v-avatar right light>
-                <span class="primary--text">{{
-                  parseInt(currentTimetable.semester, 10) + 1
-                }}</span>
-              </v-avatar>
-            </v-chip>
-          </v-chip-group>
-        </v-col>
-      </v-row>
-    </v-card-text>
-    <v-card-actions class="mt-4">
       <v-btn
         color="primary"
-        text
+        icon
         @click="canUseNavigator ? openShareMenu() : copyUrlToClipboard()"
       >
-        <v-icon left>
-          mdi-share-variant
+        <v-icon>
+          {{ mdiShareVariant }}
         </v-icon>
-        Share
       </v-btn>
-      <v-spacer />
-      <SaveBtn class="d-none d-md-flex" />
-      <v-spacer />
+
       <v-btn
         color="primary"
-        text
+        icon
         :to="{
-          path: '/stats',
+          path: '/timetable/stats',
           query: {
             code: courseOptions.code,
             college: courseOptions.college,
@@ -96,64 +79,90 @@
           }
         }"
       >
-        <v-icon left>
-          mdi-chart-pie
+        <v-icon>
+          {{ mdiDotsVertical }}
         </v-icon>
-        Stats
       </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import accentedBorder from '@/mixins/accentedBorder';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import SaveBtn from '@/components/shared/SaveBtn';
+import {
+  mdiSchool,
+  mdiMail,
+  mdiGoogleClassroom,
+  mdiDesktopClassic,
+  mdiLibraryShelves,
+  mdiChartPie,
+  mdiShareVariant,
+  mdiDotsVertical,
+  mdiFingerprint
+} from '@mdi/js';
 
 export default {
   components: { SaveBtn },
-  mixins: [accentedBorder],
-  data: () => ({
-    sheet: false,
-    links: [
-      [
-        {
-          title: 'Email',
-          url: 'http://outlook.com/mail.itsligo.ie',
-          icon: 'mdi-mail'
-        },
-        {
-          title: 'Moodle',
-          url: 'https://vle.itsligo.ie/my/index.php',
-          icon: 'mdi-school'
-        },
-        {
-          title: 'Room Booking',
-          url: 'https://libreserve.itsligo.ie/',
-          icon: 'mdi-google-classroom'
-        },
-        {
-          title: 'Virtual Desktop',
-          url: 'https://vdesktop.itsligo.ie/Citrix/SligoWeb/',
-          icon: 'mdi-desktop-classic'
-        },
-        {
-          title: 'Library',
-          url: 'https://library.itsligo.ie/',
-          icon: 'mdi-library-shelves'
-        }
-      ],
-      [],
-      [
-        {
-          title: 'Moodle',
-          url: 'https://moodle.lit.ie/'
-        }
+  data() {
+    return {
+      mdiSchool,
+      mdiMail,
+      mdiGoogleClassroom,
+      mdiDesktopClassic,
+      mdiLibraryShelves,
+      mdiChartPie,
+      mdiShareVariant,
+      mdiDotsVertical,
+      mdiFingerprint,
+      links: [
+        [
+          {
+            title: 'Email',
+            url: 'http://outlook.com/mail.itsligo.ie',
+            icon: mdiMail
+          },
+          {
+            title: 'Moodle',
+            url: 'https://vle.itsligo.ie/my/index.php',
+            icon: mdiSchool
+          },
+          {
+            title: 'Room Booking',
+            url: 'https://libreserve.itsligo.ie/',
+            icon: mdiGoogleClassroom
+          },
+          {
+            title: 'Virtual Desktop',
+            url: 'https://vdesktop.itsligo.ie/Citrix/SligoWeb/',
+            icon: mdiDesktopClassic
+          },
+          {
+            title: 'Library',
+            url: 'https://library.itsligo.ie/',
+            icon: mdiLibraryShelves
+          }
+        ],
+        [],
+        [
+          {
+            title: 'Moodle',
+            url: 'https://moodle.lit.ie/'
+          }
+        ]
       ]
-    ]
-  }),
+    };
+  },
   computed: {
-    ...mapState(['currentTimetable', 'recentQuery']),
+    ...mapState(['currentTimetable', 'recentQuery', 'showBottomSheet']),
+    bottomSheet: {
+      get() {
+        return this.showBottomSheet;
+      },
+      set(value) {
+        this.toggleBottomSheet(value);
+      }
+    },
     canUseNavigator() {
       return navigator.share;
     },
@@ -169,18 +178,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['toggleBottomSheet']),
     copyUrlToClipboard() {
       navigator.clipboard.writeText(this.timetableUrl).then(() => {
-        this.$toast.success('URL copied!', {
-          timeout: 2000,
-          position: 'bottom-center',
-          closeButton: false
-        });
+        this.$toast.success('URL copied!');
       });
     },
     openLink(link) {
-      this.sheet = false;
-      window.open(link);
+      window.open(link, '_blank', 'noopener,noreferrer');
     },
     openShareMenu() {
       if (navigator.share) {
@@ -192,17 +197,17 @@ export default {
       }
     },
     switchSemester() {
-      this.$router.push({
-        path: '/timetable',
-        query: {
-          code: this.courseOptions.code,
-          college: this.courseOptions.college,
-          sem: this.courseOptions.sem === '0' ? '1' : '0'
-        }
-      });
+      this.$router
+        .push({
+          path: '/timetable',
+          query: {
+            code: this.courseOptions.code,
+            college: this.courseOptions.college,
+            sem: this.courseOptions.sem === '0' ? '1' : '0'
+          }
+        })
+        .catch(() => {});
     }
   }
 };
 </script>
-
-<style></style>
