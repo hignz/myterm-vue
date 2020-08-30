@@ -5,7 +5,7 @@ export default {
     }
 
     return {
-      title: `${this.$route.name} | MyTerm`
+      title: `${this.$route.name} - MyTerm`
     };
   }
 };
