@@ -38,13 +38,12 @@
 import { mapActions } from 'vuex';
 
 export default {
-  components: {},
   data: () => ({
     colleges: ['IT Sligo'],
     courses: [],
     isLoading: false,
     rules: {
-      required: value => !!value || ''
+      required: value => !!value || 'Required'
     },
     selectedCollege: '',
     selectedCourse: null,
@@ -70,12 +69,21 @@ export default {
       if (!this.$refs.form.validate()) {
         return;
       }
+      const today = new Date();
+      const year = today.getFullYear();
+
+      const sem =
+        Date.parse(today) >= Date.parse(`${year}-07-20`) &&
+        Date.parse(today) <= Date.parse(`${year}-12-19`)
+          ? 0
+          : 1;
 
       this.$router.push({
         path: 'timetable',
         query: {
           code: decodeURIComponent(this.selectedCourse.course),
-          college: this.selectedCollegeIndex
+          college: this.selectedCollegeIndex,
+          sem
         }
       });
     }
