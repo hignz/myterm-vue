@@ -195,7 +195,7 @@ export default {
     timetableUrl() {
       return `https://myterm.me/timetable?code=${decodeURIComponent(
         this.courseOptions.code
-      )}&college=${this.courseOptions.college}`;
+      )}&college=${this.courseOptions.college}&sem=${this.courseOptions.sem}`;
     },
     hasChanged() {
       return (
