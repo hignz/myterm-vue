@@ -1,19 +1,18 @@
 <template>
   <div>
     <v-container>
-      <main class="main">
-        <v-row justify="center" class="mt-24">
-          <v-col sm="8" md="6" lg="4">
-            <p class="display-2 mb-12 text-center">
-              My<span class="primary--text">Term</span>
-            </p>
-            <SelectionForm />
-          </v-col>
-        </v-row>
-      </main>
+      <AppBar v-if="$vuetify.breakpoint.smAndDown" :show-back-button="false" />
+      <v-row justify="center" class="main mt-24">
+        <v-col sm="8" md="6" lg="4">
+          <p class="display-2 mb-12 text-center">
+            My<span class="primary--text">Term</span>
+          </p>
+          <SelectionForm />
+        </v-col>
+      </v-row>
     </v-container>
     <footer>
-      <div class="footer text-center">
+      <div class="footer text-center white--text">
         <p class="display-1 mb-4 text-center">
           MyTerm.me
         </p>
@@ -33,13 +32,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import SelectionForm from '@/components/shared/SelectionForm';
 import genericMetaInfo from '@/mixins/genericMetaInfo';
 
 export default {
   name: 'Home',
-  components: { SelectionForm },
-  mixins: [genericMetaInfo]
+  components: {
+    SelectionForm,
+    AppBar: () =>
+      import(/* webpackChunkName: "appBar" */ '@/components/shared/AppBar')
+  },
+  mixins: [genericMetaInfo],
+  computed: {
+    ...mapState(['darkMode'])
+  }
 };
 </script>
 

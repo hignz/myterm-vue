@@ -1,18 +1,16 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="moduleData"
-    :items-per-page="15"
-    class="elevation-0"
-    :class="accentedBorder"
-  />
+  <v-card outlined>
+    <v-data-table
+      :headers="headers"
+      :items="moduleData"
+      :items-per-page="15"
+      class="elevation-0"
+    />
+  </v-card>
 </template>
 
 <script>
-import accentedBorder from '@/mixins/accentedBorder';
-
 export default {
-  mixins: [accentedBorder],
   props: {
     moduleData: {
       type: Array,
@@ -21,12 +19,7 @@ export default {
   },
   data: () => ({
     headers: [
-      {
-        text: 'Module',
-        align: 'left',
-        sortable: true,
-        value: 'name'
-      },
+      { text: 'Module', align: 'left', value: 'name' },
       { text: 'Per week', value: 'count' }
     ]
   })

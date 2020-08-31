@@ -1,30 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 $body-font-family: 'Poppins', sans-serif !important;
-
-.v-application {
-  .display-1,
-  .display-2,
-  .display-3,
-  .display-4,
-  .headline,
-  .title,
-  .subtitle-1,
-  .subtitle-2,
-  .body-1,
-  .body-2,
-  .caption,
-  .overline {
-    font-family: $body-font-family !important;
-  }
-}
-
 @import '~vuetify/src/styles/styles.sass';
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap');
 
 $mytermDark: (
-  'base': #21252b,
-  'lighten-1': #282c34,
+  'base': #1a1e22,
+  'lighten-1': #20232a,
   'lighten-2': #474f57,
   'darken-1': #343a40,
+);
+
+$mytermLight: (
+  'base': #fafafa,
+  'lighten-1': #ffffff,
 );
 
 $colors: (
@@ -34,26 +21,29 @@ $colors: (
 $material-dark: map-merge(
   $material-dark,
   (
+    'app-bar': map-get($mytermDark, 'base'),
     "background": map-get($mytermDark, 'base'),
+    'bottom-navigation': map-get($mytermDark, 'base'),
     'cards': map-get($mytermDark, 'lighten-1'),
     'chips': map-get($mytermDark, 'lighten-1'),
-    'app-bar': map-get($mytermDark, 'lighten-1'),
-    'bottom-navigation': map-get($mytermDark, 'lighten-1'),
+    'toolbar': map-get($mytermDark, 'base'),
   )
 );
 
-$material-light: (
-  'app-bar': #ffffff, 
-  'background': #ffffff, 
-  'navigation-drawer': #ffffff,
-  
-  'toolbar': #fafafa,
-  'cards': #fafafa,
-  'chips': #ffffff,
+$material-light: map-merge(
+  $material-light,
+  (
+    'app-bar': map-get($mytermLight, 'base'),
+    "background": map-get($mytermLight, 'base'),
+    'bottom-navigation': map-get($mytermLight, 'base'),
+    'cards': map-get($mytermLight, 'lighten-1'),
+    'chips': map-get($mytermLight, 'lighten-1'),
+    'toolbar': map-get($mytermLight, 'base'),
+  )
 );
 
-$vt-color-success: #41D1AB;
-$vt-color-error: #EF596F;
+$vt-color-success: #21b68e;
+$vt-color-error: #FF5252;
 
 @import "vue-toastification/src/scss/_variables";
 @import "vue-toastification/src/scss/_toastContainer";

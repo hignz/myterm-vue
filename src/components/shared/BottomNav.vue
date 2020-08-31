@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation class="d-md-none" grow shift app>
+  <v-bottom-navigation class="elevation-0" grow shift app>
     <NavigationItem
       v-for="item in items"
       :key="item.text"

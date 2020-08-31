@@ -1,4 +1,4 @@
-import vuetify from '../plugins/vuetify';
+import Vuetify from '../plugins/vuetify';
 import * as constants from './constants';
 
 export default {
@@ -6,19 +6,17 @@ export default {
     state.savedCourses = state.savedCourses.filter(
       el => el.id !== value._id && el.id !== value.id
     );
-
-    localStorage.setItem('savedCourses', JSON.stringify(state.savedCourses));
   },
-  [constants.SAVE_TIMETABLE](state, value) {
+  [constants.SAVE_TIMETABLE](state, timetable) {
     state.savedCourses.push({
-      title: value.title,
-      code: value.courseCode,
-      sem: value.semester,
+      title: timetable.title,
+      code: timetable.courseCode,
+      sem: timetable.semester,
       collegeIndex: 0,
-      college: value.college,
-      id: value._id
+      college: timetable.college,
+      id: timetable._id,
+      savedAt: Date.now()
     });
-    localStorage.setItem('savedCourses', JSON.stringify(state.savedCourses));
   },
   [constants.SET_CURRENT_CLASS](state, period) {
     state.currentClass = period;
@@ -29,21 +27,22 @@ export default {
   [constants.SET_FETCHING](state, isFetching) {
     state.fetching = isFetching;
   },
+  [constants.SET_ACCENT_COLOR](state, value) {
+    Vuetify.framework.theme.themes.dark.primary = value;
+    Vuetify.framework.theme.themes.light.primary = value;
+    state.accentColor = value;
+  },
   [constants.SET_RECENT_QUERY](state, recentQuery) {
     state.recentQuery = recentQuery;
-    localStorage.setItem('courseQuery', JSON.stringify(recentQuery));
   },
-  [constants.TOGGLE_ACCENTED_BORDERS](state, value) {
-    state.accentedBorders = value;
-    localStorage.setItem('accentedBorders', value);
+  [constants.TOGGLE_BOTTOM_SHEET](state, value) {
+    state.showBottomSheet = value;
   },
   [constants.TOGGLE_DARK_MODE](state, value) {
     state.darkMode = value;
-    vuetify.framework.theme.dark = value;
-    localStorage.setItem('darkMode', value);
+    Vuetify.framework.theme.dark = value;
   },
   [constants.TOGGLE_SHOW_WEEKENDS](state, value) {
     state.showWeekends = value;
-    localStorage.setItem('showWeekends', value);
   }
 };

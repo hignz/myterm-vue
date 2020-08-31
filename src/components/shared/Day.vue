@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Break from './Break';
-import Period from './Period';
+import Break from '@/components/shared/Break';
+import Period from '@/components/shared/Period';
 
 export default {
   components: {

@@ -1,6 +1,6 @@
 <template>
   <v-btn
-    v-if="item.showOnFirstLoad || (!item.showOnFirstLoad && recentQuery)"
+    v-if="item.showOnFirstVisit || (!item.showOnFirstVisit && recentQuery)"
     :to="{ path: item.route }"
     :active-class="activeClass"
   >

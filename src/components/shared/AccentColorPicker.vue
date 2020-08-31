@@ -3,19 +3,22 @@
     v-model="color"
     show-swatches
     mode="hexa"
+    style="color: white;"
     :hide-mode-switch="true"
+    @input="updateAccent()"
   />
 </template>
 
 <script>
-import vuetify from '@/plugins/vuetify';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   data: () => ({
     type: 'hex',
-    hex: '#696969'
+    hex: '#123456'
   }),
   computed: {
+    ...mapState(['accentColor']),
     color: {
       get() {
         return this[this.type];
@@ -25,17 +28,22 @@ export default {
       }
     }
   },
-  watch: {
-    hex: val => {
-      vuetify.framework.theme.themes.dark.primary = val;
-      vuetify.framework.theme.themes.light.primary = val;
-      localStorage.setItem('accentColor', val);
-    }
-  },
   created() {
-    this.hex = vuetify.framework.theme.isDark
-      ? vuetify.framework.theme.themes.dark.primary
-      : vuetify.framework.theme.themes.light.primary;
+    this.hex = this.$vuetify.theme.framework.theme.isDark
+      ? this.$vuetify.theme.themes.dark.primary
+      : this.$vuetify.theme.themes.light.primary;
+  },
+  methods: {
+    ...mapActions(['setAccentColor']),
+    updateAccent() {
+      this.setAccentColor(this.color);
+    }
   }
 };
 </script>
+
+<style>
+.theme--dark.v-color-picker .v-color-picker__input input {
+  color: white;
+}
+</style>

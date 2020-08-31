@@ -1,69 +1,74 @@
 <template>
-  <div>
-    <v-container>
-      <AppBar title="Timetable" class="d-md-none">
-        <template v-slot:icon>
-          <SaveBtn :is-fab="false" />
-        </template>
-      </AppBar>
-      <v-row v-if="!isLoading" justify="center">
-        <v-col sm="12" md="6" lg="5">
-          <TimetableHeader />
+  <v-container>
+    <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Timetable">
+      <template v-slot:icon>
+        <SaveBtn :is-fab="false" />
+      </template>
+    </AppBar>
+    <v-row justify-md="center">
+      <v-col sm="12" md="6" lg="6" class="pt-0 pt-md-3">
+        <template v-if="timetable && !timetable.empty">
+          <TimetableHeader class="mb-4" />
           <CurrentClass
             v-if="currentClass"
             :period="currentClass"
             class="mb-2"
           />
-          <Timetable
-            v-if="timetable && !timetable.empty"
-            :timetable="timetable.data"
-          />
+          <Timetable :timetable="timetable.data" />
+        </template>
 
-          <div v-else class="text-center">
-            <v-icon class="my-4 grey--text" x-large>
-              mdi-timetable
-            </v-icon>
-            <p class="grey--text">
-              This timetable doesn't seem to have any classes.
-            </p>
-            <p class="grey--text">
-              Are you sure you chose the correct course?
-            </p>
-            <v-btn x-large color="primary" text :to="{ path: '/' }">
-              Try again
-            </v-btn>
-          </div>
-        </v-col>
-      </v-row>
-      <SpeedDial @onBottomSheetClick="sheet = true" />
-    </v-container>
-  </div>
+        <div
+          v-if="(isLoaded && !timetable) || (timetable && timetable.empty)"
+          class="text-center"
+        >
+          <v-icon class="my-4 grey--text" x-large>
+            {{ mdiTimetable }}
+          </v-icon>
+          <p class="grey--text">
+            This timetable doesn't seem to have any classes.
+          </p>
+          <p class="grey--text">
+            Are you sure you chose the correct course?
+          </p>
+          <v-btn x-large color="primary" text :to="{ path: '/' }">
+            Try again
+          </v-btn>
+        </div>
+      </v-col>
+    </v-row>
+    <SpeedDial v-if="$vuetify.breakpoint.smAndDown" />
+  </v-container>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-
-import AppBar from '@/components/shared/AppBar';
-import CurrentClass from '@/components/shared/CurrentClass';
-import SaveBtn from '@/components/shared/SaveBtn';
-import SpeedDial from '@/components/shared/SpeedDial';
 import Timetable from '@/components/shared/Timetable';
 import TimetableHeader from '@/components/shared/TimetableHeader';
 import timetableMetaInfo from '@/mixins/timetableMetaInfo';
+import { mdiTimetable } from '@mdi/js';
 
 export default {
   components: {
-    AppBar,
-    CurrentClass,
-    SaveBtn,
-    SpeedDial,
+    AppBar: () =>
+      import(/* webpackChunkName: "appbar" */ '@/components/shared/AppBar'),
+    CurrentClass: () =>
+      import(
+        /* webpackChunkName: "currentClass" */ '@/components/shared/CurrentClass'
+      ),
+    SaveBtn: () =>
+      import(/* webpackChunkName: "saveBtn" */ '@/components/shared/SaveBtn'),
+    SpeedDial: () =>
+      import(
+        /* webpackChunkName: "speeddial" */ '@/components/shared/SpeedDial'
+      ),
     Timetable,
     TimetableHeader
   },
   mixins: [timetableMetaInfo],
   data: () => ({
-    isLoading: false,
-    timetable: null
+    isLoaded: false,
+    timetable: null,
+    mdiTimetable
   }),
   computed: {
     ...mapState(['recentQuery', 'currentClass']),
@@ -74,14 +79,14 @@ export default {
     }
   },
   created() {
-    this.isLoading = true;
+    this.setCurrentClass(null);
 
     this.fetchTimetable(this.courseOptions)
       .then(res => {
         this.timetable = res;
       })
       .finally(() => {
-        this.isLoading = false;
+        this.isLoaded = true;
       });
   },
   methods: {

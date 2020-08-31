@@ -1,10 +1,11 @@
 export default {
-  accentedBorders: JSON.parse(localStorage.getItem('accentedBorders')) || false,
+  accentColor: '#72DDF7',
   currentClass: null,
   currentTimetable: {},
-  darkMode: JSON.parse(localStorage.getItem('darkMode')) || true,
+  darkMode: true,
   fetching: false,
-  savedCourses: JSON.parse(localStorage.getItem('savedCourses')) || [],
-  showWeekends: JSON.parse(localStorage.getItem('showWeekends')) || null,
-  recentQuery: JSON.parse(localStorage.getItem('courseQuery')) || null
+  savedCourses: [],
+  showBottomSheet: false,
+  showWeekends: false,
+  recentQuery: null
 };

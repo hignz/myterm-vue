@@ -10,17 +10,15 @@ export default {
   },
   fetchTimetable({ commit }, options) {
     commit(constants.SET_FETCHING, true);
-
     const { code, college, sem } = options;
 
     return http
-      .get(`/timetable/?code=${code}&college=${college}${`&sem=${sem}`}`)
+      .get(`/timetables/?code=${code}&college=${college}${`&sem=${sem}`}`)
       .then(res => {
         commit(constants.SET_CURRENT_TIMETABLE, res.data);
         commit(constants.SET_RECENT_QUERY, options);
         return res.data;
       })
-      .catch()
       .finally(() => {
         commit(constants.SET_FETCHING, false);
       });
@@ -31,14 +29,17 @@ export default {
   saveTimetable({ commit }, item) {
     commit(constants.SAVE_TIMETABLE, item);
   },
-  setFetching({ commit }, isFetching) {
-    commit(constants.SET_FETCHING, isFetching);
+  setFetching({ commit }, value) {
+    commit(constants.SET_FETCHING, value);
+  },
+  setAccentColor({ commit }, value) {
+    commit(constants.SET_ACCENT_COLOR, value);
   },
   setCurrentClass({ commit }, item) {
     commit(constants.SET_CURRENT_CLASS, item);
   },
-  toggleAccentedBorders({ commit }, value) {
-    commit(constants.TOGGLE_ACCENTED_BORDERS, value);
+  toggleBottomSheet({ commit }, value) {
+    commit(constants.TOGGLE_BOTTOM_SHEET, value);
   },
   toggleDarkMode({ commit }, value) {
     commit(constants.TOGGLE_DARK_MODE, value);

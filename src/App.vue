@@ -1,35 +1,38 @@
 <template>
   <v-app>
-    <NavBar />
-    <v-content>
+    <NavBar v-if="$vuetify.breakpoint.mdAndUp" />
+    <v-main>
       <v-progress-linear
+        class="mt-2"
         indeterminate
-        :active="fetching"
         :height="2"
+        :active="fetching"
         color="primary"
       />
       <router-view :key="$route.fullPath" />
-    </v-content>
-    <BottomNav />
+    </v-main>
+    <BottomNav v-if="$vuetify.breakpoint.smAndDown" />
   </v-app>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import 'animate.css';
-
-import BottomNav from '@/components/shared/BottomNav';
-import NavBar from '@/components/shared/Navbar';
-import vuetify from '@/plugins/vuetify';
 
 export default {
   name: 'App',
-  components: { BottomNav, NavBar },
-  computed: {
-    ...mapState(['darkMode', 'fetching'])
+  components: {
+    BottomNav: () =>
+      import(
+        /* webpackChunkName: "bottomNav" */ '@/components/shared/BottomNav'
+      ),
+    NavBar: () =>
+      import(/* webpackChunkName: "navbar" */ '@/components/shared/Navbar')
   },
-  created() {
-    vuetify.framework.theme.dark = this.darkMode;
+  computed: {
+    ...mapState(['darkMode', 'fetching', 'accentColor'])
+  },
+  mounted() {
+    this.$vuetify.theme.isDark = this.darkMode;
   }
 };
 </script>
@@ -41,11 +44,10 @@ body {
 }
 
 .active-nav {
-  border-top: thin solid var(--v-primary-base) !important;
-}
-
-.accented-border {
-  border: thin solid var(--v-primary-base) !important;
+  border-top: 1px solid var(--v-primary-base) !important;
+  -webkit-box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
+  -moz-box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
+  box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
 }
 
 .dark-border {
@@ -54,6 +56,10 @@ body {
 
 .light-border {
   border: thin solid rgba(220, 220, 220, 1) !important;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {

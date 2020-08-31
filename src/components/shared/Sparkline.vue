@@ -2,13 +2,12 @@
   <v-sparkline
     :value="values"
     :gradient="gradient"
-    :smooth="radius || false"
-    :padding="padding"
-    :stroke-linecap="lineCap"
-    :gradient-direction="gradientDirection"
-    :fill="fill"
-    :type="type"
-    :auto-line-width="autoLineWidth"
+    smooth="10"
+    padding="16"
+    stroke-linecap="round"
+    gradient-direction="left"
+    type="trend"
+    :auto-line-width="false"
     auto-draw
     :color="labelColor"
     :labels="labels"
@@ -20,11 +19,6 @@
 import { mapState } from 'vuex';
 import vuetify from '@/plugins/vuetify';
 
-const gradients = [
-  vuetify.framework.theme.defaults.dark.primary,
-  '#F0F',
-  '#FF0'
-];
 export default {
   props: {
     values: {
@@ -37,16 +31,7 @@ export default {
     }
   },
   data: () => ({
-    width: 2,
-    radius: 10,
-    padding: 16,
-    lineCap: 'round',
-    gradient: gradients,
-    gradientDirection: 'left',
-    gradients,
-    fill: false,
-    type: 'trend',
-    autoLineWidth: false
+    gradient: [vuetify.framework.theme.defaults.dark.primary, '#F0F', '#FF0']
   }),
   computed: {
     ...mapState(['darkMode']),

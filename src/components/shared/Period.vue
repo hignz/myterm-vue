@@ -2,8 +2,8 @@
   <div
     class="text-center body-2"
     :class="{
-      'text--disabled': isClassOver && isToday,
-      'error--text': isClassNow && isToday
+      'text--disabled': isClassOver,
+      'primary--text font-weight-bold': isClassNow
     }"
     @click="showExtendedInfo = !showExtendedInfo"
   >
@@ -22,10 +22,7 @@
     >
       {{ period.room.split(' -')[0] }}
     </p>
-    <p
-      v-if="showExtendedInfo"
-      class="mb-1 animate__animated animate__bounceIn animate__fast"
-    >
+    <p v-if="showExtendedInfo" class="mb-1">
       {{ period.room.split(' -')[1] }} - {{ period.type }}
     </p>
     <p v-if="period.teacher && period.teacher.length > 1" class="grey--text">
@@ -57,6 +54,7 @@ export default {
     },
     isClassNow() {
       return (
+        this.isToday &&
         new Date(`01/01/1990 ${this.currentTime}`) >=
           new Date(`01/01/1990 ${this.period.startTime}`) &&
         new Date(`01/01/1990 ${this.currentTime}`) <=
@@ -65,9 +63,10 @@ export default {
     },
     isClassOver() {
       return (
+        this.isToday &&
         new Date(`01/01/1990 ${this.period.endTime}`) -
           new Date(`01/01/1990 ${this.currentTime}`) <
-        0
+          0
       );
     }
   },

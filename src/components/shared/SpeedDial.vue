@@ -1,38 +1,82 @@
 <template>
-  <div column class="fab-container d-md-none">
-    <v-speed-dial
-      v-model="fab"
-      bottom
-      right
-      transition="slide-y-reverse-transition"
+  <v-speed-dial
+    v-model="fab"
+    class="fab-container"
+    bottom
+    right
+    transition="slide-y-reverse-transition"
+  >
+    <template v-slot:activator>
+      <v-btn v-model="fab" color="primary darken-2" fab>
+        <v-icon>{{ fab ? mdiClose : mdiUnfoldMoreHorizontal }}</v-icon>
+      </v-btn>
+    </template>
+    <SaveBtn :is-fab="true" :is-small="true" :is-icon="false" />
+    <v-btn fab dark small color="primary darken-2" @click="openShareMenu()">
+      <v-icon>{{ mdiShareVariant }}</v-icon>
+    </v-btn>
+    <v-btn fab dark small color="primary darken-2" @click="openBottomSheet()">
+      <v-icon>{{ mdiViewList }}</v-icon>
+    </v-btn>
+    <v-btn
+      v-if="isScrolledDown"
+      fab
+      dark
+      small
+      color="primary darken-2"
+      @click="scrollTotop()"
     >
-      <template v-slot:activator>
-        <v-btn v-model="fab" color="primary darken-1" fab>
-          <v-icon>{{ fab ? 'mdi-close' : 'mdi-chevron-up' }}</v-icon>
-        </v-btn>
-      </template>
-      <SaveBtn :is-fab="true" :is-small="true" :is-icon="false" />
-      <v-btn fab dark small color="primary darken-3" @click="openShareMenu()">
-        <v-icon>mdi-share-variant</v-icon>
-      </v-btn>
-      <v-btn fab dark small color="primary darken-4" @click="openBottomSheet()">
-        <v-icon>mdi-unfold-more-horizontal</v-icon>
-      </v-btn>
-    </v-speed-dial>
-  </div>
+      <v-icon>{{ mdiChevronUp }}</v-icon>
+    </v-btn>
+  </v-speed-dial>
 </template>
 
 <script>
-import SaveBtn from './SaveBtn';
+import { mapActions } from 'vuex';
+import SaveBtn from '@/components/shared/SaveBtn';
+import {
+  mdiShareVariant,
+  mdiDotsVertical,
+  mdiClose,
+  mdiUnfoldMoreHorizontal,
+  mdiChevronUp,
+  mdiFingerprint,
+  mdiGestureDoubleTap,
+  mdiViewList
+} from '@mdi/js';
 
 export default {
   components: {
     SaveBtn
   },
   data: () => ({
-    fab: false
+    fab: false,
+    scroll: 0,
+    mdiShareVariant,
+    mdiDotsVertical,
+    mdiClose,
+    mdiUnfoldMoreHorizontal,
+    mdiChevronUp,
+    mdiFingerprint,
+    mdiGestureDoubleTap,
+    mdiViewList
   }),
+  computed: {
+    isScrolledDown() {
+      return this.scroll > 0;
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.onScroll);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.onScroll);
+  },
   methods: {
+    ...mapActions(['toggleBottomSheet']),
+    onScroll() {
+      this.scroll = window.scrollY;
+    },
     openShareMenu() {
       if (navigator.share) {
         navigator.share({
@@ -43,7 +87,10 @@ export default {
       }
     },
     openBottomSheet() {
-      this.$emit('onBottomSheetClick');
+      this.toggleBottomSheet(true);
+    },
+    scrollTotop() {
+      window.scrollTo(0, 0);
     }
   }
 };
@@ -52,8 +99,8 @@ export default {
 <style>
 .fab-container {
   position: fixed;
-  bottom: 60px;
-  right: 0;
+  bottom: 75px;
+  right: 17px;
   z-index: 1;
 }
 </style>

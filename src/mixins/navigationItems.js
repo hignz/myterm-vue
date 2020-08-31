@@ -1,30 +1,32 @@
+import { mdiMagnify, mdiTimetable, mdiHeart, mdiCog } from '@mdi/js';
+
 export default {
   data() {
     return {
       items: [
         {
           text: 'Search',
-          icon: 'mdi-magnify',
+          icon: mdiMagnify,
           route: '/',
-          showOnFirstLoad: true
+          showOnFirstVisit: true
         },
         {
           text: 'Timetable',
-          icon: 'mdi-timetable',
+          icon: mdiTimetable,
           route: '/timetable',
-          showOnFirstLoad: false
+          showOnFirstVisit: false
         },
         {
           text: 'Saved',
-          icon: 'mdi-heart',
+          icon: mdiHeart,
           route: '/saved',
-          showOnFirstLoad: true
+          showOnFirstVisit: true
         },
         {
           text: 'Settings',
-          icon: 'mdi-cog',
+          icon: mdiCog,
           route: '/settings',
-          showOnFirstLoad: true
+          showOnFirstVisit: true
         }
       ]
     };
