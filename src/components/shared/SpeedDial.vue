@@ -1,34 +1,35 @@
 <template>
-  <v-speed-dial
-    v-model="fab"
-    class="fab-container"
-    bottom
-    right
-    transition="slide-y-reverse-transition"
-  >
-    <template v-slot:activator>
-      <v-btn v-model="fab" color="primary darken-2" fab>
-        <v-icon>{{ fab ? mdiClose : mdiUnfoldMoreHorizontal }}</v-icon>
-      </v-btn>
-    </template>
-    <SaveBtn :is-fab="true" :is-small="true" :is-icon="false" />
-    <v-btn fab dark small color="primary darken-2" @click="openShareMenu()">
-      <v-icon>{{ mdiShareVariant }}</v-icon>
-    </v-btn>
-    <v-btn fab dark small color="primary darken-2" @click="openBottomSheet()">
-      <v-icon>{{ mdiViewList }}</v-icon>
-    </v-btn>
-    <v-btn
-      v-if="isScrolledDown"
-      fab
-      dark
-      small
-      color="primary darken-2"
-      @click="scrollTotop()"
+  <div column class="fab-container">
+    <v-speed-dial
+      v-model="fab"
+      bottom
+      right
+      transition="slide-y-reverse-transition"
     >
-      <v-icon>{{ mdiChevronUp }}</v-icon>
-    </v-btn>
-  </v-speed-dial>
+      <template v-slot:activator>
+        <v-btn v-model="fab" color="primary darken-2" fab>
+          <v-icon>{{ fab ? mdiClose : mdiUnfoldMoreHorizontal }}</v-icon>
+        </v-btn>
+      </template>
+      <SaveBtn :is-fab="true" :is-small="true" :is-icon="false" />
+      <v-btn fab dark small color="primary darken-2" @click="openShareMenu()">
+        <v-icon>{{ mdiShareVariant }}</v-icon>
+      </v-btn>
+      <v-btn fab dark small color="primary darken-2" @click="openBottomSheet()">
+        <v-icon>{{ mdiViewList }}</v-icon>
+      </v-btn>
+      <v-btn
+        v-if="isScrolledDown"
+        fab
+        dark
+        small
+        color="primary darken-2"
+        @click="scrollTotop()"
+      >
+        <v-icon>{{ mdiChevronUp }}</v-icon>
+      </v-btn>
+    </v-speed-dial>
+  </div>
 </template>
 
 <script>
@@ -99,8 +100,8 @@ export default {
 <style>
 .fab-container {
   position: fixed;
-  bottom: 75px;
-  right: 17px;
+  bottom: 60px;
+  right: 0;
   z-index: 1;
 }
 </style>
