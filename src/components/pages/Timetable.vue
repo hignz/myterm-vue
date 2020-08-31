@@ -6,7 +6,7 @@
       </template>
     </AppBar>
     <v-row justify-md="center">
-      <v-col sm="12" md="6" lg="6" class="pt-0">
+      <v-col sm="12" md="6" lg="6" class="pt-0 pt-md-3">
         <template v-if="timetable && !timetable.empty">
           <TimetableHeader class="mb-4" />
           <CurrentClass

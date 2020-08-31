@@ -8,6 +8,7 @@
         sm="12"
         md="6"
         lg="6"
+        class="pt-0 pt-md-3"
       >
         <v-card outlined flat>
           <v-list three-line subheader dense nav>

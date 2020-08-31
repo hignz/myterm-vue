@@ -2,7 +2,7 @@
   <v-container>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Settings" />
     <v-row justify="center">
-      <v-col cols="12" sm="12" md="5" lg="6">
+      <v-col cols="12" sm="12" md="5" lg="6" class="pt-0 pt-md-3">
         <v-card outlined flat>
           <v-card-text class="pt-2">
             <v-row>
