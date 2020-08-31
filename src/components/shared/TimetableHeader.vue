@@ -1,13 +1,16 @@
 <template>
-  <v-card v-if="currentTimetable" class="mb-4" outlined flat>
+  <v-card v-if="currentTimetable" outlined flat>
     <v-card-title style="word-break: keep-all" class="subtitle-1">
       {{ currentTimetable.title }}
     </v-card-title>
     <v-card-subtitle>
       <v-menu v-if="$vuetify.breakpoint.mdAndUp" offset-y max-width="200">
         <template v-slot:activator="{ on }">
-          <p class="pointer caption" v-on="on">
+          <p class="pointer " v-on="on">
             {{ currentTimetable.college }}
+            <v-icon size="16" color="grey" class="">{{
+              mdiChevronDown
+            }}</v-icon>
           </p>
         </template>
         <v-list dense>
@@ -54,6 +57,12 @@
         </v-avatar>
       </v-chip>
 
+      <HistoryDialog
+        v-if="hasChanged"
+        class="ml-2"
+        :timetable="currentTimetable"
+      />
+
       <v-spacer />
       <SaveBtn v-if="$vuetify.breakpoint.mdAndUp" />
 
@@ -99,11 +108,20 @@ import {
   mdiChartPie,
   mdiShareVariant,
   mdiDotsVertical,
-  mdiFingerprint
+  mdiFingerprint,
+  mdiChevronDown,
+  mdiBell
 } from '@mdi/js';
+import { formatToNow } from '@/utils/dateFormatter';
 
 export default {
-  components: { SaveBtn },
+  components: {
+    HistoryDialog: () =>
+      import(
+        /* webpackChunkName: "historyDialog" */ '@/components/shared/HistoryDialog'
+      ),
+    SaveBtn
+  },
   data() {
     return {
       mdiSchool,
@@ -115,6 +133,8 @@ export default {
       mdiShareVariant,
       mdiDotsVertical,
       mdiFingerprint,
+      mdiChevronDown,
+      mdiBell,
       links: [
         [
           {
@@ -150,7 +170,8 @@ export default {
             url: 'https://moodle.lit.ie/'
           }
         ]
-      ]
+      ],
+      formatToNow
     };
   },
   computed: {
@@ -175,6 +196,11 @@ export default {
       return `https://myterm.me/timetable?code=${decodeURIComponent(
         this.courseOptions.code
       )}&college=${this.courseOptions.college}`;
+    },
+    hasChanged() {
+      return (
+        this.currentTimetable.createdAt !== this.currentTimetable.updatedAt
+      );
     }
   },
   methods: {
