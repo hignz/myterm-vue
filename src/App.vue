@@ -31,7 +31,7 @@ export default {
   computed: {
     ...mapState(['darkMode', 'fetching', 'accentColor'])
   },
-  created() {
+  mounted() {
     this.$vuetify.theme.isDark = this.darkMode;
   }
 };
