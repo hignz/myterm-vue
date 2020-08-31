@@ -33,7 +33,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import SaveBtn from './SaveBtn';
+import SaveBtn from '@/components/shared/SaveBtn';
 import {
   mdiShareVariant,
   mdiDotsVertical,

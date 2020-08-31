@@ -25,7 +25,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import Day from './Day';
+import Day from '@/components/shared/Day';
 
 export default {
   components: {
