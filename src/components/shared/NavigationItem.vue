@@ -1,7 +1,7 @@
 <template>
   <v-btn
     v-if="item.showOnFirstVisit || (!item.showOnFirstVisit && recentQuery)"
-    :to="{ path: item.route }"
+    :to="{ path: item.route, query: item.query ? item.query : {} }"
     :active-class="activeClass"
   >
     <span>{{ item.text }}</span>
@@ -34,3 +34,16 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-btn:not(.v-btn--text):not(.v-btn--outlined):focus:before {
+  opacity: 0;
+}
+
+.theme--dark.v-btn:focus::before {
+  opacity: 0;
+}
+.theme--light.v-btn:focus::before {
+  opacity: 0;
+}
+</style>

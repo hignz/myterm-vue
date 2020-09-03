@@ -1,6 +1,10 @@
 import { mdiMagnify, mdiTimetable, mdiHeart, mdiCog } from '@mdi/js';
+import { mapState } from 'vuex';
 
 export default {
+  computed: {
+    ...mapState(['recentQuery'])
+  },
   data() {
     return {
       items: [
@@ -14,6 +18,7 @@ export default {
           text: 'Timetable',
           icon: mdiTimetable,
           route: '/timetable',
+          query: this.$store.state.recentQuery,
           showOnFirstVisit: false
         },
         {
