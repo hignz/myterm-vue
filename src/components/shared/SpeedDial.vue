@@ -12,9 +12,12 @@
         </v-btn>
       </template>
       <SaveBtn :is-fab="true" :is-small="true" :is-icon="false" />
-      <v-btn fab dark small color="primary darken-2" @click="openShareMenu()">
-        <v-icon>{{ mdiShareVariant }}</v-icon>
-      </v-btn>
+      <ShareBtn
+        :is-fab="true"
+        :is-small="true"
+        :is-icon="false"
+        color="primary darken-2"
+      />
       <v-btn fab dark small color="primary darken-2" @click="openBottomSheet()">
         <v-icon>{{ mdiViewList }}</v-icon>
       </v-btn>
@@ -35,6 +38,7 @@
 <script>
 import { mapActions } from 'vuex';
 import SaveBtn from '@/components/shared/SaveBtn';
+import ShareBtn from '@/components/shared/ShareBtn';
 import {
   mdiShareVariant,
   mdiDotsVertical,
@@ -48,7 +52,8 @@ import {
 
 export default {
   components: {
-    SaveBtn
+    SaveBtn,
+    ShareBtn
   },
   data: () => ({
     fab: false,
@@ -77,15 +82,6 @@ export default {
     ...mapActions(['toggleBottomSheet']),
     onScroll() {
       this.scroll = window.scrollY;
-    },
-    openShareMenu() {
-      if (navigator.share) {
-        navigator.share({
-          title: 'MyTerm',
-          text: 'Your timetable at a glance.',
-          url: this.timetableUrl
-        });
-      }
     },
     openBottomSheet() {
       this.toggleBottomSheet(true);
