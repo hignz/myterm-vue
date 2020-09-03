@@ -2,13 +2,6 @@
   <v-app>
     <NavBar v-if="$vuetify.breakpoint.mdAndUp" />
     <v-main>
-      <v-progress-linear
-        class="mt-2"
-        indeterminate
-        :height="2"
-        :active="fetching"
-        color="primary"
-      />
       <router-view :key="$route.fullPath" />
     </v-main>
     <BottomNav v-if="$vuetify.breakpoint.smAndDown" />
@@ -29,7 +22,7 @@ export default {
       import(/* webpackChunkName: "navbar" */ '@/components/shared/Navbar')
   },
   computed: {
-    ...mapState(['darkMode', 'fetching', 'accentColor'])
+    ...mapState(['darkMode'])
   },
   mounted() {
     this.$vuetify.theme.isDark = this.darkMode;
