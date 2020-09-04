@@ -13,10 +13,12 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  data: () => ({
-    type: 'hex',
-    hex: '#123456'
-  }),
+  data() {
+    return {
+      type: 'hex',
+      hex: '#123456'
+    };
+  },
   computed: {
     ...mapState(['accentColor']),
     color: {

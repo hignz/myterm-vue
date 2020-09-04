@@ -17,11 +17,13 @@ export default {
       default: () => []
     }
   },
-  data: () => ({
-    headers: [
-      { text: 'Module', value: 'name', align: 'left', width: '70%' },
-      { text: 'Per week', value: 'count', align: 'center', width: '30%' }
-    ]
-  })
+  data() {
+    return {
+      headers: [
+        { text: 'Module', value: 'name', align: 'left', width: '70%' },
+        { text: 'Per week', value: 'count', align: 'center', width: '30%' }
+      ]
+    };
+  }
 };
 </script>

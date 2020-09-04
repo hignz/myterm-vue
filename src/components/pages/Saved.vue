@@ -102,12 +102,14 @@ export default {
     AppBar
   },
   mixins: [genericMetaInfo],
-  data: () => ({
-    showDialog: false,
-    selectedTimetable: null,
-    mdiDelete,
-    mdiHeartBroken
-  }),
+  data() {
+    return {
+      showDialog: false,
+      selectedTimetable: null,
+      mdiDelete,
+      mdiHeartBroken
+    };
+  },
   computed: {
     ...mapState(['savedCourses'])
   },

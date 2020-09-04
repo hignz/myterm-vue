@@ -37,9 +37,11 @@ export default {
       default: () => []
     }
   },
-  data: () => ({
-    arr: []
-  }),
+  data() {
+    return {
+      arr: []
+    };
+  },
   computed: {
     ...mapState(['showWeekends', 'darkMode']),
     todaysIndex() {

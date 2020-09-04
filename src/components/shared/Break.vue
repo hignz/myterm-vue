@@ -34,14 +34,16 @@ export default {
       default: () => {}
     }
   },
-  data: () => ({
-    items: [
-      {
-        title: 'Room Booking',
-        url: 'https://libreserve.itsligo.ie/'
-      }
-    ]
-  }),
+  data() {
+    return {
+      items: [
+        {
+          title: 'Room Booking',
+          url: 'https://libreserve.itsligo.ie/'
+        }
+      ]
+    };
+  },
   methods: {
     navigateTo(url) {
       window.open(url);

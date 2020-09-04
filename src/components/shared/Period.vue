@@ -45,9 +45,11 @@ export default {
       default: false
     }
   },
-  data: () => ({
-    showExtendedInfo: false
-  }),
+  data() {
+    return {
+      showExtendedInfo: false
+    };
+  },
   computed: {
     currentTime() {
       return new Date().toLocaleTimeString('en-GB');

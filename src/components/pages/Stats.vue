@@ -1,16 +1,15 @@
 <template>
   <v-container fluid>
-    <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More">
-      <v-tabs v-model="tab" centered background-color="transparent">
-        <v-tab href="#tab-1">
-          Modules
-        </v-tab>
+    <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More"> </AppBar>
+    <v-tabs v-model="tab" centered background-color="transparent">
+      <v-tab href="#tab-1">
+        ADDITIONAL INFO
+      </v-tab>
 
-        <v-tab href="#tab-2">
-          Breakdown
-        </v-tab>
-      </v-tabs>
-    </AppBar>
+      <v-tab href="#tab-2">
+        Breakdown
+      </v-tab>
+    </v-tabs>
     <v-tabs
       v-if="$vuetify.breakpoint.mdAndUp"
       v-model="tab"
@@ -123,12 +122,14 @@ export default {
     PieChart
   },
   mixins: [genericMetaInfo],
-  data: () => ({
-    modules: [],
-    timetable: {},
-    tab: null,
-    isLoading: false
-  }),
+  data() {
+    return {
+      modules: [],
+      timetable: {},
+      tab: null,
+      isLoading: false
+    };
+  },
   computed: {
     ...mapState(['showWeekends']),
     moduleTotalsPerDay() {

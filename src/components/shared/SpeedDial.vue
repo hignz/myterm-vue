@@ -55,18 +55,20 @@ export default {
     SaveBtn,
     ShareBtn
   },
-  data: () => ({
-    fab: false,
-    scroll: 0,
-    mdiShareVariant,
-    mdiDotsVertical,
-    mdiClose,
-    mdiUnfoldMoreHorizontal,
-    mdiChevronUp,
-    mdiFingerprint,
-    mdiGestureDoubleTap,
-    mdiViewList
-  }),
+  data() {
+    return {
+      fab: false,
+      scroll: 0,
+      mdiShareVariant,
+      mdiDotsVertical,
+      mdiClose,
+      mdiUnfoldMoreHorizontal,
+      mdiChevronUp,
+      mdiFingerprint,
+      mdiGestureDoubleTap,
+      mdiViewList
+    };
+  },
   computed: {
     isScrolledDown() {
       return this.scroll > 0;
