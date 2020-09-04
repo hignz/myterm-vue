@@ -1,7 +1,7 @@
 <template>
   <v-btn
     v-if="item.showOnFirstVisit || (!item.showOnFirstVisit && recentQuery)"
-    :to="{ path: item.route, query: item.query ? item.query : {} }"
+    :to="{ path: item.route }"
     :active-class="activeClass"
   >
     <span>{{ item.text }}</span>
