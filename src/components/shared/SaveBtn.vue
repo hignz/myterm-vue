@@ -50,17 +50,19 @@ export default {
       return this.isSaved ? 'primary' : this.darkMode ? 'white' : '#212121';
     },
     isSaved() {
-      return this.savedCourses.some(el => el.id === this.currentTimetable._id);
+      return this.savedCourses.some(
+        el =>
+          el.title === this.currentTimetable.title &&
+          el.sem === this.currentTimetable.semester
+      );
     }
   },
   methods: {
     ...mapActions(['saveTimetable', 'removeTimetable']),
     save() {
-      if (this.isSaved) {
-        this.removeTimetable(this.currentTimetable);
-      } else {
-        this.saveTimetable(this.currentTimetable);
-      }
+      this.isSaved
+        ? this.removeTimetable(this.currentTimetable)
+        : this.saveTimetable(this.currentTimetable);
     }
   }
 };

@@ -2,13 +2,47 @@
   <v-container>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Timetable">
       <template v-slot:icon>
-        <SaveBtn :is-fab="false" />
+        <ShareBtn />
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon size="28">
+                {{ mdiDotsVertical }}
+              </v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              :to="{
+                path: '/timetable/stats',
+                query: {
+                  code: courseOptions.code,
+                  college: courseOptions.college,
+                  sem: courseOptions.sem
+                }
+              }"
+              >More</v-list-item
+            >
+          </v-list>
+        </v-menu>
       </template>
     </AppBar>
     <v-row justify-md="center">
       <v-col sm="12" md="6" lg="6" class="pt-0 pt-md-3">
-        <template v-if="timetable && !timetable.empty">
+        <template v-if="timetable">
+          <v-alert v-if="timetable.timedout" outlined
+            >The IT's website seems to be
+            <span class="warning--text">having issues.</span> But don't worry,
+            we scalvaged
+            <span class="warning--text">the last known timetable</span> for your
+            course, accurate as of
+            <span class="warning--text">
+              {{ formatToNow(timetable.updatedAt, true) }}.</span
+            >
+          </v-alert>
           <TimetableHeader class="mb-4" />
+        </template>
+        <template v-if="timetable && !timetable.empty">
           <CurrentClass
             v-if="currentClass"
             :period="currentClass"
@@ -16,7 +50,6 @@
           />
           <Timetable :timetable="timetable.data" />
         </template>
-
         <div
           v-if="(isLoaded && !timetable) || (timetable && timetable.empty)"
           class="text-center"
@@ -45,8 +78,9 @@ import { mapActions, mapState } from 'vuex';
 import Timetable from '@/components/shared/Timetable';
 import TimetableHeader from '@/components/shared/TimetableHeader';
 import timetableMetaInfo from '@/mixins/timetableMetaInfo';
-import { mdiTimetable } from '@mdi/js';
-
+import { mdiTimetable, mdiDotsVertical } from '@mdi/js';
+import ShareBtn from '../shared/ShareBtn';
+import { formatToNow } from '@/utils/dateFormatter';
 export default {
   components: {
     AppBar: () =>
@@ -55,21 +89,24 @@ export default {
       import(
         /* webpackChunkName: "currentClass" */ '@/components/shared/CurrentClass'
       ),
-    SaveBtn: () =>
-      import(/* webpackChunkName: "saveBtn" */ '@/components/shared/SaveBtn'),
     SpeedDial: () =>
       import(
         /* webpackChunkName: "speeddial" */ '@/components/shared/SpeedDial'
       ),
+    ShareBtn,
     Timetable,
     TimetableHeader
   },
   mixins: [timetableMetaInfo],
-  data: () => ({
-    isLoaded: false,
-    timetable: null,
-    mdiTimetable
-  }),
+  data() {
+    return {
+      isLoaded: false,
+      timetable: null,
+      mdiTimetable,
+      mdiDotsVertical,
+      formatToNow
+    };
+  },
   computed: {
     ...mapState(['recentQuery', 'currentClass']),
     courseOptions() {
@@ -79,8 +116,6 @@ export default {
     }
   },
   created() {
-    this.setCurrentClass(null);
-
     this.fetchTimetable(this.courseOptions)
       .then(res => {
         this.timetable = res;

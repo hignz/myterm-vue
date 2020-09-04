@@ -24,7 +24,9 @@
         </p>
         <p class="mt-6 mb-0">
           Created by
-          <a href="https://github.com/hignz" target="_blank">Aaron Higgins</a>
+          <a href="https://github.com/hignz" target="_blank" rel="noopener"
+            >Aaron Higgins</a
+          >
         </p>
       </div>
     </footer>

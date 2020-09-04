@@ -3,7 +3,7 @@
     <v-data-table
       :headers="headers"
       :items="moduleData"
-      :items-per-page="15"
+      :items-per-page="10"
       class="elevation-0"
     />
   </v-card>
@@ -17,11 +17,13 @@ export default {
       default: () => []
     }
   },
-  data: () => ({
-    headers: [
-      { text: 'Module', align: 'left', value: 'name' },
-      { text: 'Per week', value: 'count' }
-    ]
-  })
+  data() {
+    return {
+      headers: [
+        { text: 'Module', value: 'name', align: 'left', width: '70%' },
+        { text: 'Per week', value: 'count', align: 'center', width: '30%' }
+      ]
+    };
+  }
 };
 </script>

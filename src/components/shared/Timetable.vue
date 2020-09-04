@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import Day from '@/components/shared/Day';
 
 export default {
@@ -37,9 +37,11 @@ export default {
       default: () => []
     }
   },
-  data: () => ({
-    arr: []
-  }),
+  data() {
+    return {
+      arr: []
+    };
+  },
   computed: {
     ...mapState(['showWeekends', 'darkMode']),
     todaysIndex() {
@@ -47,13 +49,19 @@ export default {
       return index === -1 ? 6 : index;
     },
     filteredTimetable() {
-      return this.showWeekends ? this.timetable : this.timetable.slice(0, 5);
+      const weekdays = this.timetable.slice(0, 5);
+      if (!weekdays.flat().length && this.timetable.flat().length) {
+        this.toggleShowWeekends(true);
+        return this.timetable;
+      }
+      return this.showWeekends ? this.timetable : weekdays;
     }
   },
   created() {
     this.setExpandedDay();
   },
   methods: {
+    ...mapActions(['toggleShowWeekends']),
     isCurrentDay(timetableIndex) {
       return this.todaysIndex === timetableIndex;
     },

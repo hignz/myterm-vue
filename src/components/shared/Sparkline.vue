@@ -17,7 +17,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import vuetify from '@/plugins/vuetify';
 
 export default {
   props: {
@@ -30,13 +29,16 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    gradient: [vuetify.framework.theme.defaults.dark.primary, '#F0F', '#FF0']
-  }),
   computed: {
     ...mapState(['darkMode']),
     labelColor() {
       return this.darkMode ? 'white' : 'black';
+    },
+    primaryColor() {
+      return this.$vuetify.theme.defaults.dark.primary;
+    },
+    gradient() {
+      return [this.$vuetify.theme.defaults.dark.primary, '#F0F'];
     }
   }
 };

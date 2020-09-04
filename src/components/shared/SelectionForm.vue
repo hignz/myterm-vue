@@ -38,17 +38,19 @@
 import { mapActions } from 'vuex';
 
 export default {
-  data: () => ({
-    colleges: ['IT Sligo'],
-    courses: [],
-    isLoading: false,
-    rules: {
-      required: value => !!value || 'Required'
-    },
-    selectedCollege: '',
-    selectedCourse: null,
-    valid: false
-  }),
+  data() {
+    return {
+      colleges: ['IT Sligo'],
+      courses: [],
+      isLoading: false,
+      rules: {
+        required: value => !!value || 'Required'
+      },
+      selectedCollege: '',
+      selectedCourse: null,
+      valid: false
+    };
+  },
   computed: {
     selectedCollegeIndex() {
       return this.colleges.indexOf(this.selectedCollege);
@@ -75,8 +77,8 @@ export default {
       const sem =
         Date.parse(today) >= Date.parse(`${year}-07-20`) &&
         Date.parse(today) <= Date.parse(`${year}-12-19`)
-          ? 0
-          : 1;
+          ? '0'
+          : '1';
 
       this.$router.push({
         path: 'timetable',

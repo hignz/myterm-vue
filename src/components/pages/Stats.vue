@@ -1,67 +1,113 @@
 <template>
   <v-container fluid>
-    <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More">
-      <v-tabs v-model="tab" centered background-color="transparent">
-        <v-tab href="#tab-1">
-          Modules
-        </v-tab>
+    <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More"> </AppBar>
+    <v-tabs v-model="tab" centered background-color="transparent">
+      <v-tab href="#tab-1">
+        ADDITIONAL INFO
+      </v-tab>
 
-        <v-tab href="#tab-2">
-          Breakdown
-        </v-tab>
-      </v-tabs>
-    </AppBar>
-    <v-row justify="center" class="mt-md-0">
-      <v-col cols="12" sm="12" md="6">
-        <v-tabs
-          v-if="$vuetify.breakpoint.mdAndUp"
-          v-model="tab"
-          background-color="transparent"
-        >
-          <v-tab href="#tab-1">
-            Modules
-          </v-tab>
+      <v-tab href="#tab-2">
+        Breakdown
+      </v-tab>
+    </v-tabs>
+    <v-tabs
+      v-if="$vuetify.breakpoint.mdAndUp"
+      v-model="tab"
+      background-color="transparent"
+      centered
+    >
+      <v-tab href="#tab-1">
+        ADDITIONAL INFO
+      </v-tab>
 
-          <v-tab href="#tab-2">
-            Breakdown
-          </v-tab>
-        </v-tabs>
-        <v-tabs-items v-if="!isLoading" v-model="tab">
-          <v-tab-item value="tab-1">
+      <v-tab href="#tab-2">
+        Breakdown
+      </v-tab>
+    </v-tabs>
+    <v-tabs-items v-if="!isLoading" v-model="tab">
+      <v-tab-item value="tab-1" :transition="false" :reverse-transition="false">
+        <v-row justify="center">
+          <v-col cols="12" sm="12" md="6">
+            <v-card outlined>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12" sm="12" md="6">
+                    <p class="subtitle-1">{{ timetable.title }}</p>
+                    <p>
+                      {{ timetable.courseCode }}
+                    </p>
+                    <p>Semester {{ parseInt(timetable.semester, 10) + 1 }}</p>
+                  </v-col>
+                  <v-col sm="12" md="6">
+                    <Sparkline
+                      :values="moduleTotalsPerDay"
+                      :labels="[
+                        'Mon',
+                        'Tues',
+                        'Wed',
+                        'Thurs',
+                        'Fri',
+                        'Sat',
+                        'Sun'
+                      ]"
+                    />
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  outlined
+                  color="primary"
+                  small
+                  @click="openOfficialTimetable()"
+                  >Official link</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row justify="center">
+          <v-col cols="12" sm="12" md="3">
             <v-card outlined flat>
               <v-card-text>
-                <p>
-                  Total
+                <p class="caption">
+                  ALL CLASSES
                 </p>
-
                 <PieChart
                   v-if="moduleCounts"
                   :chart-data="moduleCounts"
                   :chart-labels="moduleNames"
-                  :height="400"
-                />
-
-                <p>
-                  Per Day
-                </p>
-                <Sparkline
-                  :values="moduleTotalsPerDay"
-                  :labels="['Mon', 'Tues', 'Wed', 'Thurs', 'Fri']"
                 />
               </v-card-text>
             </v-card>
-          </v-tab-item>
-          <v-tab-item value="tab-2">
+          </v-col>
+          <v-col cols="12" sm="12" md="3">
+            <v-card outlined height="100%">
+              <v-card-text>
+                <p class=" caption">TIMETABLE CHANGE HISTORY</p>
+              </v-card-text>
+              <v-data-table :items="[]" no-data-text="No changes found" />
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-tab-item>
+      <v-row justify="center">
+        <v-col cols="12" sm="12" md="6">
+          <v-tab-item
+            value="tab-2"
+            :transition="false"
+            :reverse-transition="false"
+          >
             <ModuleTable :module-data="moduleTotals" />
           </v-tab-item>
-        </v-tabs-items>
-      </v-col>
-    </v-row>
+        </v-col>
+      </v-row>
+    </v-tabs-items>
   </v-container>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import AppBar from '@/components/shared/AppBar';
 import ModuleTable from '@/components/shared/ModuleTable';
 import PieChart from '@/components/shared/PieChart';
@@ -76,12 +122,16 @@ export default {
     PieChart
   },
   mixins: [genericMetaInfo],
-  data: () => ({
-    modules: [],
-    tab: null,
-    isLoading: false
-  }),
+  data() {
+    return {
+      modules: [],
+      timetable: {},
+      tab: null,
+      isLoading: false
+    };
+  },
   computed: {
+    ...mapState(['showWeekends']),
     moduleTotalsPerDay() {
       return this.modules.map(el => el.length);
     },
@@ -116,14 +166,34 @@ export default {
 
     this.fetchTimetable({ code, college, sem })
       .then(res => {
-        this.modules = res.data.slice(0, 5);
+        this.timetable = res;
+        this.modules = this.showWeekends ? res.data : res.data.slice(0, 5);
       })
       .finally(() => {
         this.isLoading = false;
       });
   },
   methods: {
-    ...mapActions(['fetchTimetable'])
+    ...mapActions(['fetchTimetable']),
+    openOfficialTimetable() {
+      window.open(this.timetable.url, '_blank', 'noopener,noreferrer');
+    }
   }
 };
 </script>
+
+<style>
+.theme--dark.v-tabs .v-tab--active:hover::before,
+.theme--dark.v-tabs .v-tab--active::before {
+  opacity: 0;
+}
+
+.theme--dark.v-tabs .v-tab:hover::before {
+  opacity: 0;
+}
+
+.theme--dark.v-tabs-items,
+.theme--light.v-tabs-items {
+  background-color: transparent;
+}
+</style>

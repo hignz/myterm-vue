@@ -50,34 +50,22 @@
     <v-card-actions>
       <v-chip class="pa-4" outlined @click="switchSemester()">
         Semester
-        <v-avatar right light>
+        <v-avatar right>
           <span class="primary--text">{{
             parseInt(currentTimetable.semester, 10) + 1
           }}</span>
         </v-avatar>
       </v-chip>
-
       <HistoryDialog
         v-if="hasChanged"
         class="ml-2"
         :timetable="currentTimetable"
       />
-
       <v-spacer />
-      <SaveBtn v-if="$vuetify.breakpoint.mdAndUp" />
-
+      <SaveBtn />
+      <ShareBtn v-if="$vuetify.breakpoint.mdAndUp" color="primary" />
       <v-btn
-        color="primary"
-        icon
-        @click="canUseNavigator ? openShareMenu() : copyUrlToClipboard()"
-      >
-        <v-icon>
-          {{ mdiShareVariant }}
-        </v-icon>
-      </v-btn>
-
-      <v-btn
-        color="primary"
+        v-if="$vuetify.breakpoint.mdAndUp"
         icon
         :to="{
           path: '/timetable/stats',
@@ -88,8 +76,8 @@
           }
         }"
       >
-        <v-icon>
-          {{ mdiDotsVertical }}
+        <v-icon color="primary">
+          {{ mdiArrowRight }}
         </v-icon>
       </v-btn>
     </v-card-actions>
@@ -110,9 +98,11 @@ import {
   mdiDotsVertical,
   mdiFingerprint,
   mdiChevronDown,
-  mdiBell
+  mdiBell,
+  mdiArrowRight
 } from '@mdi/js';
 import { formatToNow } from '@/utils/dateFormatter';
+import ShareBtn from './ShareBtn';
 
 export default {
   components: {
@@ -120,7 +110,8 @@ export default {
       import(
         /* webpackChunkName: "historyDialog" */ '@/components/shared/HistoryDialog'
       ),
-    SaveBtn
+    SaveBtn,
+    ShareBtn
   },
   data() {
     return {
@@ -135,6 +126,7 @@ export default {
       mdiFingerprint,
       mdiChevronDown,
       mdiBell,
+      mdiArrowRight,
       links: [
         [
           {
@@ -184,18 +176,10 @@ export default {
         this.toggleBottomSheet(value);
       }
     },
-    canUseNavigator() {
-      return navigator.share;
-    },
     courseOptions() {
       return Object.keys(this.$route.query).length > 0
         ? this.$route.query
         : this.recentQuery;
-    },
-    timetableUrl() {
-      return `https://myterm.me/timetable?code=${decodeURIComponent(
-        this.courseOptions.code
-      )}&college=${this.courseOptions.college}&sem=${this.courseOptions.sem}`;
     },
     hasChanged() {
       return (
@@ -205,22 +189,8 @@ export default {
   },
   methods: {
     ...mapActions(['toggleBottomSheet']),
-    copyUrlToClipboard() {
-      navigator.clipboard.writeText(this.timetableUrl).then(() => {
-        this.$toast.success('URL copied!');
-      });
-    },
     openLink(link) {
       window.open(link, '_blank', 'noopener,noreferrer');
-    },
-    openShareMenu() {
-      if (navigator.share) {
-        navigator.share({
-          title: 'MyTerm',
-          text: 'Your timetable at a glance.',
-          url: this.timetableUrl
-        });
-      }
     },
     switchSemester() {
       this.$router
