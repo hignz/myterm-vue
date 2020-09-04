@@ -28,10 +28,12 @@ export default {
       default: () => {}
     }
   },
-  data: () => ({
-    formatDistanceToNow,
-    show: true
-  }),
+  data() {
+    return {
+      formatDistanceToNow,
+      show: true
+    };
+  },
   computed: {
     started() {
       const todaysDate = new Date().toLocaleDateString('en-US');
