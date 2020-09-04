@@ -10,6 +10,7 @@ export default {
   },
   fetchTimetable({ commit }, options) {
     commit(constants.SET_FETCHING, true);
+    commit(constants.SET_CURRENT_CLASS, null);
     const { code, college, sem } = options;
 
     return http
