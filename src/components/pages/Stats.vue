@@ -1,21 +1,7 @@
 <template>
   <v-container fluid>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More"> </AppBar>
-    <v-tabs v-model="tab" centered background-color="transparent">
-      <v-tab href="#tab-1">
-        ADDITIONAL INFO
-      </v-tab>
-
-      <v-tab href="#tab-2">
-        Breakdown
-      </v-tab>
-    </v-tabs>
-    <v-tabs
-      v-if="$vuetify.breakpoint.mdAndUp"
-      v-model="tab"
-      background-color="transparent"
-      centered
-    >
+    <v-tabs v-model="tab" background-color="transparent" centered>
       <v-tab href="#tab-1">
         ADDITIONAL INFO
       </v-tab>
@@ -185,15 +171,15 @@ export default {
 <style>
 .theme--dark.v-tabs .v-tab--active:hover::before,
 .theme--dark.v-tabs .v-tab--active::before {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .theme--dark.v-tabs .v-tab:hover::before {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .theme--dark.v-tabs-items,
 .theme--light.v-tabs-items {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 </style>
