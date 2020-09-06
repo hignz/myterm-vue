@@ -98,7 +98,7 @@ export default {
 <style>
 .fab-container {
   position: fixed;
-  bottom: 60px;
+  bottom: 65px;
   right: 0;
   z-index: 1;
 }

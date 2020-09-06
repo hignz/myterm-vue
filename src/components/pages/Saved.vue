@@ -72,7 +72,11 @@
         <v-card-text class="mt-4 caption">
           <p>
             Are you sure you want to remove
-            <span v-if="selectedTimetable" class="white--text font-weight-bold">
+            <span
+              v-if="selectedTimetable"
+              class="white--text font-weight-bold"
+              :class="{ 'primary--text': !darkMode }"
+            >
               {{ selectedTimetable.title }} </span
             >?
           </p>
@@ -111,7 +115,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['savedCourses'])
+    ...mapState(['savedCourses', 'darkMode'])
   },
   methods: {
     ...mapActions(['removeTimetable']),

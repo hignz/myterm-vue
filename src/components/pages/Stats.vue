@@ -15,14 +15,18 @@
         <v-row justify="center">
           <v-col cols="12" sm="12" md="6">
             <v-card outlined>
-              <v-card-text>
+              <v-card-text class="font-weight-black">
                 <v-row>
                   <v-col cols="12" sm="12" md="6">
-                    <p class="subtitle-1">{{ timetable.title }}</p>
-                    <p>
+                    <p class="font-weight-black mb-2">
+                      {{ timetable.title }}
+                    </p>
+                    <p class="caption font-weight-black mb-3">
                       {{ timetable.courseCode }}
                     </p>
-                    <p>Semester {{ parseInt(timetable.semester, 10) + 1 }}</p>
+                    <p class="caption font-weight-black">
+                      Semester {{ parseInt(timetable.semester, 10) + 1 }}
+                    </p>
                   </v-col>
                   <v-col sm="12" md="6">
                     <Sparkline
@@ -56,7 +60,7 @@
           <v-col cols="12" sm="12" md="3">
             <v-card outlined flat>
               <v-card-text>
-                <p class="caption">
+                <p class="caption font-weight-black">
                   ALL CLASSES
                 </p>
                 <PieChart
@@ -70,7 +74,9 @@
           <v-col cols="12" sm="12" md="3">
             <v-card outlined height="100%">
               <v-card-text>
-                <p class=" caption">TIMETABLE CHANGE HISTORY</p>
+                <p class="caption font-weight-black">
+                  TIMETABLE CHANGE HISTORY
+                </p>
               </v-card-text>
               <v-data-table :items="[]" no-data-text="No changes found" />
             </v-card>

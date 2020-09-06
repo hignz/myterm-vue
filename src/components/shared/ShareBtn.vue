@@ -3,7 +3,9 @@
     :fab="isFab"
     :icon="isIcon"
     :small="isSmall"
-    :color="color"
+    :class="{
+      'primary darken-2': isFab
+    }"
     @click="canUseNavigator ? openShareMenu() : copyUrlToClipboard()"
   >
     <v-icon>
@@ -29,10 +31,6 @@ export default {
     isSmall: {
       type: Boolean,
       default: false
-    },
-    color: {
-      type: String,
-      default: 'white'
     }
   },
   data() {

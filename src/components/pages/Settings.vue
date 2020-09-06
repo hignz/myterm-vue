@@ -18,7 +18,6 @@
                   <v-chip
                     v-for="color in themeColors"
                     :key="color.value"
-                    pill
                     outlined
                     @click="changeAccentColor(color)"
                   >

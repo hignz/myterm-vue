@@ -11,7 +11,7 @@
               </v-icon>
             </v-btn>
           </template>
-          <v-list>
+          <v-list dense>
             <v-list-item
               :to="{
                 path: '/timetable/stats',

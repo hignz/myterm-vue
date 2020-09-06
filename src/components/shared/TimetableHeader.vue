@@ -1,12 +1,15 @@
 <template>
   <v-card v-if="currentTimetable" outlined flat>
-    <v-card-title style="word-break: keep-all" class="subtitle-1">
+    <v-card-title
+      style="word-break: keep-all"
+      class="subtitle-1 font-weight-bold"
+    >
       {{ currentTimetable.title }}
     </v-card-title>
     <v-card-subtitle>
       <v-menu v-if="$vuetify.breakpoint.mdAndUp" offset-y max-width="200">
         <template v-slot:activator="{ on }">
-          <p class="pointer " v-on="on">
+          <p class="pointer font-weight-bold" v-on="on">
             {{ currentTimetable.college }}
             <v-icon size="16" color="grey" class="">{{
               mdiChevronDown
@@ -28,7 +31,7 @@
         v-model="bottomSheet"
       >
         <template v-slot:activator="{ on }">
-          <p v-on="on">
+          <p class="font-weight-bold" v-on="on">
             {{ currentTimetable.college }}
           </p>
         </template>
@@ -63,7 +66,7 @@
       />
       <v-spacer />
       <SaveBtn />
-      <ShareBtn v-if="$vuetify.breakpoint.mdAndUp" color="primary" />
+      <ShareBtn v-if="$vuetify.breakpoint.mdAndUp" />
       <v-btn
         v-if="$vuetify.breakpoint.mdAndUp"
         icon
@@ -76,7 +79,7 @@
           }
         }"
       >
-        <v-icon color="primary">
+        <v-icon>
           {{ mdiArrowRight }}
         </v-icon>
       </v-btn>
