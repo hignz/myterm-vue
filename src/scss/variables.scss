@@ -10,8 +10,9 @@ $mytermDark: (
 );
 
 $mytermLight: (
-  'base': #fafafa,
-  'lighten-1': #ffffff,
+  'base': #EFEFEF,
+  'lighten-1': #EAEAEA,
+  'lighten-2': #eee,
 );
 
 $colors: (
@@ -33,12 +34,12 @@ $material-dark: map-merge(
 $material-light: map-merge(
   $material-light,
   (
-    'app-bar': map-get($mytermLight, 'base'),
-    "background": map-get($mytermLight, 'base'),
-    'bottom-navigation': map-get($mytermLight, 'base'),
-    'cards': map-get($mytermLight, 'lighten-1'),
-    'chips': map-get($mytermLight, 'lighten-1'),
-    'toolbar': map-get($mytermLight, 'base'),
+    'app-bar': map-get($mytermLight, 'lighten-1'),
+    "background": map-get($mytermLight, 'lighten-1'),
+    'bottom-navigation': map-get($mytermLight, 'lighten-1'),
+    'cards': map-get($mytermLight, 'base'),
+    'chips': map-get($mytermLight, 'lighten-2'),
+    'toolbar': map-get($mytermLight, 'lighten-1'),
   )
 );
 
