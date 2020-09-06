@@ -47,7 +47,7 @@ export default {
       if (this.isFab) {
         return;
       }
-      return this.isSaved ? 'primary' : this.darkMode ? 'white' : '#212121';
+      return this.isSaved ? 'primary' : this.darkMode ? 'white' : '#737373';
     },
     isSaved() {
       return this.savedCourses.some(
