@@ -12,7 +12,7 @@ import './scss/variables.scss';
 
 Vue.use(
   new VueSocketIO({
-    debug: true,
+    debug: false,
     connection: 'https://myterm-socket.herokuapp.com/'
   })
 );
