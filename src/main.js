@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueGtag from 'vue-gtag';
 import Toast from 'vue-toastification';
+import VueSocketIO from 'vue-socket.io';
 import 'vue-toastification/dist/index.css';
 import App from './App';
 import router from './router';
@@ -8,6 +9,13 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import './registerServiceWorker';
 import './scss/variables.scss';
+
+Vue.use(
+  new VueSocketIO({
+    debug: false,
+    connection: 'https://myterm-socket.herokuapp.com/'
+  })
+);
 
 Vue.config.productionTip = false;
 

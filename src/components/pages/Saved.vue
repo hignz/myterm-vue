@@ -147,6 +147,6 @@ export default {
 <style>
 .v-list-item__title,
 .v-list-item__subtitle {
-  white-space: normal;
+  white-space: normal !important;
 }
 </style>

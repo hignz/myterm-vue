@@ -18,6 +18,14 @@ export default {
       savedAt: Date.now()
     });
   },
+  [constants.SET_ACCENT_COLOR](state, value) {
+    Vuetify.framework.theme.themes.dark.primary = value;
+    Vuetify.framework.theme.themes.light.primary = value;
+    state.accentColor = value;
+  },
+  [constants.SET_CHAT_USERNAME](state, username) {
+    state.username = username;
+  },
   [constants.SET_CURRENT_CLASS](state, period) {
     state.currentClass = period;
   },
@@ -26,11 +34,6 @@ export default {
   },
   [constants.SET_FETCHING](state, isFetching) {
     state.fetching = isFetching;
-  },
-  [constants.SET_ACCENT_COLOR](state, value) {
-    Vuetify.framework.theme.themes.dark.primary = value;
-    Vuetify.framework.theme.themes.light.primary = value;
-    state.accentColor = value;
   },
   [constants.SET_RECENT_QUERY](state, recentQuery) {
     state.recentQuery = recentQuery;

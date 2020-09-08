@@ -7,5 +7,6 @@ export default {
   savedCourses: [],
   showBottomSheet: false,
   showWeekends: false,
-  recentQuery: null
+  recentQuery: null,
+  username: null
 };
