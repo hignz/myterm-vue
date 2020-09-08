@@ -2,8 +2,8 @@
   <v-container>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Chat">
       <template v-if="loggedIn" v-slot:icon>
-        <v-btn icon class="mr-1" @click="dialog = true">
-          <v-icon>{{ mdiAccountGroup }}</v-icon>
+        <v-btn class="mr-1" icon @click="logout()">
+          <v-icon>{{ mdiLogout }}</v-icon>
         </v-btn>
       </template>
     </AppBar>
@@ -42,11 +42,19 @@
     <v-row v-else justify="center">
       <v-col cols="12" sm="12" md="8" class="pt-0">
         <v-card outlined>
-          <v-card-title class="subtitle-2 font-weight-bold py-2"
-            >{{ roomId }} <v-spacer />
-            <v-btn icon @click="logout()"
-              ><v-icon>{{ mdiLogout }}</v-icon></v-btn
+          <v-card-title class="subtitle-2 font-weight-bold py-2">
+            {{ roomId }}
+            <v-spacer />
+            <v-btn
+              v-if="$vuetify.breakpoint.smAndDown"
+              icon
+              @click="dialog = true"
             >
+              <v-icon>{{ mdiAccountGroup }}</v-icon>
+            </v-btn>
+            <v-btn v-if="$vuetify.breakpoint.mdAndUp" icon @click="logout()">
+              <v-icon>{{ mdiLogout }}</v-icon>
+            </v-btn>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text class="pa-0">
@@ -57,7 +65,7 @@
                   dense
                   two-line
                   height="100vh"
-                  style="max-height: calc(100vh - 300px);"
+                  style="max-height: calc(100vh - 320px);"
                   class="overflow-y-auto"
                 >
                   <template v-if="messages.length">
@@ -66,7 +74,7 @@
                         <v-list-item-title
                           v-if="!msg.isBot"
                           class="body-2 mb-2"
-                          :class="{ 'primary--text': msg.isBot }"
+                          :class="{ 'primary--text': msg.self }"
                           >{{ msg.username }}
                           <span class="caption text--disabled ml-1">{{
                             msg.time
@@ -95,9 +103,11 @@
                     placeholder="Message"
                     type="text"
                     autocomplete="off"
-                    :aria-autocomplete="false"
                     @click:append="sendMessage()"
                   ></v-text-field>
+                  <p v-if="concatUsersTyping.length" class="mt-2 mb-0">
+                    {{ concatUsersTyping }} is typing...
+                  </p>
                 </v-form>
               </v-col>
               <v-col
@@ -119,6 +129,9 @@
                       <v-list-item-title
                         >{{ user.username }}
                       </v-list-item-title>
+                      <v-list-item-subtitle class="caption"
+                        >joined {{ formatToNow(user.joinedAt, true) }}
+                      </v-list-item-subtitle>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -148,7 +161,9 @@
           <v-list-item v-for="(user, i) in users" :key="i" dense>
             <v-list-item-content>
               <v-list-item-title>{{ user.username }} </v-list-item-title>
-              <v-list-item-subtitle>{{ user.username }} </v-list-item-subtitle>
+              <v-list-item-subtitle
+                >joined {{ formatToNow(user.joinedAt, true) }}
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -180,8 +195,17 @@ export default {
       roomId: '',
       loggedIn: false,
       users: [],
-      dialog: false
+      dialog: false,
+      usersTyping: []
     };
+  },
+  computed: {
+    concatUsersTyping() {
+      if (!this.usersTyping.length) {
+        return [];
+      }
+      return this.usersTyping.join(', ');
+    }
   },
   created() {
     this.roomId = this.$route.params.id;
@@ -203,12 +227,16 @@ export default {
     },
     disconnect(data) {
       this.users = data.users;
-    }
+    },
+    typing() {}
   },
   beforeDestroy() {
     this.$socket.disconnect();
   },
   methods: {
+    onTyping() {
+      this.$socket.emit('isTyping');
+    },
     login() {
       if (!this.username) {
         return;
