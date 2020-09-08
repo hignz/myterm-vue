@@ -118,12 +118,10 @@
               >
                 <v-list
                   dense
-                  height="70vh"
-                  style="max-height: 60vh"
+                  height="100%"
+                  style="max-height: 80vh"
                   class="overflow-y-auto"
                 >
-                  <v-subheader>USERS</v-subheader>
-
                   <v-list-item v-for="(user, i) in users" :key="i" dense>
                     <v-list-item-content>
                       <v-list-item-title
