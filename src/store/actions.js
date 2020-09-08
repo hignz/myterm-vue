@@ -36,6 +36,9 @@ export default {
   setAccentColor({ commit }, value) {
     commit(constants.SET_ACCENT_COLOR, value);
   },
+  setChatUsername({ commit }, value) {
+    commit(constants.SET_CHAT_USERNAME, value);
+  },
   setCurrentClass({ commit }, item) {
     commit(constants.SET_CURRENT_CLASS, item);
   },

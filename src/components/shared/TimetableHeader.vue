@@ -51,7 +51,7 @@
       </v-bottom-sheet>
     </v-card-subtitle>
     <v-card-actions>
-      <v-chip class="pa-4" outlined @click="switchSemester()">
+      <v-chip class="pa-4 mr-2" outlined @click="switchSemester()">
         Semester
         <v-avatar right>
           <span class="primary--text">{{
@@ -59,11 +59,19 @@
           }}</span>
         </v-avatar>
       </v-chip>
-      <HistoryDialog
-        v-if="hasChanged"
-        class="ml-2"
-        :timetable="currentTimetable"
-      />
+      <v-btn
+        icon
+        color="primary"
+        :to="{
+          name: 'Chat',
+          params: {
+            id: courseOptions.code
+          }
+        }"
+      >
+        <v-icon>{{ mdiChatOutline }}</v-icon>
+      </v-btn>
+      <HistoryDialog v-if="hasChanged" :timetable="currentTimetable" />
       <v-spacer />
       <SaveBtn />
       <ShareBtn v-if="$vuetify.breakpoint.mdAndUp" />
@@ -102,7 +110,8 @@ import {
   mdiFingerprint,
   mdiChevronDown,
   mdiBell,
-  mdiArrowRight
+  mdiArrowRight,
+  mdiChatOutline
 } from '@mdi/js';
 import { formatToNow } from '@/utils/dateFormatter';
 import ShareBtn from './ShareBtn';
@@ -130,6 +139,7 @@ export default {
       mdiChevronDown,
       mdiBell,
       mdiArrowRight,
+      mdiChatOutline,
       links: [
         [
           {

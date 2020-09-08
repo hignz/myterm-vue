@@ -17,6 +17,10 @@ export const routeOptions = [
     props: true
   },
   {
+    path: '/chat/:id',
+    name: 'Chat'
+  },
+  {
     path: '/timetable',
     name: 'Timetable',
     props: true
