@@ -84,7 +84,6 @@ export default {
     if (this.isToday && this.isClassNow) {
       this.setCurrentClass(this.period);
     }
-    console.log(this.period);
   },
   methods: {
     ...mapActions(['setCurrentClass'])
