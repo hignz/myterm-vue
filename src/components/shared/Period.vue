@@ -10,22 +10,30 @@
     <p v-if="period.startTime" class="mt-4 mb-1">
       {{ period.startTime }} - {{ period.endTime }}
     </p>
-    <p v-if="period.name && period.name.length > 1" class="mb-1">
-      {{ period.name }}
+    <p class="mb-1">
+      {{ period.name ? period.name : period.activity }}
+    </p>
+    <p
+      v-if="
+        showExtendedInfo &&
+          period.name &&
+          !period.name.includes(period.activity)
+      "
+      class="mb-1"
+    >
+      {{ period.activity }}
     </p>
     <p
       v-if="period.room"
       class="mb-1"
       :class="{
-        'mb-4': !(period.teacher && period.teacher.length > 1)
+        'mb-4': !period.teacher
       }"
     >
-      {{ period.room.split(' -')[0] }}
+      {{ period.room.split(/ -|- /)[0] }}
+      <span v-if="showExtendedInfo"> - {{ period.type }}</span>
     </p>
-    <p v-if="showExtendedInfo" class="mb-1">
-      {{ period.room.split(' -')[1] }} - {{ period.type }}
-    </p>
-    <p v-if="period.teacher && period.teacher.length > 1" class="grey--text">
+    <p v-if="period.teacher" class="grey--text">
       {{ period.teacher }}
     </p>
   </div>
