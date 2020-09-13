@@ -40,15 +40,28 @@
               {{ formatToNow(timetable.updatedAt, true) }}.</span
             >
           </v-alert>
-          <TimetableHeader class="mb-4" />
+          <TimetableHeader />
         </template>
         <template v-if="timetable && !timetable.empty">
+          <v-row>
+            <v-col cols="12" class="text-end">
+              <v-btn-toggle v-model="view" dense>
+                <v-btn>
+                  <v-icon>{{ mdiFormatListBulleted }}</v-icon>
+                </v-btn>
+                <v-btn>
+                  <v-icon>{{ mdiGrid }}</v-icon>
+                </v-btn>
+              </v-btn-toggle>
+            </v-col>
+          </v-row>
           <CurrentClass
             v-if="currentClass"
             :period="currentClass"
             class="mb-2"
           />
-          <Timetable :timetable="timetable.data" />
+          <ListTimetable v-if="view === 0" :timetable="timetable.data" />
+          <GridTimetable v-else :timetable="timetable.data" />
         </template>
         <div
           v-if="(isLoaded && !timetable) || (timetable && timetable.empty)"
@@ -69,16 +82,23 @@
         </div>
       </v-col>
     </v-row>
+
     <SpeedDial v-if="$vuetify.breakpoint.smAndDown" />
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import Timetable from '@/components/shared/Timetable';
+import ListTimetable from '@/components/shared/ListTimetable';
+import GridTimetable from '@/components/shared/GridTimetable';
 import TimetableHeader from '@/components/shared/TimetableHeader';
 import timetableMetaInfo from '@/mixins/timetableMetaInfo';
-import { mdiTimetable, mdiDotsVertical } from '@mdi/js';
+import {
+  mdiTimetable,
+  mdiDotsVertical,
+  mdiFormatListBulleted,
+  mdiGrid
+} from '@mdi/js';
 import ShareBtn from '../shared/ShareBtn';
 import { formatToNow } from '@/utils/dateFormatter';
 export default {
@@ -94,7 +114,8 @@ export default {
         /* webpackChunkName: "speeddial" */ '@/components/shared/SpeedDial'
       ),
     ShareBtn,
-    Timetable,
+    ListTimetable,
+    GridTimetable,
     TimetableHeader
   },
   mixins: [timetableMetaInfo],
@@ -104,7 +125,10 @@ export default {
       timetable: null,
       mdiTimetable,
       mdiDotsVertical,
-      formatToNow
+      formatToNow,
+      mdiFormatListBulleted,
+      mdiGrid,
+      view: 0
     };
   },
   computed: {
