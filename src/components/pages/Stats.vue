@@ -133,14 +133,16 @@ export default {
           this.modules
             .flat()
             .filter(e => !e.break)
-            .map(el => el.name)
+            .map(el => el.name || el.activity)
         )
       ];
 
       return arr
         .map(el => ({
           name: el,
-          count: this.modules.flat().filter(elm => elm.name === el).length
+          count: this.modules
+            .flat()
+            .filter(elm => elm.name === el || elm.activity === el).length
         }))
         .sort((a, b) => b.count - a.count);
     },
