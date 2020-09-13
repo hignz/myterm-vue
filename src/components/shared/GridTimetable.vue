@@ -21,7 +21,7 @@
         <span v-if="day === 1" class="caption">{{ row }}</span>
       </v-col>
     </v-row>
-    <v-dialog v-if="dialog" v-model="dialog">
+    <v-dialog v-if="dialog" v-model="dialog" :width="400">
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
         <v-card-text class="pt-4 text-center">
