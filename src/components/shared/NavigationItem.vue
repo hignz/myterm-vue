@@ -39,7 +39,6 @@ export default {
 .v-btn:not(.v-btn--text):not(.v-btn--outlined):focus:before {
   opacity: 0;
 }
-
 .theme--dark.v-btn:focus::before {
   opacity: 0;
 }

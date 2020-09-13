@@ -45,7 +45,7 @@
         <template v-if="timetable && !timetable.empty">
           <v-row>
             <v-col cols="12" class="text-end">
-              <v-btn-toggle v-model="view" dense>
+              <v-btn-toggle v-model="view" mandatory borderless dense>
                 <v-btn>
                   <v-icon>{{ mdiFormatListBulleted }}</v-icon>
                 </v-btn>
@@ -158,9 +158,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.v-btn:not(.v-btn--text):not(.v-btn--outlined):hover:before {
-  opacity: 0 !important;
-}
-</style>
