@@ -24,13 +24,13 @@
     <v-dialog v-if="dialog" v-model="dialog" :width="400">
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
-        <v-card-text class="pt-4 text-center">
+        <v-card-text class="pt-4 pb-0 text-center">
           <p>{{ selectedPeriod.name || selectedPeriod.activity }}</p>
           <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
           <p>{{ selectedPeriod.room }}</p>
           <p>{{ selectedPeriod.teacher }}</p>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="">
           <v-spacer />
           <v-btn class="" text @click="dialog = !dialog">
             Close
@@ -158,5 +158,8 @@ export default {
 <style scoped>
 .period {
   background-color: var(--v-primary-base);
+}
+.period:hover {
+  filter: brightness(75%);
 }
 </style>
