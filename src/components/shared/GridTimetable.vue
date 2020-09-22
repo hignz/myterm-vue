@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-row no-gutters justify="center">
-      <v-col v-for="x in labels" :key="x" class="text-center">
-        <span class="caption">{{ x.substring(0, 3) }}</span>
+      <v-col v-for="(label, i) in labels" :key="label" class="text-center">
+        <span class="caption" :class="{ 'primary--text': i === todaysIndex }">{{
+          label.substring(0, 3)
+        }}</span>
       </v-col>
     </v-row>
     <v-row v-for="(row, i) in times" :key="i" no-gutters>
@@ -26,13 +28,14 @@
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
         <v-card-text class="pt-4 pb-0 text-center">
           <p>{{ selectedPeriod.name || selectedPeriod.activity }}</p>
+          <p>{{ selectedPeriod.day }}</p>
           <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
           <p>{{ selectedPeriod.room }}</p>
           <p>{{ selectedPeriod.teacher }}</p>
         </v-card-text>
-        <v-card-actions class="">
+        <v-card-actions>
           <v-spacer />
-          <v-btn class="" text @click="dialog = !dialog">
+          <v-btn text @click="dialog = !dialog">
             Close
           </v-btn>
         </v-card-actions>
@@ -43,6 +46,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { isTimeWithinRange } from '../../utils/dateHelper';
 
 export default {
   props: {
@@ -55,6 +59,7 @@ export default {
     return {
       selectedPeriod: null,
       dialog: false,
+      isTimeWithinRange,
       times: [
         '9:00',
         '9:30',
@@ -101,55 +106,47 @@ export default {
     labels() {
       const weekdays = this.days.slice(0, 6);
       return this.showWeekends ? this.days : weekdays;
+    },
+    todaysIndex() {
+      const index = new Date().getDay() - 1;
+      return index === -1 ? 7 : index;
     }
   },
   methods: {
     checkForClass(time, dayIndex) {
+      const period = this.getPeriod(time, dayIndex);
+      return !!period;
+    },
+    getPeriod(time, dayIndex) {
       if (dayIndex - 2 < 0) {
         return;
       }
 
       const day = this.filteredTimetable[dayIndex - 2];
-      if (day && day.length) {
-        const period = day.find(
-          el =>
-            el.startTime === time ||
-            (new Date(`01/01/1990 ${time}`) >=
-              new Date(`01/01/1990 ${el.startTime}`) &&
-              new Date(`01/01/1990 ${time}`) <
-                new Date(`01/01/1990 ${el.endTime}`))
-        );
 
-        if (!period) {
-          return false;
-        }
-
-        return true;
+      if (!day || !day.length) {
+        return;
       }
+
+      const period = day.find(
+        el =>
+          el.startTime === time ||
+          (el.startTime &&
+            el.endTime &&
+            isTimeWithinRange(time, { start: el.startTime, end: el.endTime }))
+      );
+
+      return period;
     },
     onPeriodSelected(time, dayIndex) {
-      if (dayIndex - 2 < 0) {
+      const period = this.getPeriod(time, dayIndex);
+
+      if (!period) {
         return;
       }
 
-      const day = this.filteredTimetable[dayIndex - 2];
-
-      if (day && day.length) {
-        const period = day.find(
-          el =>
-            el.startTime === time ||
-            (new Date(`01/01/1990 ${time}`) >=
-              new Date(`01/01/1990 ${el.startTime}`) &&
-              new Date(`01/01/1990 ${time}`) <
-                new Date(`01/01/1990 ${el.endTime}`))
-        );
-        if (!period) {
-          return;
-        }
-
-        this.selectedPeriod = period;
-        this.dialog = true;
-      }
+      this.selectedPeriod = period;
+      this.dialog = true;
     }
   }
 };
