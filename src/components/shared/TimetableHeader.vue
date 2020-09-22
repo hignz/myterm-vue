@@ -1,15 +1,12 @@
 <template>
   <v-card v-if="currentTimetable" outlined flat>
-    <v-card-title
-      style="word-break: keep-all"
-      class="subtitle-1 font-weight-bold"
-    >
+    <v-card-title style="word-break: keep-all" class="subtitle-1 ">
       {{ currentTimetable.title }}
     </v-card-title>
     <v-card-subtitle>
       <v-menu v-if="$vuetify.breakpoint.mdAndUp" offset-y max-width="200">
         <template v-slot:activator="{ on }">
-          <p class="pointer font-weight-bold" v-on="on">
+          <p class="pointer caption" v-on="on">
             {{ currentTimetable.college }}
             <v-icon size="16" color="grey" class="">{{
               mdiChevronDown
@@ -31,7 +28,7 @@
         v-model="bottomSheet"
       >
         <template v-slot:activator="{ on }">
-          <p class="font-weight-bold" v-on="on">
+          <p class="caption" v-on="on">
             {{ currentTimetable.college }}
           </p>
         </template>
@@ -51,7 +48,7 @@
       </v-bottom-sheet>
     </v-card-subtitle>
     <v-card-actions>
-      <v-chip class="pa-4 mr-2" outlined @click="switchSemester()">
+      <v-chip class="mr-2" outlined @click="switchSemester()">
         Semester
         <v-avatar right>
           <span class="primary--text">{{
@@ -61,7 +58,6 @@
       </v-chip>
       <v-btn
         icon
-        color="primary"
         :to="{
           name: 'Chat',
           params: {
@@ -88,7 +84,7 @@
         }"
       >
         <v-icon>
-          {{ mdiArrowRight }}
+          {{ mdiChartBoxOutline }}
         </v-icon>
       </v-btn>
     </v-card-actions>
@@ -111,9 +107,10 @@ import {
   mdiChevronDown,
   mdiBell,
   mdiArrowRight,
-  mdiChatOutline
+  mdiChatOutline,
+  mdiChartBoxOutline
 } from '@mdi/js';
-import { formatToNow } from '@/utils/dateFormatter';
+import { formatToNow } from '@/utils/dateHelper';
 import ShareBtn from './ShareBtn';
 
 export default {
@@ -140,6 +137,7 @@ export default {
       mdiBell,
       mdiArrowRight,
       mdiChatOutline,
+      mdiChartBoxOutline,
       links: [
         [
           {
