@@ -2,9 +2,8 @@
   <v-btn
     v-if="item.showOnFirstVisit || (!item.showOnFirstVisit && recentQuery)"
     :to="{ path: item.route }"
-    :active-class="activeClass"
   >
-    <span>{{ item.text }}</span>
+    <span v-if="!showIcon">{{ item.text }}</span>
     <v-icon v-if="showIcon">
       {{ item.icon }}
     </v-icon>
@@ -23,10 +22,6 @@ export default {
     showIcon: {
       type: Boolean,
       default: false
-    },
-    activeClass: {
-      type: String,
-      required: true
     }
   },
   computed: {

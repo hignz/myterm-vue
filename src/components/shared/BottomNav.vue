@@ -1,11 +1,16 @@
 <template>
-  <v-bottom-navigation class="elevation-0" grow shift app>
+  <v-bottom-navigation
+    class="elevation-0"
+    grow
+    height="50"
+    app
+    active-class="active-nav"
+  >
     <NavigationItem
       v-for="item in items"
       :key="item.text"
       :item="item"
       :show-icon="true"
-      active-class="active-nav"
     />
   </v-bottom-navigation>
 </template>
@@ -21,3 +26,9 @@ export default {
   mixins: [navigationItems]
 };
 </script>
+
+<style scoped>
+.v-btn:not(.v-btn--text):not(.v-btn--outlined):hover:before {
+  opacity: 0 !important;
+}
+</style>
