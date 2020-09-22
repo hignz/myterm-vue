@@ -108,8 +108,8 @@ export default {
       return this.showWeekends ? this.days : weekdays;
     },
     todaysIndex() {
-      const index = new Date().getDay() - 1;
-      return index === -1 ? 7 : index;
+      const index = new Date().getDay();
+      return index === 0 ? 7 : index;
     }
   },
   methods: {
