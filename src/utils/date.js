@@ -22,3 +22,23 @@ export function isTimeWithinRange(time, range) {
       new Date(`01/01/1990 ${range.end}`).getTime()
   );
 }
+
+export function isTimePassed(time, target) {
+  return (
+    new Date(`01/01/1990 ${time}`).getTime() >
+    new Date(`01/01/1990 ${target}`).getTime()
+  );
+}
+
+export function getCurrentSemester() {
+  const today = new Date();
+  const year = today.getFullYear();
+
+  const semester =
+    Date.parse(today) >= Date.parse(`${year}-07-20`) &&
+    Date.parse(today) <= Date.parse(`${year}-12-19`)
+      ? '0'
+      : '1';
+
+  return semester;
+}
