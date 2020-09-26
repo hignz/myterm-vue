@@ -36,6 +36,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { getCurrentSemester } from '@/utils/date';
 
 export default {
   data() {
@@ -48,7 +49,8 @@ export default {
       },
       selectedCollege: '',
       selectedCourse: null,
-      valid: false
+      valid: false,
+      getCurrentSemester
     };
   },
   computed: {
@@ -71,15 +73,8 @@ export default {
       if (!this.$refs.form.validate()) {
         return;
       }
-      const today = new Date();
-      const year = today.getFullYear();
 
-      const sem =
-        Date.parse(today) >= Date.parse(`${year}-07-20`) &&
-        Date.parse(today) <= Date.parse(`${year}-12-19`)
-          ? '0'
-          : '1';
-
+      const sem = this.getCurrentSemester();
       this.$router.push({
         path: 'timetable',
         query: {
