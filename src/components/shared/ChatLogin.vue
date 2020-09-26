@@ -3,7 +3,7 @@
     <v-card-title class="subtitle-1">Room - {{ roomId }}</v-card-title>
     <v-card-text style="height:100%">
       <p class="font-weight-bold mb-8">
-        Chat with your class mates, post information about cancelled classes or
+        Chat with your classmates, post information about cancelled classes or
         ask about upcoming assignments
       </p>
       <v-form @submit.prevent="login()">

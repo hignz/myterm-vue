@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { formatToNow } from '../../utils/dateHelper';
+import { formatToNow } from '@/utils/date';
 
 export default {
   props: {

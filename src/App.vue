@@ -43,6 +43,10 @@ body {
   box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
 }
 
+a.active-nav > span > span.v-icon {
+  color: var(--v-primary-base) !important;
+}
+
 .dark-border {
   border: thin solid rgba(255, 255, 255, 0.12) !important;
 }

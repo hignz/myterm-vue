@@ -96,10 +96,10 @@
 </template>
 
 <script>
+import { mdiDelete, mdiHeartBroken } from '@mdi/js';
+import { mapState, mapActions } from 'vuex';
 import AppBar from '@/components/shared/AppBar';
 import genericMetaInfo from '@/mixins/genericMetaInfo';
-import { mapState, mapActions } from 'vuex';
-import { mdiDelete, mdiHeartBroken } from '@mdi/js';
 
 export default {
   components: {

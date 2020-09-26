@@ -110,7 +110,7 @@ import {
   mdiChatOutline,
   mdiChartBoxOutline
 } from '@mdi/js';
-import { formatToNow } from '@/utils/dateHelper';
+import { formatToNow } from '@/utils/date';
 import ShareBtn from './ShareBtn';
 
 export default {

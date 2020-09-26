@@ -18,7 +18,6 @@ export default {
           text: 'Timetable',
           icon: mdiTimetable,
           route: '/timetable',
-          query: this.$store.state.recentQuery,
           showOnFirstVisit: false
         },
         {

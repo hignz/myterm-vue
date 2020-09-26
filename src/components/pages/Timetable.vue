@@ -45,12 +45,18 @@
         <template v-if="timetable && !timetable.empty">
           <v-row>
             <v-col cols="12" class="text-end">
-              <v-btn-toggle v-model="view" mandatory borderless dense>
+              <v-btn-toggle
+                v-model="view"
+                mandatory
+                borderless
+                dense
+                active-class="active-view"
+              >
                 <v-btn>
-                  <v-icon>{{ mdiFormatListBulleted }}</v-icon>
+                  <v-icon color="#848484">{{ mdiFormatListBulleted }}</v-icon>
                 </v-btn>
                 <v-btn>
-                  <v-icon>{{ mdiGrid }}</v-icon>
+                  <v-icon color="#848484">{{ mdiGrid }}</v-icon>
                 </v-btn>
               </v-btn-toggle>
             </v-col>
@@ -82,25 +88,24 @@
         </div>
       </v-col>
     </v-row>
-
     <SpeedDial v-if="$vuetify.breakpoint.smAndDown" />
   </v-container>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
-import ListTimetable from '@/components/shared/ListTimetable';
-import GridTimetable from '@/components/shared/GridTimetable';
-import TimetableHeader from '@/components/shared/TimetableHeader';
-import timetableMetaInfo from '@/mixins/timetableMetaInfo';
 import {
   mdiTimetable,
   mdiDotsVertical,
   mdiFormatListBulleted,
   mdiGrid
 } from '@mdi/js';
-import ShareBtn from '../shared/ShareBtn';
-import { formatToNow } from '@/utils/dateFormatter';
+import { mapActions, mapState } from 'vuex';
+import ListTimetable from '@/components/shared/ListTimetable';
+import GridTimetable from '@/components/shared/GridTimetable';
+import TimetableHeader from '@/components/shared/TimetableHeader';
+import timetableMetaInfo from '@/mixins/timetableMetaInfo';
+import ShareBtn from '@/components/shared/ShareBtn';
+import { formatToNow } from '@/utils/date';
 export default {
   components: {
     AppBar: () =>
@@ -158,3 +163,14 @@ export default {
   }
 };
 </script>
+
+<style>
+.active-view.theme--dark > span > span {
+  color: white !important;
+}
+.active-view.theme--light > span > span {
+  color: #505050 !important;
+}
+
+/* #app > div > main > div > div > div > div > div.row > div > div > button.v-btn.t.v-btn--active.v-btn--contained.theme--dark.v-size--default > span > span */
+</style>

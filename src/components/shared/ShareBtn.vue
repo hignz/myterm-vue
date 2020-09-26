@@ -52,7 +52,7 @@ export default {
   methods: {
     copyUrlToClipboard() {
       navigator.clipboard.writeText(this.timetableUrl).then(() => {
-        this.$toast.success('URL copied!');
+        this.$toast.success('URL copied to clipboard!');
       });
     },
     openShareMenu() {

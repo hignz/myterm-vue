@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" :width="425">
     <template v-slot:activator="{ on }">
-      <v-btn class="ml-2" color="primary" icon v-on="on">
+      <v-btn class="ml-2" icon v-on="on">
         <v-icon>
           {{ mdiBell }}
         </v-icon>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { formatToNow } from '@/utils/dateFormatter';
+import { formatToNow } from '@/utils/date';
 import { mdiBell } from '@mdi/js';
 
 export default {
