@@ -21,9 +21,9 @@ import navigationItems from '@/mixins/navigationItems';
 
 export default {
   components: {
-    NavigationItem
+    NavigationItem,
   },
-  mixins: [navigationItems]
+  mixins: [navigationItems],
 };
 </script>
 

@@ -26,28 +26,28 @@ export default {
       return value >= 60
         ? `${hours} hour${hours === 1 ? '' : 's'}`
         : `${value} minutes`;
-    }
+    },
   },
   props: {
     period: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {
       items: [
         {
           title: 'Room Booking',
-          url: 'https://libreserve.itsligo.ie/'
-        }
-      ]
+          url: 'https://libreserve.itsligo.ie/',
+        },
+      ],
     };
   },
   methods: {
     navigateTo(url) {
       window.open(url);
-    }
-  }
+    },
+  },
 };
 </script>

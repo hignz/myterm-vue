@@ -20,7 +20,7 @@
     </template>
 
     <template v-slot:extension>
-      <ProgressBar style="top: -2px;" />
+      <ProgressBar style="top: -2px" />
     </template>
   </v-app-bar>
 </template>
@@ -31,28 +31,28 @@ import ProgressBar from '@/components/shared/ProgressBar';
 
 export default {
   components: {
-    ProgressBar
+    ProgressBar,
   },
   props: {
     title: {
       type: String,
-      default: 'MyTerm'
+      default: 'MyTerm',
     },
     showBackButton: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
-      mdiArrowLeft
+      mdiArrowLeft,
     };
   },
   methods: {
     onBack() {
       this.$router.go(-1);
-    }
-  }
+    },
+  },
 };
 </script>
 

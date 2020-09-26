@@ -12,7 +12,7 @@
       />
     </v-btn-toggle>
     <template v-slot:extension>
-      <ProgressBar style="top: -4px;" />
+      <ProgressBar style="top: -4px" />
     </template>
   </v-app-bar>
 </template>
@@ -25,9 +25,9 @@ import ProgressBar from '@/components/shared/ProgressBar';
 export default {
   components: {
     NavigationItem,
-    ProgressBar
+    ProgressBar,
   },
-  mixins: [navigationItems]
+  mixins: [navigationItems],
 };
 </script>
 

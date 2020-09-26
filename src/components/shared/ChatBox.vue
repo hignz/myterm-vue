@@ -5,7 +5,7 @@
       dense
       two-line
       height="100vh"
-      style="max-height: calc(100vh - 320px);"
+      style="max-height: calc(100vh - 320px)"
       class="overflow-y-auto"
     >
       <template v-if="messages.length">
@@ -57,7 +57,7 @@ export default {
       message: '',
       messages: [],
       mdiSend,
-      usersTyping: []
+      usersTyping: [],
     };
   },
   sockets: {
@@ -69,7 +69,7 @@ export default {
         elm.scrollTop = elm.scrollHeight;
       }, 10);
     },
-    typing() {}
+    typing() {},
   },
   computed: {
     concatUsersTyping() {
@@ -77,7 +77,7 @@ export default {
         return [];
       }
       return this.usersTyping.join(', ');
-    }
+    },
   },
   methods: {
     onTyping() {
@@ -92,8 +92,8 @@ export default {
     },
     goBack() {
       this.$router.go(-1);
-    }
-  }
+    },
+  },
 };
 </script>
 

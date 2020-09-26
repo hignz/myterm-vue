@@ -56,11 +56,9 @@
         <v-icon class="mb-4 grey--text" size="50">
           {{ mdiHeartBroken }}
         </v-icon>
+        <p class="grey--text">You have no saved courses</p>
         <p class="grey--text">
-          You have no saved courses.
-        </p>
-        <p class="grey--text">
-          To save a course, navigate to a timetable and press the heart icon.
+          To save a course, navigate to a timetable and press the heart icon
         </p>
       </v-col>
     </v-row>
@@ -86,9 +84,7 @@
           <v-btn class="mr-2" text @click="showDialog = !showDialog">
             Cancel
           </v-btn>
-          <v-btn color="error darken-1" @click="deleteCourse()">
-            Remove
-          </v-btn>
+          <v-btn color="error darken-1" @click="deleteCourse()"> Remove </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -103,7 +99,7 @@ import genericMetaInfo from '@/mixins/genericMetaInfo';
 
 export default {
   components: {
-    AppBar
+    AppBar,
   },
   mixins: [genericMetaInfo],
   data() {
@@ -111,11 +107,11 @@ export default {
       showDialog: false,
       selectedTimetable: null,
       mdiDelete,
-      mdiHeartBroken
+      mdiHeartBroken,
     };
   },
   computed: {
-    ...mapState(['savedCourses', 'darkMode'])
+    ...mapState(['savedCourses', 'darkMode']),
   },
   methods: {
     ...mapActions(['removeTimetable']),
@@ -125,8 +121,8 @@ export default {
         query: {
           code: course.code,
           college: course.collegeIndex,
-          sem: course.sem
-        }
+          sem: course.sem,
+        },
       });
     },
     deleteCourse() {
@@ -139,8 +135,8 @@ export default {
     openDeleteDialog(course) {
       this.selectedTimetable = course;
       this.showDialog = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

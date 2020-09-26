@@ -17,16 +17,16 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true
+      required: true,
     },
     showIcon: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
-    ...mapState(['recentQuery'])
-  }
+    ...mapState(['recentQuery']),
+  },
 };
 </script>
 

@@ -18,8 +18,8 @@
                 query: {
                   code: courseOptions.code,
                   college: courseOptions.college,
-                  sem: courseOptions.sem
-                }
+                  sem: courseOptions.sem,
+                },
               }"
               >More</v-list-item
             >
@@ -79,9 +79,7 @@
           <p class="grey--text">
             This timetable doesn't seem to have any classes.
           </p>
-          <p class="grey--text">
-            Are you sure you chose the correct course?
-          </p>
+          <p class="grey--text">Are you sure you chose the correct course?</p>
           <v-btn x-large color="primary" text :to="{ path: '/' }">
             Try again
           </v-btn>
@@ -97,7 +95,7 @@ import {
   mdiTimetable,
   mdiDotsVertical,
   mdiFormatListBulleted,
-  mdiGrid
+  mdiGrid,
 } from '@mdi/js';
 import { mapActions, mapState } from 'vuex';
 import ListTimetable from '@/components/shared/ListTimetable';
@@ -121,7 +119,7 @@ export default {
     ShareBtn,
     ListTimetable,
     GridTimetable,
-    TimetableHeader
+    TimetableHeader,
   },
   mixins: [timetableMetaInfo],
   data() {
@@ -133,7 +131,7 @@ export default {
       formatToNow,
       mdiFormatListBulleted,
       mdiGrid,
-      view: 0
+      view: 0,
     };
   },
   computed: {
@@ -142,11 +140,11 @@ export default {
       return Object.keys(this.$route.query).length > 0
         ? this.$route.query
         : this.recentQuery;
-    }
+    },
   },
   created() {
     this.fetchTimetable(this.courseOptions)
-      .then(res => {
+      .then((res) => {
         this.timetable = res;
       })
       .finally(() => {
@@ -154,13 +152,13 @@ export default {
       });
   },
   methods: {
-    ...mapActions(['fetchTimetable', 'setFetching', 'setCurrentClass'])
+    ...mapActions(['fetchTimetable', 'setFetching', 'setCurrentClass']),
   },
   beforeRouteLeave(to, from, next) {
     this.setFetching(false);
     this.setCurrentClass(null);
     next();
-  }
+  },
 };
 </script>
 

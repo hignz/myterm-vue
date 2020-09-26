@@ -3,7 +3,7 @@
     v-model="color"
     show-swatches
     mode="hexa"
-    style="color: white;"
+    style="color: white"
     :hide-mode-switch="true"
     @input="updateAccent()"
   />
@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       type: 'hex',
-      hex: '#123456'
+      hex: '#123456',
     };
   },
   computed: {
@@ -27,8 +27,8 @@ export default {
       },
       set(v) {
         this[this.type] = v;
-      }
-    }
+      },
+    },
   },
   created() {
     this.hex = this.$vuetify.theme.framework.theme.isDark
@@ -39,8 +39,8 @@ export default {
     ...mapActions(['setAccentColor']),
     updateAccent() {
       this.setAccentColor(this.color);
-    }
-  }
+    },
+  },
 };
 </script>
 

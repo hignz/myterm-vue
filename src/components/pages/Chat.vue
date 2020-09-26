@@ -10,7 +10,7 @@
 
     <v-row v-if="!loggedIn" justify="center">
       <v-col cols="11" sm="11" md="3">
-        <v-row align="center" justify="center" style="height: 300px;">
+        <v-row align="center" justify="center" style="height: 300px">
           <v-alert outlined dense>
             This feature is experimental. Chat messages currently DO NOT
             persist.
@@ -107,7 +107,7 @@ export default {
       import(/* webpackChunkName: "bottomNav" */ '@/components/shared/AppBar'),
     ChatBox,
     ChatLogin,
-    ChatUserListItem
+    ChatUserListItem,
   },
   data() {
     return {
@@ -117,7 +117,7 @@ export default {
       roomId: '',
       loggedIn: false,
       users: [],
-      dialog: false
+      dialog: false,
     };
   },
   created() {
@@ -129,7 +129,7 @@ export default {
     },
     disconnect(data) {
       this.users = data.users;
-    }
+    },
   },
   beforeDestroy() {
     this.$socket.disconnect();
@@ -139,7 +139,7 @@ export default {
       this.$socket.disconnect();
       this.loggedIn = false;
       this.username = '';
-    }
-  }
+    },
+  },
 };
 </script>

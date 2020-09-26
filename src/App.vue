@@ -19,14 +19,14 @@ export default {
         /* webpackChunkName: "bottomNav" */ '@/components/shared/BottomNav'
       ),
     NavBar: () =>
-      import(/* webpackChunkName: "navbar" */ '@/components/shared/Navbar')
+      import(/* webpackChunkName: "navbar" */ '@/components/shared/Navbar'),
   },
   computed: {
-    ...mapState(['darkMode'])
+    ...mapState(['darkMode']),
   },
   mounted() {
     this.$vuetify.theme.isDark = this.darkMode;
-  }
+  },
 };
 </script>
 

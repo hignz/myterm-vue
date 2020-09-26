@@ -10,23 +10,23 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    ...routeOptions.map(route => {
+    ...routeOptions.map((route) => {
       return {
         ...route,
         component: () =>
           import(
             /* webpackChunkName: "[request]" */ `../components/pages/${route.name}.vue`
-          )
+          ),
       };
     }),
     {
       path: '*',
-      redirect: '/'
-    }
+      redirect: '/',
+    },
   ],
   scrollBehavior() {
     return { x: 0, y: 0 };
-  }
+  },
 });
 
 export default router;

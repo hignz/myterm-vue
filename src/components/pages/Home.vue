@@ -13,9 +13,7 @@
     </v-container>
     <footer>
       <div class="footer text-center white--text">
-        <p class="display-1 mb-4 text-center">
-          MyTerm.me
-        </p>
+        <p class="display-1 mb-4 text-center">MyTerm.me</p>
         <p class="pb-0 mb-0 subtitle-2">
           is a service for students of the IT Sligo and Limerick IT that
           provides access to student timetables, save functionality and quick
@@ -43,12 +41,12 @@ export default {
   components: {
     SelectionForm,
     AppBar: () =>
-      import(/* webpackChunkName: "appBar" */ '@/components/shared/AppBar')
+      import(/* webpackChunkName: "appBar" */ '@/components/shared/AppBar'),
   },
   mixins: [genericMetaInfo],
   computed: {
-    ...mapState(['darkMode'])
-  }
+    ...mapState(['darkMode']),
+  },
 };
 </script>
 

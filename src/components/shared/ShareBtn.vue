@@ -4,7 +4,7 @@
     :icon="isIcon"
     :small="isSmall"
     :class="{
-      'primary darken-2': isFab
+      'primary darken-2': isFab,
     }"
     @click="canUseNavigator ? openShareMenu() : copyUrlToClipboard()"
   >
@@ -22,20 +22,20 @@ export default {
   props: {
     isFab: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isIcon: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isSmall: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      mdiShareVariant
+      mdiShareVariant,
     };
   },
   computed: {
@@ -47,7 +47,7 @@ export default {
       return `https://myterm.me/timetable?code=${decodeURIComponent(
         this.recentQuery.code
       )}&college=${this.recentQuery.college}&sem=${this.recentQuery.sem}`;
-    }
+    },
   },
   methods: {
     copyUrlToClipboard() {
@@ -60,12 +60,10 @@ export default {
         navigator.share({
           title: 'MyTerm',
           text: 'Your timetable at a glance.',
-          url: this.timetableUrl
+          url: this.timetableUrl,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style></style>

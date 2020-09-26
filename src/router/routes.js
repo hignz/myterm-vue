@@ -1,28 +1,28 @@
 export const routeOptions = [
   {
     path: '/',
-    name: 'Home'
+    name: 'Home',
   },
   {
     path: '/saved',
-    name: 'Saved'
+    name: 'Saved',
   },
   {
     path: '/settings',
-    name: 'Settings'
+    name: 'Settings',
   },
   {
     path: '/timetable/stats',
     name: 'Stats',
-    props: true
+    props: true,
   },
   {
     path: '/chat/:id',
-    name: 'Chat'
+    name: 'Chat',
   },
   {
     path: '/timetable',
     name: 'Timetable',
-    props: true
-  }
+    props: true,
+  },
 ];

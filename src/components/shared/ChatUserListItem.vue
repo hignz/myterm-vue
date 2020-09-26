@@ -16,14 +16,14 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {
-      formatToNow
+      formatToNow,
     };
-  }
+  },
 };
 </script>
 

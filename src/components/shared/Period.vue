@@ -4,14 +4,12 @@
     :class="{
       'text--disabled': isClassOver,
       'primary--text font-weight-bold': isClassNow,
-      pointer: hasExtendedInfo
+      pointer: hasExtendedInfo,
     }"
     @click="showExtendedInfo = !showExtendedInfo"
   >
     <v-chip v-if="isElective" class="mt-4" small color="error" outlined>
-      <span>
-        Elective
-      </span>
+      <span> Elective </span>
     </v-chip>
     <p v-if="period.startTime" class="mt-4 mb-1">
       {{ period.startTime }} - {{ period.endTime }}
@@ -26,7 +24,7 @@
       v-if="period.room"
       class="mb-1"
       :class="{
-        'mb-4': !period.teacher
+        'mb-4': !period.teacher,
       }"
     >
       {{ period.room.split(/ -|- /)[0] }}
@@ -48,16 +46,16 @@ export default {
   props: {
     period: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     isToday: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      showExtendedInfo: false
+      showExtendedInfo: false,
     };
   },
   computed: {
@@ -80,7 +78,7 @@ export default {
         this.isToday &&
         isTimeWithinRange(this.currentTime, {
           start: this.period.startTime,
-          end: this.period.endTime
+          end: this.period.endTime,
         })
       );
     },
@@ -88,7 +86,7 @@ export default {
       return (
         this.isToday && isTimePassed(this.currentTime, this.period.endTime)
       );
-    }
+    },
   },
   created() {
     if (this.isToday && this.isClassNow) {
@@ -96,7 +94,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setCurrentClass'])
-  }
+    ...mapActions(['setCurrentClass']),
+  },
 };
 </script>

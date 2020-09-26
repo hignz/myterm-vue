@@ -38,9 +38,7 @@
           </div>
           <div v-else>
             <v-chip class="mb-4" small color="error" outlined>
-              <span>
-                Elective
-              </span>
+              <span>Elective</span>
             </v-chip>
             <p>{{ selectedPeriod.day }}</p>
             <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
@@ -48,9 +46,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn text @click="dialog = !dialog">
-            Close
-          </v-btn>
+          <v-btn text @click="dialog = !dialog">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -65,8 +61,8 @@ export default {
   props: {
     timetable: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -97,7 +93,7 @@ export default {
         '19:30',
         '20:00',
         '20:30',
-        '21:00'
+        '21:00',
       ],
       days: [
         '',
@@ -107,8 +103,8 @@ export default {
         'Thursday',
         'Friday',
         'Saturday',
-        'Sunday'
-      ]
+        'Sunday',
+      ],
     };
   },
   computed: {
@@ -128,7 +124,7 @@ export default {
     todaysIndex() {
       const index = new Date().getDay();
       return index === 0 ? 7 : index;
-    }
+    },
   },
   methods: {
     checkForClass(time, dayIndex) {
@@ -147,7 +143,7 @@ export default {
       }
 
       const period = day.find(
-        el =>
+        (el) =>
           el.startTime === time ||
           (el.startTime &&
             el.endTime &&
@@ -165,8 +161,8 @@ export default {
 
       this.selectedPeriod = period;
       this.dialog = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

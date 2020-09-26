@@ -7,12 +7,12 @@ export default {
   props: {
     chartData: {
       type: Array,
-      default: null
+      default: null,
     },
     chartLabels: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
@@ -27,12 +27,12 @@ export default {
         'rgba(196, 214, 176, 1)',
         'rgba(246, 71, 64, 1)',
         'rgba(66, 217, 200, 1)',
-        'rgba(130, 147, 153, 1)'
-      ]
+        'rgba(130, 147, 153, 1)',
+      ],
     };
   },
   computed: {
-    ...mapState(['darkMode'])
+    ...mapState(['darkMode']),
   },
   mounted() {
     this.renderChart(
@@ -44,9 +44,9 @@ export default {
             borderWidth: 1,
             backgroundColor: this.colors,
             borderColor: '#fff',
-            data: this.chartData
-          }
-        ]
+            data: this.chartData,
+          },
+        ],
       },
       {
         responsive: true,
@@ -54,9 +54,9 @@ export default {
         maintainAspectRatio: false,
         legend: {
           labels: {
-            fontColor: this.darkMode ? '#b7b9bb' : '#8e8e8e'
-          }
-        }
+            fontColor: this.darkMode ? '#b7b9bb' : '#8e8e8e',
+          },
+        },
       }
     );
   },
@@ -64,6 +64,6 @@ export default {
     if (this.$data._chart) {
       this.$data._chart.destroy();
     }
-  }
+  },
 };
 </script>

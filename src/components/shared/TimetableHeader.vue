@@ -1,6 +1,6 @@
 <template>
   <v-card v-if="currentTimetable" outlined flat>
-    <v-card-title style="word-break: keep-all" class="subtitle-1 ">
+    <v-card-title style="word-break: keep-all" class="subtitle-1">
       {{ currentTimetable.title }}
     </v-card-title>
     <v-card-subtitle>
@@ -61,8 +61,8 @@
         :to="{
           name: 'Chat',
           params: {
-            id: courseOptions.code
-          }
+            id: courseOptions.code,
+          },
         }"
       >
         <v-icon>{{ mdiChatOutline }}</v-icon>
@@ -79,8 +79,8 @@
           query: {
             code: courseOptions.code,
             college: courseOptions.college,
-            sem: courseOptions.sem
-          }
+            sem: courseOptions.sem,
+          },
         }"
       >
         <v-icon>
@@ -108,7 +108,7 @@ import {
   mdiBell,
   mdiArrowRight,
   mdiChatOutline,
-  mdiChartBoxOutline
+  mdiChartBoxOutline,
 } from '@mdi/js';
 import { formatToNow } from '@/utils/date';
 import ShareBtn from './ShareBtn';
@@ -120,7 +120,7 @@ export default {
         /* webpackChunkName: "historyDialog" */ '@/components/shared/HistoryDialog'
       ),
     SaveBtn,
-    ShareBtn
+    ShareBtn,
   },
   data() {
     return {
@@ -143,38 +143,38 @@ export default {
           {
             title: 'Email',
             url: 'http://outlook.com/mail.itsligo.ie',
-            icon: mdiMail
+            icon: mdiMail,
           },
           {
             title: 'Moodle',
             url: 'https://vle.itsligo.ie/my/index.php',
-            icon: mdiSchool
+            icon: mdiSchool,
           },
           {
             title: 'Room Booking',
             url: 'https://libreserve.itsligo.ie/',
-            icon: mdiGoogleClassroom
+            icon: mdiGoogleClassroom,
           },
           {
             title: 'Virtual Desktop',
             url: 'https://vdesktop.itsligo.ie/Citrix/SligoWeb/',
-            icon: mdiDesktopClassic
+            icon: mdiDesktopClassic,
           },
           {
             title: 'Library',
             url: 'https://library.itsligo.ie/',
-            icon: mdiLibraryShelves
-          }
+            icon: mdiLibraryShelves,
+          },
         ],
         [],
         [
           {
             title: 'Moodle',
-            url: 'https://moodle.lit.ie/'
-          }
-        ]
+            url: 'https://moodle.lit.ie/',
+          },
+        ],
       ],
-      formatToNow
+      formatToNow,
     };
   },
   computed: {
@@ -185,7 +185,7 @@ export default {
       },
       set(value) {
         this.toggleBottomSheet(value);
-      }
+      },
     },
     courseOptions() {
       return Object.keys(this.$route.query).length > 0
@@ -196,7 +196,7 @@ export default {
       return (
         this.currentTimetable.createdAt !== this.currentTimetable.updatedAt
       );
-    }
+    },
   },
   methods: {
     ...mapActions(['toggleBottomSheet']),
@@ -210,11 +210,11 @@ export default {
           query: {
             code: this.courseOptions.code,
             college: this.courseOptions.college,
-            sem: this.courseOptions.sem === '0' ? '1' : '0'
-          }
+            sem: this.courseOptions.sem === '0' ? '1' : '0',
+          },
         })
         .catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>

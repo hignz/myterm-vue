@@ -22,12 +22,12 @@ export default {
   props: {
     values: {
       type: Array,
-      required: true
+      required: true,
     },
     labels: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     ...mapState(['darkMode']),
@@ -39,7 +39,7 @@ export default {
     },
     gradient() {
       return [this.$vuetify.theme.defaults.dark.primary, '#F0F'];
-    }
-  }
+    },
+  },
 };
 </script>

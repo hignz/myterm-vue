@@ -17,9 +17,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn class="mr-2" text @click="dialog = !dialog">
-          Close
-        </v-btn>
+        <v-btn class="mr-2" text @click="dialog = !dialog">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -33,16 +31,16 @@ export default {
   props: {
     timetable: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       dialog: false,
       formatToNow,
-      mdiBell
+      mdiBell,
     };
-  }
+  },
 };
 </script>
 

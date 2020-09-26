@@ -2,7 +2,7 @@ export default {
   metaInfo() {
     if (this.isLoading || this.notFound || !this.timetable) {
       return {
-        title: 'Not found | MyTerm'
+        title: 'Not found | MyTerm',
       };
     }
 
@@ -16,25 +16,25 @@ export default {
       meta: [
         {
           name: 'description',
-          content: `${title}, ${college}, ${description}, MyTerm.me allows users to view and save timetables of IT Sligo and Limerick IT`
+          content: `${title}, ${college}, ${description}, MyTerm.me allows users to view and save timetables of IT Sligo and Limerick IT`,
         },
         {
           name: 'keywords',
-          content: defaultKeywords
+          content: defaultKeywords,
         },
         {
           name: 'og:description',
-          content: description
+          content: description,
         },
         {
           name: 'og:title',
-          content: ogTitle
+          content: ogTitle,
         },
         {
           name: 'twitter:description',
-          content: description
-        }
-      ]
+          content: description,
+        },
+      ],
     };
-  }
+  },
 };

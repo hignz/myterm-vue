@@ -14,16 +14,16 @@ export default {
   props: {
     moduleData: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       headers: [
         { text: 'Module', value: 'name', align: 'left', width: '70%' },
-        { text: 'Per week', value: 'count', align: 'center', width: '30%' }
-      ]
+        { text: 'Per week', value: 'count', align: 'center', width: '30%' },
+      ],
     };
-  }
+  },
 };
 </script>

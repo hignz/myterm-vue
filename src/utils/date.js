@@ -6,7 +6,7 @@ export function format(date) {
 
 export function formatToNow(date, suffix = false) {
   return formatDistanceToNow(new Date(date), {
-    addSuffix: suffix
+    addSuffix: suffix,
   });
 }
 

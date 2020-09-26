@@ -1,7 +1,7 @@
 <template>
   <v-card outlined style="position: relative">
     <v-card-title class="subtitle-1">Room - {{ roomId }}</v-card-title>
-    <v-card-text style="height:100%">
+    <v-card-text style="height: 100%">
       <p class="font-weight-bold mb-8">
         Chat with your classmates, post information about cancelled classes or
         ask about upcoming assignments
@@ -30,12 +30,12 @@ export default {
   props: {
     roomId: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      username: ''
+      username: '',
     };
   },
   methods: {
@@ -48,15 +48,15 @@ export default {
 
       this.$socket.emit('joinRoom', {
         username: this.username,
-        room: this.roomId
+        room: this.roomId,
       });
 
       this.$emit('logged-in');
     },
     goBack() {
       this.$router.go(-1);
-    }
-  }
+    },
+  },
 };
 </script>
 

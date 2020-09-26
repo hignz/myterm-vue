@@ -3,7 +3,7 @@ import { mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['recentQuery'])
+    ...mapState(['recentQuery']),
   },
   data() {
     return {
@@ -12,27 +12,27 @@ export default {
           text: 'Search',
           icon: mdiMagnify,
           route: '/',
-          showOnFirstVisit: true
+          showOnFirstVisit: true,
         },
         {
           text: 'Timetable',
           icon: mdiTimetable,
           route: '/timetable',
-          showOnFirstVisit: false
+          showOnFirstVisit: false,
         },
         {
           text: 'Saved',
           icon: mdiHeart,
           route: '/saved',
-          showOnFirstVisit: true
+          showOnFirstVisit: true,
         },
         {
           text: 'Settings',
           icon: mdiCog,
           route: '/settings',
-          showOnFirstVisit: true
-        }
-      ]
+          showOnFirstVisit: true,
+        },
+      ],
     };
-  }
+  },
 };

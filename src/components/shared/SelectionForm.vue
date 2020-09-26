@@ -45,24 +45,24 @@ export default {
       courses: [],
       isLoading: false,
       rules: {
-        required: value => !!value || 'Required'
+        required: (value) => !!value || 'Required',
       },
       selectedCollege: '',
       selectedCourse: null,
       valid: false,
-      getCurrentSemester
+      getCurrentSemester,
     };
   },
   computed: {
     selectedCollegeIndex() {
       return this.colleges.indexOf(this.selectedCollege);
-    }
+    },
   },
   methods: {
     ...mapActions(['fetchCourses']),
     onCollegeChange() {
       this.fetchCourses(this.selectedCollegeIndex)
-        .then(res => {
+        .then((res) => {
           this.courses = res;
         })
         .finally(() => {
@@ -80,10 +80,10 @@ export default {
         query: {
           code: decodeURIComponent(this.selectedCourse.course),
           college: this.selectedCollegeIndex,
-          sem
-        }
+          sem,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
