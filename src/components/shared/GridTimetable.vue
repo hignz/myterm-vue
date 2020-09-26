@@ -27,11 +27,24 @@
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
         <v-card-text class="pt-4 pb-0 text-center">
-          <p>{{ selectedPeriod.name || selectedPeriod.activity }}</p>
-          <p>{{ selectedPeriod.day }}</p>
-          <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
-          <p>{{ selectedPeriod.room }}</p>
-          <p>{{ selectedPeriod.teacher }}</p>
+          <div v-if="selectedPeriod.type !== 'Elective'">
+            <p>
+              {{ selectedPeriod.name || selectedPeriod.activity }}
+            </p>
+            <p>{{ selectedPeriod.day }}</p>
+            <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
+            <p>{{ selectedPeriod.room }}</p>
+            <p>{{ selectedPeriod.teacher }}</p>
+          </div>
+          <div v-else>
+            <v-chip class="mb-4" small color="error" outlined>
+              <span>
+                Elective
+              </span>
+            </v-chip>
+            <p>{{ selectedPeriod.day }}</p>
+            <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
+          </div>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -46,7 +59,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { isTimeWithinRange } from '../../utils/dateHelper';
+import { isTimeWithinRange } from '@/utils/date';
 
 export default {
   props: {
@@ -59,7 +72,6 @@ export default {
     return {
       selectedPeriod: null,
       dialog: false,
-      isTimeWithinRange,
       times: [
         '9:00',
         '9:30',
@@ -79,7 +91,13 @@ export default {
         '16:30',
         '17:00',
         '17:30',
-        '18:00'
+        '18:00',
+        '18:30',
+        '19:00',
+        '19:30',
+        '20:00',
+        '20:30',
+        '21:00'
       ],
       days: [
         '',
