@@ -1,15 +1,12 @@
 <template>
   <v-card v-if="currentTimetable" outlined flat>
-    <v-card-title
-      style="word-break: keep-all"
-      class="subtitle-1 font-weight-bold"
-    >
+    <v-card-title style="word-break: keep-all" class="subtitle-1">
       {{ currentTimetable.title }}
     </v-card-title>
     <v-card-subtitle>
       <v-menu v-if="$vuetify.breakpoint.mdAndUp" offset-y max-width="200">
         <template v-slot:activator="{ on }">
-          <p class="pointer font-weight-bold" v-on="on">
+          <p class="pointer caption" v-on="on">
             {{ currentTimetable.college }}
             <v-icon size="16" color="grey" class="">{{
               mdiChevronDown
@@ -31,7 +28,7 @@
         v-model="bottomSheet"
       >
         <template v-slot:activator="{ on }">
-          <p class="font-weight-bold" v-on="on">
+          <p class="caption" v-on="on">
             {{ currentTimetable.college }}
           </p>
         </template>
@@ -51,7 +48,7 @@
       </v-bottom-sheet>
     </v-card-subtitle>
     <v-card-actions>
-      <v-chip class="pa-4 mr-2" outlined @click="switchSemester()">
+      <v-chip class="mr-2" outlined @click="switchSemester()">
         Semester
         <v-avatar right>
           <span class="primary--text">{{
@@ -61,12 +58,11 @@
       </v-chip>
       <v-btn
         icon
-        color="primary"
         :to="{
           name: 'Chat',
           params: {
-            id: courseOptions.code
-          }
+            id: courseOptions.code,
+          },
         }"
       >
         <v-icon>{{ mdiChatOutline }}</v-icon>
@@ -83,12 +79,12 @@
           query: {
             code: courseOptions.code,
             college: courseOptions.college,
-            sem: courseOptions.sem
-          }
+            sem: courseOptions.sem,
+          },
         }"
       >
         <v-icon>
-          {{ mdiArrowRight }}
+          {{ mdiChartBoxOutline }}
         </v-icon>
       </v-btn>
     </v-card-actions>
@@ -111,9 +107,10 @@ import {
   mdiChevronDown,
   mdiBell,
   mdiArrowRight,
-  mdiChatOutline
+  mdiChatOutline,
+  mdiChartBoxOutline,
 } from '@mdi/js';
-import { formatToNow } from '@/utils/dateFormatter';
+import { formatToNow } from '@/utils/date';
 import ShareBtn from './ShareBtn';
 
 export default {
@@ -123,7 +120,7 @@ export default {
         /* webpackChunkName: "historyDialog" */ '@/components/shared/HistoryDialog'
       ),
     SaveBtn,
-    ShareBtn
+    ShareBtn,
   },
   data() {
     return {
@@ -140,43 +137,44 @@ export default {
       mdiBell,
       mdiArrowRight,
       mdiChatOutline,
+      mdiChartBoxOutline,
       links: [
         [
           {
             title: 'Email',
             url: 'http://outlook.com/mail.itsligo.ie',
-            icon: mdiMail
+            icon: mdiMail,
           },
           {
             title: 'Moodle',
             url: 'https://vle.itsligo.ie/my/index.php',
-            icon: mdiSchool
+            icon: mdiSchool,
           },
           {
             title: 'Room Booking',
             url: 'https://libreserve.itsligo.ie/',
-            icon: mdiGoogleClassroom
+            icon: mdiGoogleClassroom,
           },
           {
             title: 'Virtual Desktop',
             url: 'https://vdesktop.itsligo.ie/Citrix/SligoWeb/',
-            icon: mdiDesktopClassic
+            icon: mdiDesktopClassic,
           },
           {
             title: 'Library',
             url: 'https://library.itsligo.ie/',
-            icon: mdiLibraryShelves
-          }
+            icon: mdiLibraryShelves,
+          },
         ],
         [],
         [
           {
             title: 'Moodle',
-            url: 'https://moodle.lit.ie/'
-          }
-        ]
+            url: 'https://moodle.lit.ie/',
+          },
+        ],
       ],
-      formatToNow
+      formatToNow,
     };
   },
   computed: {
@@ -187,7 +185,7 @@ export default {
       },
       set(value) {
         this.toggleBottomSheet(value);
-      }
+      },
     },
     courseOptions() {
       return Object.keys(this.$route.query).length > 0
@@ -198,7 +196,7 @@ export default {
       return (
         this.currentTimetable.createdAt !== this.currentTimetable.updatedAt
       );
-    }
+    },
   },
   methods: {
     ...mapActions(['toggleBottomSheet']),
@@ -212,11 +210,11 @@ export default {
           query: {
             code: this.courseOptions.code,
             college: this.courseOptions.college,
-            sem: this.courseOptions.sem === '0' ? '1' : '0'
-          }
+            sem: this.courseOptions.sem === '0' ? '1' : '0',
+          },
         })
         .catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>

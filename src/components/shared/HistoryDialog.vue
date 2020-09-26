@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" :width="425">
     <template v-slot:activator="{ on }">
-      <v-btn class="ml-2" color="primary" icon v-on="on">
+      <v-btn class="ml-2" icon v-on="on">
         <v-icon>
           {{ mdiBell }}
         </v-icon>
@@ -17,32 +17,30 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn class="mr-2" text @click="dialog = !dialog">
-          Close
-        </v-btn>
+        <v-btn class="mr-2" text @click="dialog = !dialog">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import { formatToNow } from '@/utils/dateFormatter';
+import { formatToNow } from '@/utils/date';
 import { mdiBell } from '@mdi/js';
 
 export default {
   props: {
     timetable: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       dialog: false,
       formatToNow,
-      mdiBell
+      mdiBell,
     };
-  }
+  },
 };
 </script>
 

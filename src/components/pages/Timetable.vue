@@ -18,8 +18,8 @@
                 query: {
                   code: courseOptions.code,
                   college: courseOptions.college,
-                  sem: courseOptions.sem
-                }
+                  sem: courseOptions.sem,
+                },
               }"
               >More</v-list-item
             >
@@ -45,12 +45,18 @@
         <template v-if="timetable && !timetable.empty">
           <v-row>
             <v-col cols="12" class="text-end">
-              <v-btn-toggle v-model="view" mandatory borderless dense>
+              <v-btn-toggle
+                v-model="view"
+                mandatory
+                borderless
+                dense
+                active-class="active-view"
+              >
                 <v-btn>
-                  <v-icon>{{ mdiFormatListBulleted }}</v-icon>
+                  <v-icon color="#848484">{{ mdiFormatListBulleted }}</v-icon>
                 </v-btn>
                 <v-btn>
-                  <v-icon>{{ mdiGrid }}</v-icon>
+                  <v-icon color="#848484">{{ mdiGrid }}</v-icon>
                 </v-btn>
               </v-btn-toggle>
             </v-col>
@@ -73,34 +79,31 @@
           <p class="grey--text">
             This timetable doesn't seem to have any classes.
           </p>
-          <p class="grey--text">
-            Are you sure you chose the correct course?
-          </p>
+          <p class="grey--text">Are you sure you chose the correct course?</p>
           <v-btn x-large color="primary" text :to="{ path: '/' }">
             Try again
           </v-btn>
         </div>
       </v-col>
     </v-row>
-
     <SpeedDial v-if="$vuetify.breakpoint.smAndDown" />
   </v-container>
 </template>
 
 <script>
+import {
+  mdiTimetable,
+  mdiDotsVertical,
+  mdiFormatListBulleted,
+  mdiGrid,
+} from '@mdi/js';
 import { mapActions, mapState } from 'vuex';
 import ListTimetable from '@/components/shared/ListTimetable';
 import GridTimetable from '@/components/shared/GridTimetable';
 import TimetableHeader from '@/components/shared/TimetableHeader';
 import timetableMetaInfo from '@/mixins/timetableMetaInfo';
-import {
-  mdiTimetable,
-  mdiDotsVertical,
-  mdiFormatListBulleted,
-  mdiGrid
-} from '@mdi/js';
-import ShareBtn from '../shared/ShareBtn';
-import { formatToNow } from '@/utils/dateFormatter';
+import ShareBtn from '@/components/shared/ShareBtn';
+import { formatToNow } from '@/utils/date';
 export default {
   components: {
     AppBar: () =>
@@ -116,7 +119,7 @@ export default {
     ShareBtn,
     ListTimetable,
     GridTimetable,
-    TimetableHeader
+    TimetableHeader,
   },
   mixins: [timetableMetaInfo],
   data() {
@@ -128,7 +131,7 @@ export default {
       formatToNow,
       mdiFormatListBulleted,
       mdiGrid,
-      view: 0
+      view: 0,
     };
   },
   computed: {
@@ -137,11 +140,11 @@ export default {
       return Object.keys(this.$route.query).length > 0
         ? this.$route.query
         : this.recentQuery;
-    }
+    },
   },
   created() {
     this.fetchTimetable(this.courseOptions)
-      .then(res => {
+      .then((res) => {
         this.timetable = res;
       })
       .finally(() => {
@@ -149,12 +152,23 @@ export default {
       });
   },
   methods: {
-    ...mapActions(['fetchTimetable', 'setFetching', 'setCurrentClass'])
+    ...mapActions(['fetchTimetable', 'setFetching', 'setCurrentClass']),
   },
   beforeRouteLeave(to, from, next) {
     this.setFetching(false);
     this.setCurrentClass(null);
     next();
-  }
+  },
 };
 </script>
+
+<style>
+.active-view.theme--dark > span > span {
+  color: white !important;
+}
+.active-view.theme--light > span > span {
+  color: #505050 !important;
+}
+
+/* #app > div > main > div > div > div > div > div.row > div > div > button.v-btn.t.v-btn--active.v-btn--contained.theme--dark.v-size--default > span > span */
+</style>

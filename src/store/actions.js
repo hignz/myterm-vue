@@ -4,7 +4,7 @@ import * as constants from './constants';
 
 export default {
   fetchCourses(_, index) {
-    return http.get(`/courses?college=${index}`).then(res => {
+    return http.get(`/courses?college=${index}`).then((res) => {
       return res.data;
     });
   },
@@ -15,7 +15,7 @@ export default {
 
     return http
       .get(`/timetables/?code=${code}&college=${college}${`&sem=${sem}`}`)
-      .then(res => {
+      .then((res) => {
         commit(constants.SET_CURRENT_TIMETABLE, res.data);
         commit(constants.SET_RECENT_QUERY, options);
         return res.data;
@@ -50,5 +50,5 @@ export default {
   },
   toggleShowWeekends({ commit }, value) {
     commit(constants.TOGGLE_SHOW_WEEKENDS, value);
-  }
+  },
 };

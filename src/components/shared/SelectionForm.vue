@@ -36,6 +36,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { getCurrentSemester } from '@/utils/date';
 
 export default {
   data() {
@@ -44,23 +45,24 @@ export default {
       courses: [],
       isLoading: false,
       rules: {
-        required: value => !!value || 'Required'
+        required: (value) => !!value || 'Required',
       },
       selectedCollege: '',
       selectedCourse: null,
-      valid: false
+      valid: false,
+      getCurrentSemester,
     };
   },
   computed: {
     selectedCollegeIndex() {
       return this.colleges.indexOf(this.selectedCollege);
-    }
+    },
   },
   methods: {
     ...mapActions(['fetchCourses']),
     onCollegeChange() {
       this.fetchCourses(this.selectedCollegeIndex)
-        .then(res => {
+        .then((res) => {
           this.courses = res;
         })
         .finally(() => {
@@ -71,24 +73,17 @@ export default {
       if (!this.$refs.form.validate()) {
         return;
       }
-      const today = new Date();
-      const year = today.getFullYear();
 
-      const sem =
-        Date.parse(today) >= Date.parse(`${year}-07-20`) &&
-        Date.parse(today) <= Date.parse(`${year}-12-19`)
-          ? '0'
-          : '1';
-
+      const sem = this.getCurrentSemester();
       this.$router.push({
         path: 'timetable',
         query: {
           code: decodeURIComponent(this.selectedCourse.course),
           college: this.selectedCollegeIndex,
-          sem
-        }
+          sem,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>

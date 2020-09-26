@@ -15,17 +15,17 @@ import Period from '@/components/shared/Period';
 export default {
   components: {
     Break,
-    Period
+    Period,
   },
   props: {
     day: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     isToday: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>

@@ -3,35 +3,34 @@
     class="text-center body-2"
     :class="{
       'text--disabled': isClassOver,
-      'primary--text font-weight-bold': isClassNow
+      'primary--text font-weight-bold': isClassNow,
+      pointer: hasExtendedInfo,
     }"
     @click="showExtendedInfo = !showExtendedInfo"
   >
+    <v-chip v-if="isElective" class="mt-4" small color="error" outlined>
+      <span> Elective </span>
+    </v-chip>
     <p v-if="period.startTime" class="mt-4 mb-1">
       {{ period.startTime }} - {{ period.endTime }}
     </p>
     <p class="mb-1">
       {{ period.name ? period.name : period.activity }}
     </p>
-    <p
-      v-if="
-        showExtendedInfo &&
-          period.name &&
-          !period.name.includes(period.activity)
-      "
-      class="mb-1"
-    >
+    <p v-if="showExtendedInfo && hasExtendedInfo" class="mb-1">
       {{ period.activity }}
     </p>
     <p
       v-if="period.room"
       class="mb-1"
       :class="{
-        'mb-4': !period.teacher
+        'mb-4': !period.teacher,
       }"
     >
       {{ period.room.split(/ -|- /)[0] }}
-      <span v-if="showExtendedInfo"> - {{ period.type }}</span>
+    </p>
+    <p v-if="!isElective" class="mb-1">
+      {{ period.type }}
     </p>
     <p v-if="period.teacher" class="grey--text">
       {{ period.teacher }}
@@ -41,44 +40,53 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { isTimePassed, isTimeWithinRange } from '@/utils/date';
 
 export default {
   props: {
     period: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     isToday: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      showExtendedInfo: false
+      showExtendedInfo: false,
     };
   },
   computed: {
     currentTime() {
       return new Date().toLocaleTimeString('en-GB');
     },
+    hasExtendedInfo() {
+      return (
+        this.period.name &&
+        !this.period.name
+          .toLowerCase()
+          .includes(this.period.activity.toLowerCase())
+      );
+    },
+    isElective() {
+      return this.period.type === 'Elective';
+    },
     isClassNow() {
       return (
         this.isToday &&
-        new Date(`01/01/1990 ${this.currentTime}`) >=
-          new Date(`01/01/1990 ${this.period.startTime}`) &&
-        new Date(`01/01/1990 ${this.currentTime}`) <=
-          new Date(`01/01/1990 ${this.period.endTime}`)
+        isTimeWithinRange(this.currentTime, {
+          start: this.period.startTime,
+          end: this.period.endTime,
+        })
       );
     },
     isClassOver() {
       return (
-        this.isToday &&
-        new Date(`01/01/1990 ${this.period.endTime}`) -
-          new Date(`01/01/1990 ${this.currentTime}`) <
-          0
+        this.isToday && isTimePassed(this.currentTime, this.period.endTime)
       );
-    }
+    },
   },
   created() {
     if (this.isToday && this.isClassNow) {
@@ -86,7 +94,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setCurrentClass'])
-  }
+    ...mapActions(['setCurrentClass']),
+  },
 };
 </script>

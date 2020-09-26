@@ -25,13 +25,13 @@ export default {
   props: {
     period: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {
       formatDistanceToNow,
-      show: true
+      show: true,
     };
   },
   computed: {
@@ -50,8 +50,8 @@ export default {
         new Date(`${todaysDate} ${this.period.endTime}`),
         { addSuffix: true }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

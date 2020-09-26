@@ -10,7 +10,7 @@
         <v-expansion-panel-header
           class="subtitle-1"
           :class="{
-            'primary--text font-weight-bold': isCurrentDay(index)
+            'primary--text font-weight-bold': isCurrentDay(index),
           }"
         >
           {{ day[0].day }}
@@ -29,17 +29,17 @@ import Day from '@/components/shared/Day';
 
 export default {
   components: {
-    Day
+    Day,
   },
   props: {
     timetable: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
-      arr: []
+      arr: [],
     };
   },
   computed: {
@@ -55,7 +55,7 @@ export default {
         return this.timetable;
       }
       return this.showWeekends ? this.timetable : weekdays;
-    }
+    },
   },
   created() {
     this.setExpandedDay();
@@ -77,7 +77,7 @@ export default {
           acc += 1;
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>

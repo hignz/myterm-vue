@@ -3,17 +3,16 @@
     <v-toolbar-title class="mr-14 title">
       <span>My<span class="primary--text">Term</span></span>
     </v-toolbar-title>
-    <v-btn-toggle group>
+    <v-btn-toggle group active-class="active">
       <NavigationItem
         v-for="item in items"
         :key="item.text"
         :item="item"
         :show-icon="false"
-        active-class="active"
       />
     </v-btn-toggle>
     <template v-slot:extension>
-      <ProgressBar style="top: -4px;" />
+      <ProgressBar style="top: -4px" />
     </template>
   </v-app-bar>
 </template>
@@ -26,9 +25,9 @@ import ProgressBar from '@/components/shared/ProgressBar';
 export default {
   components: {
     NavigationItem,
-    ProgressBar
+    ProgressBar,
   },
-  mixins: [navigationItems]
+  mixins: [navigationItems],
 };
 </script>
 

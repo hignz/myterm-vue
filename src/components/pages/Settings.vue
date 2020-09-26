@@ -38,9 +38,7 @@
                 />
               </v-col>
               <v-col cols="12" sm="12" md="4">
-                <p class="font-weight-bold caption">
-                  TIMETABLE
-                </p>
+                <p class="font-weight-bold caption">TIMETABLE</p>
                 <v-switch
                   v-model="isShowWeekends"
                   color="primary"
@@ -64,7 +62,7 @@ import genericMetaInfo from '@/mixins/genericMetaInfo';
 export default {
   components: {
     AppBar,
-    AccentColorPicker
+    AccentColorPicker,
   },
   mixins: [genericMetaInfo],
   data: () => ({
@@ -74,15 +72,15 @@ export default {
       { name: 'Blue', value: '#72DDF7' },
       { name: 'Coral', value: '#ef596f' },
       { name: 'Dark Blue', value: '#009DF8' },
-      { name: 'Yellow', value: '#F9F871' }
+      { name: 'Yellow', value: '#F9F871' },
     ],
     lightColors: [
       { name: 'Dark Blue', value: '#009DF8' },
       { name: 'Coral', value: '#ef596f' },
       { name: 'Pink', value: '#ff79c6' },
-      { name: 'Dark Blue', value: '#87A890' }
+      { name: 'Dark Blue', value: '#87A890' },
     ],
-    selectedColorIndex: 0
+    selectedColorIndex: 0,
   }),
   computed: {
     ...mapState(['showWeekends', 'darkMode', 'accentColor']),
@@ -93,7 +91,7 @@ export default {
       set(value) {
         this.toggleDarkMode(value);
         this.selectColorChip();
-      }
+      },
     },
     isShowWeekends: {
       get() {
@@ -101,11 +99,11 @@ export default {
       },
       set(value) {
         this.toggleShowWeekends(value);
-      }
+      },
     },
     themeColors() {
       return this.isDark ? this.darkColors : this.lightColors;
-    }
+    },
   },
   created() {
     this.selectColorChip();
@@ -114,14 +112,14 @@ export default {
     ...mapActions(['toggleDarkMode', 'toggleShowWeekends', 'setAccentColor']),
     selectColorChip() {
       this.selectedColorIndex = this.themeColors.findIndex(
-        el => el.value === this.accentColor
+        (el) => el.value === this.accentColor
       );
     },
     changeAccentColor(color) {
       const { value } = color;
       this.setAccentColor(value);
       this.showColorPicker = false;
-    }
-  }
+    },
+  },
 };
 </script>

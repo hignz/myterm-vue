@@ -15,16 +15,16 @@ export default {
   props: {
     height: {
       type: Number,
-      default: 1
+      default: 1,
     },
     color: {
       type: String,
-      default: 'primary'
-    }
+      default: 'primary',
+    },
   },
   computed: {
-    ...mapState(['fetching'])
-  }
+    ...mapState(['fetching']),
+  },
 };
 </script>
 

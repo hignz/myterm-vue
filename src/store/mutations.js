@@ -4,7 +4,7 @@ import * as constants from './constants';
 export default {
   [constants.REMOVE_TIMETABLE](state, value) {
     state.savedCourses = state.savedCourses.filter(
-      el => el.id !== value._id && el.id !== value.id
+      (el) => el.id !== value._id && el.id !== value.id
     );
   },
   [constants.SAVE_TIMETABLE](state, timetable) {
@@ -15,7 +15,7 @@ export default {
       collegeIndex: 0,
       college: timetable.college,
       id: timetable._id,
-      savedAt: Date.now()
+      savedAt: Date.now(),
     });
   },
   [constants.SET_ACCENT_COLOR](state, value) {
@@ -47,5 +47,5 @@ export default {
   },
   [constants.TOGGLE_SHOW_WEEKENDS](state, value) {
     state.showWeekends = value;
-  }
+  },
 };

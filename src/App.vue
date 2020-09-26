@@ -19,14 +19,14 @@ export default {
         /* webpackChunkName: "bottomNav" */ '@/components/shared/BottomNav'
       ),
     NavBar: () =>
-      import(/* webpackChunkName: "navbar" */ '@/components/shared/Navbar')
+      import(/* webpackChunkName: "navbar" */ '@/components/shared/Navbar'),
   },
   computed: {
-    ...mapState(['darkMode'])
+    ...mapState(['darkMode']),
   },
   mounted() {
     this.$vuetify.theme.isDark = this.darkMode;
-  }
+  },
 };
 </script>
 
@@ -41,6 +41,10 @@ body {
   -webkit-box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
   -moz-box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
   box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
+}
+
+a.active-nav > span > span.v-icon {
+  color: var(--v-primary-base) !important;
 }
 
 .dark-border {

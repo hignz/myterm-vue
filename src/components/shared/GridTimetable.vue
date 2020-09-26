@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-row no-gutters justify="center">
-      <v-col v-for="x in labels" :key="x" class="text-center">
-        <span class="caption">{{ x.substring(0, 3) }}</span>
+      <v-col v-for="(label, i) in labels" :key="label" class="text-center">
+        <span class="caption" :class="{ 'primary--text': i === todaysIndex }">{{
+          label.substring(0, 3)
+        }}</span>
       </v-col>
     </v-row>
     <v-row v-for="(row, i) in times" :key="i" no-gutters>
@@ -24,17 +26,27 @@
     <v-dialog v-if="dialog" v-model="dialog" :width="400">
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
-        <v-card-text class="pt-4 text-center">
-          <p>{{ selectedPeriod.name || selectedPeriod.activity }}</p>
-          <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
-          <p>{{ selectedPeriod.room }}</p>
-          <p>{{ selectedPeriod.teacher }}</p>
+        <v-card-text class="pt-4 pb-0 text-center">
+          <div v-if="selectedPeriod.type !== 'Elective'">
+            <p>
+              {{ selectedPeriod.name || selectedPeriod.activity }}
+            </p>
+            <p>{{ selectedPeriod.day }}</p>
+            <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
+            <p>{{ selectedPeriod.room }}</p>
+            <p>{{ selectedPeriod.teacher }}</p>
+          </div>
+          <div v-else>
+            <v-chip class="mb-4" small color="error" outlined>
+              <span>Elective</span>
+            </v-chip>
+            <p>{{ selectedPeriod.day }}</p>
+            <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
+          </div>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn class="" text @click="dialog = !dialog">
-            Close
-          </v-btn>
+          <v-btn text @click="dialog = !dialog">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -43,13 +55,14 @@
 
 <script>
 import { mapState } from 'vuex';
+import { isTimeWithinRange } from '@/utils/date';
 
 export default {
   props: {
     timetable: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -74,7 +87,13 @@ export default {
         '16:30',
         '17:00',
         '17:30',
-        '18:00'
+        '18:00',
+        '18:30',
+        '19:00',
+        '19:30',
+        '20:00',
+        '20:30',
+        '21:00',
       ],
       days: [
         '',
@@ -84,8 +103,8 @@ export default {
         'Thursday',
         'Friday',
         'Saturday',
-        'Sunday'
-      ]
+        'Sunday',
+      ],
     };
   },
   computed: {
@@ -101,62 +120,57 @@ export default {
     labels() {
       const weekdays = this.days.slice(0, 6);
       return this.showWeekends ? this.days : weekdays;
-    }
+    },
+    todaysIndex() {
+      const index = new Date().getDay();
+      return index === 0 ? 7 : index;
+    },
   },
   methods: {
     checkForClass(time, dayIndex) {
+      const period = this.getPeriod(time, dayIndex);
+      return !!period;
+    },
+    getPeriod(time, dayIndex) {
       if (dayIndex - 2 < 0) {
         return;
       }
 
       const day = this.filteredTimetable[dayIndex - 2];
-      if (day && day.length) {
-        const period = day.find(
-          el =>
-            el.startTime === time ||
-            (new Date(`01/01/1990 ${time}`) >=
-              new Date(`01/01/1990 ${el.startTime}`) &&
-              new Date(`01/01/1990 ${time}`) <
-                new Date(`01/01/1990 ${el.endTime}`))
-        );
 
-        if (!period) {
-          return false;
-        }
-
-        return true;
+      if (!day || !day.length) {
+        return;
       }
+
+      const period = day.find(
+        (el) =>
+          el.startTime === time ||
+          (el.startTime &&
+            el.endTime &&
+            isTimeWithinRange(time, { start: el.startTime, end: el.endTime }))
+      );
+
+      return period;
     },
     onPeriodSelected(time, dayIndex) {
-      if (dayIndex - 2 < 0) {
+      const period = this.getPeriod(time, dayIndex);
+
+      if (!period) {
         return;
       }
 
-      const day = this.filteredTimetable[dayIndex - 2];
-
-      if (day && day.length) {
-        const period = day.find(
-          el =>
-            el.startTime === time ||
-            (new Date(`01/01/1990 ${time}`) >=
-              new Date(`01/01/1990 ${el.startTime}`) &&
-              new Date(`01/01/1990 ${time}`) <
-                new Date(`01/01/1990 ${el.endTime}`))
-        );
-        if (!period) {
-          return;
-        }
-
-        this.selectedPeriod = period;
-        this.dialog = true;
-      }
-    }
-  }
+      this.selectedPeriod = period;
+      this.dialog = true;
+    },
+  },
 };
 </script>
 
 <style scoped>
 .period {
   background-color: var(--v-primary-base);
+}
+.period:hover {
+  filter: brightness(75%);
 }
 </style>

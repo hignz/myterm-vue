@@ -47,13 +47,13 @@ import {
   mdiChevronUp,
   mdiFingerprint,
   mdiGestureDoubleTap,
-  mdiViewList
+  mdiViewList,
 } from '@mdi/js';
 
 export default {
   components: {
     SaveBtn,
-    ShareBtn
+    ShareBtn,
   },
   data() {
     return {
@@ -66,13 +66,13 @@ export default {
       mdiChevronUp,
       mdiFingerprint,
       mdiGestureDoubleTap,
-      mdiViewList
+      mdiViewList,
     };
   },
   computed: {
     isScrolledDown() {
       return this.scroll > 0;
-    }
+    },
   },
   mounted() {
     window.addEventListener('scroll', this.onScroll);
@@ -90,8 +90,8 @@ export default {
     },
     scrollTotop() {
       window.scrollTo(0, 0);
-    }
-  }
+    },
+  },
 };
 </script>
 

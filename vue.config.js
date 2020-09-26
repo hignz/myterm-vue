@@ -1,12 +1,8 @@
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-//   .BundleAnalyzerPlugin;
-
 module.exports = {
   configureWebpack: {
-    // plugins: [new BundleAnalyzerPlugin()],
     externals: {
-      moment: 'moment'
-    }
+      moment: 'moment',
+    },
   },
   pwa: {
     name: 'MyTerm',
@@ -17,7 +13,7 @@ module.exports = {
     manifestPath: 'manifest.json',
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
-      exclude: [/\.map$/, /_redirects/]
-    }
-  }
+      exclude: [/\.map$/, /_redirects/],
+    },
+  },
 };

@@ -8,5 +8,5 @@ export default {
   showBottomSheet: false,
   showWeekends: false,
   recentQuery: null,
-  username: null
+  username: null,
 };

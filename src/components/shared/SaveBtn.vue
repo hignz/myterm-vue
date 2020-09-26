@@ -6,7 +6,7 @@
     dark
     :class="{
       heartbeat: isSaved && !isFab,
-      'primary darken-2': isFab
+      'primary darken-2': isFab,
     }"
     @click="save()"
   >
@@ -24,21 +24,21 @@ export default {
   props: {
     isFab: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isIcon: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isSmall: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       mdiHeart,
-      mdiHeartOutline
+      mdiHeartOutline,
     };
   },
   computed: {
@@ -51,11 +51,11 @@ export default {
     },
     isSaved() {
       return this.savedCourses.some(
-        el =>
+        (el) =>
           el.title === this.currentTimetable.title &&
           el.sem === this.currentTimetable.semester
       );
-    }
+    },
   },
   methods: {
     ...mapActions(['saveTimetable', 'removeTimetable']),
@@ -63,8 +63,8 @@ export default {
       this.isSaved
         ? this.removeTimetable(this.currentTimetable)
         : this.saveTimetable(this.currentTimetable);
-    }
-  }
+    },
+  },
 };
 </script>
 
