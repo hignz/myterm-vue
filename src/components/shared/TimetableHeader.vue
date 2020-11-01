@@ -14,13 +14,11 @@
           </p>
         </template>
         <v-list dense>
-          <v-list-item
+          <QuickLinkItem
             v-for="(link, index) in links[courseOptions.college]"
             :key="index"
-            @click="openLink(link.url)"
-          >
-            <v-list-item-title>{{ link.title }}</v-list-item-title>
-          </v-list-item>
+            :link="link"
+          />
         </v-list>
       </v-menu>
       <v-bottom-sheet
@@ -34,16 +32,12 @@
         </template>
         <v-list>
           <v-subheader>Open</v-subheader>
-          <v-list-item
+          <QuickLinkItem
             v-for="(link, index) in links[courseOptions.college]"
             :key="index"
-            @click="openLink(link.url)"
-          >
-            <v-icon class="ml-2 mr-6 my-4" color="primary">
-              {{ link.icon }}
-            </v-icon>
-            <v-list-item-title>{{ link.title }}</v-list-item-title>
-          </v-list-item>
+            :link="link"
+            :show-icon="true"
+          />
         </v-list>
       </v-bottom-sheet>
     </v-card-subtitle>
@@ -94,24 +88,18 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import SaveBtn from '@/components/shared/SaveBtn';
+import QuickLinkItem from '@/components/shared/QuickLinkItem';
 import {
-  mdiSchool,
-  mdiMail,
-  mdiGoogleClassroom,
-  mdiDesktopClassic,
-  mdiLibraryShelves,
   mdiChartPie,
   mdiShareVariant,
-  mdiDotsVertical,
-  mdiFingerprint,
   mdiChevronDown,
   mdiBell,
-  mdiArrowRight,
   mdiChatOutline,
   mdiChartBoxOutline,
 } from '@mdi/js';
 import { formatToNow } from '@/utils/date';
 import ShareBtn from './ShareBtn';
+import quickLinks from '@/mixins/quickLinks';
 
 export default {
   components: {
@@ -121,59 +109,17 @@ export default {
       ),
     SaveBtn,
     ShareBtn,
+    QuickLinkItem,
   },
+  mixins: [quickLinks],
   data() {
     return {
-      mdiSchool,
-      mdiMail,
-      mdiGoogleClassroom,
-      mdiDesktopClassic,
-      mdiLibraryShelves,
       mdiChartPie,
       mdiShareVariant,
-      mdiDotsVertical,
-      mdiFingerprint,
       mdiChevronDown,
       mdiBell,
-      mdiArrowRight,
       mdiChatOutline,
       mdiChartBoxOutline,
-      links: [
-        [
-          {
-            title: 'Email',
-            url: 'http://outlook.com/mail.itsligo.ie',
-            icon: mdiMail,
-          },
-          {
-            title: 'Moodle',
-            url: 'https://vle.itsligo.ie/my/index.php',
-            icon: mdiSchool,
-          },
-          {
-            title: 'Room Booking',
-            url: 'https://libreserve.itsligo.ie/',
-            icon: mdiGoogleClassroom,
-          },
-          {
-            title: 'Virtual Desktop',
-            url: 'https://vdesktop.itsligo.ie/Citrix/SligoWeb/',
-            icon: mdiDesktopClassic,
-          },
-          {
-            title: 'Library',
-            url: 'https://library.itsligo.ie/',
-            icon: mdiLibraryShelves,
-          },
-        ],
-        [],
-        [
-          {
-            title: 'Moodle',
-            url: 'https://moodle.lit.ie/',
-          },
-        ],
-      ],
       formatToNow,
     };
   },

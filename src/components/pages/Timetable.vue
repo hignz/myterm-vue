@@ -30,15 +30,19 @@
     <v-row justify-md="center">
       <v-col sm="12" md="6" lg="6" class="pt-0 pt-md-3">
         <template v-if="timetable">
-          <v-alert v-if="timetable.timedout" outlined
-            >The IT's website seems to be
-            <span class="warning--text">having issues.</span> But don't worry,
-            we scalvaged
-            <span class="warning--text">the last known timetable</span> for your
-            course, accurate as of
-            <span class="warning--text">
-              {{ formatToNow(timetable.updatedAt, true) }}.</span
-            >
+          <v-alert v-if="timetable.timedout" outlined>
+            <p>
+              The IT's website seems to be
+              <span class="error--text">having issues.</span>
+            </p>
+            <p class="mb-0">
+              But don't worry, we salvaged
+              <span class="error--text">the last known timetable</span> for your
+              course, accurate as of
+              <span class="error--text">
+                {{ formatToNow(timetable.updatedAt, true) }}.</span
+              >
+            </p>
           </v-alert>
           <TimetableHeader />
         </template>
