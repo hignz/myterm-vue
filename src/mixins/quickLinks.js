@@ -39,7 +39,7 @@ export default {
             icon: mdiLibraryShelves,
           },
           {
-            title: 'Grades/Registration/Payments',
+            title: 'Online Grades',
             url:
               'https://ssb.ancheim.ie/its/app/twbkwbis.P_GenMenu?name=homepage',
             icon: mdiCounter,
