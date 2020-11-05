@@ -87,3 +87,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-list-item__title {
+  white-space: normal !important;
+}
+</style>
