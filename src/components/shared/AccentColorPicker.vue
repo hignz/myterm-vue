@@ -43,9 +43,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.theme--dark.v-color-picker .v-color-picker__input input {
-  color: white;
-}
-</style>

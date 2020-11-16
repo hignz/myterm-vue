@@ -33,7 +33,7 @@ export default {
 <style>
 html,
 body {
-  overflow-y: auto;
+  overflow-y: overlay;
 }
 
 .active-nav {
