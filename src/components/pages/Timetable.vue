@@ -191,22 +191,15 @@ export default {
 </script>
 
 <style>
+.active-view.theme--dark > btn {
+  background-color: green !important;
+}
+
 .active-view.theme--dark > span > span {
-  color: white !important;
+  color: var(--v-primary-base) !important;
 }
 .active-view.theme--light > span > span {
-  color: #505050 !important;
-}
-.theme--dark.v-picker__body {
-  background-color: #20232a !important;
-}
-
-.theme--dark.v-time-picker-clock {
-  background-color: #1a1e22 !important;
-}
-
-.theme--dark.v-tabs-items {
-  background-color: transparent !important;
+  color: var(--v-primary-base) !important;
 }
 
 /* #app > div > main > div > div > div > div > div.row > div > div > button.v-btn.t.v-btn--active.v-btn--contained.theme--dark.v-size--default > span > span */

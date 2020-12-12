@@ -61,7 +61,7 @@ export default {
 
 footer {
   width: 100%;
-  background-color: #111316;
+  background-color: #090d13;
   padding: 30px;
 }
 
