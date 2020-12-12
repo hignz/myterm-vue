@@ -50,17 +50,6 @@
           }}</span>
         </v-avatar>
       </v-chip>
-      <v-btn
-        icon
-        :to="{
-          name: 'Chat',
-          params: {
-            id: courseOptions.code,
-          },
-        }"
-      >
-        <v-icon>{{ mdiChatOutline }}</v-icon>
-      </v-btn>
       <HistoryDialog v-if="hasChanged" :timetable="currentTimetable" />
       <v-spacer />
       <SaveBtn />

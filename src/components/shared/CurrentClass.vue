@@ -1,18 +1,20 @@
 <template>
-  <div>
+  <div class="mb-4">
     <v-card v-if="show" outlined @click="show = !show">
-      <v-card-text class="text-center">
-        <p class="primary--text overline">Ongoing Class</p>
-        <p class="subtitle-1">{{ period.name }}</p>
-        <p class="subtitle-1">{{ period.room }}</p>
+      <v-card-title class="primary--text justify-center"
+        >Current class</v-card-title
+      >
+      <v-card-text class="text-center pb-0">
+        <p>{{ period.name }}</p>
+        <p>{{ period.room }}</p>
       </v-card-text>
-      <v-card-actions class="pt-0">
-        <p class="caption grey--text">Started {{ started }}</p>
+      <v-card-actions>
+        <p class="caption text--secondary">Started {{ started }}</p>
         <v-spacer></v-spacer>
-        <p class="caption grey--text">Ends {{ ends }}</p>
+        <p class="caption text--secondary">Ends {{ ends }}</p>
       </v-card-actions>
     </v-card>
-    <v-btn v-else text block color="primary" @click="show = !show">
+    <v-btn v-else text block large color="primary" @click="show = !show">
       Show Current Class
     </v-btn>
   </div>

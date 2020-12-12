@@ -27,67 +27,88 @@
         </v-menu>
       </template>
     </AppBar>
-    <v-row justify-md="center">
-      <v-col sm="12" md="6" lg="6" class="pt-0 pt-md-3">
-        <template v-if="timetable">
-          <v-alert v-if="timetable.timedout" outlined>
-            <p>
-              The IT's website seems to be
-              <span class="error--text">having issues.</span>
-            </p>
-            <p class="mb-0">
-              But don't worry, we salvaged
-              <span class="error--text">the last known timetable</span> for your
-              course, accurate as of
-              <span class="error--text">
-                {{ formatToNow(timetable.updatedAt, true) }}.</span
-              >
-            </p>
-          </v-alert>
-          <TimetableHeader />
-        </template>
-        <template v-if="timetable && !timetable.empty">
-          <v-row>
-            <v-col cols="12" class="text-end">
-              <v-btn-toggle
-                v-model="view"
-                mandatory
-                borderless
+    <v-row justify="center">
+      <v-col sm="12" md="12" class="pt-0">
+        <v-row justify="center">
+          <v-col cols="12" sm="12" lg="4">
+            <template v-if="timetable">
+              <TimetableHeader />
+              <v-row>
+                <v-col cols="12" class="text-end">
+                  <v-btn-toggle
+                    v-model="view"
+                    mandatory
+                    borderless
+                    dense
+                    active-class="active-view"
+                  >
+                    <v-btn>
+                      <v-icon color="#848484">{{
+                        mdiFormatListBulleted
+                      }}</v-icon>
+                    </v-btn>
+                    <v-btn>
+                      <v-icon color="#848484">{{ mdiGrid }}</v-icon>
+                    </v-btn>
+                  </v-btn-toggle>
+                </v-col>
+              </v-row>
+
+              <v-alert v-if="timetable.timedout" outlined dense>
+                <p>
+                  The IT's website seems to be
+                  <span class="error--text">having issues.</span>
+                </p>
+                <p class="mb-0">
+                  But don't worry, we salvaged
+                  <span class="error--text">the last known timetable</span> for
+                  your course.
+                </p>
+              </v-alert>
+            </template>
+          </v-col>
+          <v-col cols="12" sm="12" lg="6" class="pt-1">
+            <template v-if="timetable && !timetable.empty">
+              <CurrentClass
+                v-if="currentClass && view === 0"
+                :period="currentClass"
+                class="mb-2"
+              />
+              <v-list
+                v-if="$vuetify.breakpoint.mdAndUp"
+                class="px-2 pb-0"
                 dense
-                active-class="active-view"
+                height="92vh"
+                style="overflow-y: auto"
+                color="transparent"
               >
-                <v-btn>
-                  <v-icon color="#848484">{{ mdiFormatListBulleted }}</v-icon>
-                </v-btn>
-                <v-btn>
-                  <v-icon color="#848484">{{ mdiGrid }}</v-icon>
-                </v-btn>
-              </v-btn-toggle>
-            </v-col>
-          </v-row>
-          <CurrentClass
-            v-if="currentClass"
-            :period="currentClass"
-            class="mb-2"
-          />
-          <ListTimetable v-if="view === 0" :timetable="timetable.data" />
-          <GridTimetable v-else :timetable="timetable.data" />
-        </template>
-        <div
-          v-if="(isLoaded && !timetable) || (timetable && timetable.empty)"
-          class="text-center"
-        >
-          <v-icon class="my-4 grey--text" x-large>
-            {{ mdiTimetable }}
-          </v-icon>
-          <p class="grey--text">
-            This timetable doesn't seem to have any classes.
-          </p>
-          <p class="grey--text">Are you sure you chose the correct course?</p>
-          <v-btn x-large color="primary" text :to="{ path: '/' }">
-            Try again
-          </v-btn>
-        </div>
+                <ListTimetable v-if="view === 0" :timetable="timetable.data" />
+                <GridTimetable v-else :timetable="timetable.data" />
+              </v-list>
+              <template v-else>
+                <ListTimetable v-if="view === 0" :timetable="timetable.data" />
+                <GridTimetable v-else :timetable="timetable.data" />
+              </template>
+            </template>
+            <div
+              v-if="(isLoaded && !timetable) || (timetable && timetable.empty)"
+              class="text-center"
+            >
+              <v-icon class="my-4 grey--text" x-large>
+                {{ mdiTimetable }}
+              </v-icon>
+              <p class="grey--text">
+                This timetable doesn't seem to have any classes.
+              </p>
+              <p class="grey--text">
+                Are you sure you chose the correct course?
+              </p>
+              <v-btn x-large color="primary" text :to="{ path: '/' }">
+                Try again
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <SpeedDial v-if="$vuetify.breakpoint.smAndDown" />
@@ -108,6 +129,7 @@ import TimetableHeader from '@/components/shared/TimetableHeader';
 import timetableMetaInfo from '@/mixins/timetableMetaInfo';
 import ShareBtn from '@/components/shared/ShareBtn';
 import { formatToNow } from '@/utils/date';
+
 export default {
   components: {
     AppBar: () =>
@@ -136,6 +158,7 @@ export default {
       mdiFormatListBulleted,
       mdiGrid,
       view: 0,
+      modules: [],
     };
   },
   computed: {
@@ -150,6 +173,7 @@ export default {
     this.fetchTimetable(this.courseOptions)
       .then((res) => {
         this.timetable = res;
+        this.modules = this.showWeekends ? res.data : res.data.slice(0, 5);
       })
       .finally(() => {
         this.isLoaded = true;
@@ -172,6 +196,17 @@ export default {
 }
 .active-view.theme--light > span > span {
   color: #505050 !important;
+}
+.theme--dark.v-picker__body {
+  background-color: #20232a !important;
+}
+
+.theme--dark.v-time-picker-clock {
+  background-color: #1a1e22 !important;
+}
+
+.theme--dark.v-tabs-items {
+  background-color: transparent !important;
 }
 
 /* #app > div > main > div > div > div > div > div.row > div > div > button.v-btn.t.v-btn--active.v-btn--contained.theme--dark.v-size--default > span > span */

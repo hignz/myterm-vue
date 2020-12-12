@@ -1,10 +1,14 @@
 <template>
   <div>
-    <v-row no-gutters justify="center">
+    <v-row no-gutters>
       <v-col v-for="(label, i) in labels" :key="label" class="text-center">
-        <span class="caption" :class="{ 'primary--text': i === todaysIndex }">{{
-          label.substring(0, 3)
-        }}</span>
+        <span
+          class="caption"
+          :class="{
+            'primary--text font-weight-black': i === todaysIndex,
+          }"
+          >{{ label.substring(0, 3) }}</span
+        >
       </v-col>
     </v-row>
     <v-row v-for="(row, i) in times" :key="i" no-gutters>
@@ -17,7 +21,10 @@
             : 'border: thin solid rgba(220, 220, 220, 1) !important'
         "
         class="text-center"
-        :class="{ 'period pointer': checkForClass(row, day) }"
+        :class="{
+          'period pointer': checkForClass(row, day),
+          'class-now': isClassNow(row, day),
+        }"
         @click="onPeriodSelected(row, day)"
       >
         <span v-if="day === 1" class="caption">{{ row }}</span>
@@ -27,7 +34,7 @@
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
         <v-card-text class="pt-4 pb-0 text-center">
-          <div v-if="selectedPeriod.type !== 'Elective'">
+          <template v-if="selectedPeriod.type !== 'Elective'">
             <p>
               {{ selectedPeriod.name || selectedPeriod.activity }}
             </p>
@@ -35,14 +42,14 @@
             <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
             <p>{{ selectedPeriod.room }}</p>
             <p>{{ selectedPeriod.teacher }}</p>
-          </div>
-          <div v-else>
+          </template>
+          <template v-else>
             <v-chip class="mb-4" small color="error" outlined>
               <span>Elective</span>
             </v-chip>
             <p>{{ selectedPeriod.day }}</p>
             <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
-          </div>
+          </template>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -125,6 +132,9 @@ export default {
       const index = new Date().getDay();
       return index === 0 ? 7 : index;
     },
+    currentTime() {
+      return new Date().toLocaleTimeString('en-GB');
+    },
   },
   methods: {
     checkForClass(time, dayIndex) {
@@ -162,6 +172,23 @@ export default {
       this.selectedPeriod = period;
       this.dialog = true;
     },
+    isClassNow(time, dayIndex) {
+      if (dayIndex - 1 === this.todaysIndex) {
+        const period = this.timetable[dayIndex - 2].find((el) =>
+          isTimeWithinRange(time, {
+            start: el.startTime,
+            end: el.endTime,
+          })
+        );
+        return (
+          period &&
+          isTimeWithinRange(this.currentTime, {
+            start: period.startTime,
+            end: period.endTime,
+          })
+        );
+      }
+    },
   },
 };
 </script>
@@ -169,6 +196,9 @@ export default {
 <style scoped>
 .period {
   background-color: var(--v-primary-base);
+}
+.class-now {
+  background-color: var(--v-primary-darken2);
 }
 .period:hover {
   filter: brightness(75%);
