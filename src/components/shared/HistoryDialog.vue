@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" :width="425">
     <template v-slot:activator="{ on }">
-      <v-btn class="ml-2" icon v-on="on">
+      <v-btn icon v-on="on">
         <v-icon>
           {{ mdiBell }}
         </v-icon>
@@ -17,7 +17,9 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn class="mr-2" text @click="dialog = !dialog">Close</v-btn>
+        <v-btn class="mr-2" text color="primary" @click="dialog = !dialog"
+          >Close</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>
