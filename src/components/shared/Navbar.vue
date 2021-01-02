@@ -1,6 +1,5 @@
 <template>
   <v-app-bar class="elevation-0" app dense extended extension-height="7">
-    <ChristmasLights />
     <v-toolbar-title class="mr-14 title">
       <span>My<span class="primary--text">Term</span></span>
     </v-toolbar-title>
@@ -20,11 +19,9 @@
 import NavigationItem from '@/components/shared/NavigationItem';
 import navigationItems from '@/mixins/navigationItems';
 import ProgressBar from '@/components/shared/ProgressBar';
-import ChristmasLights from './ChristmasLights';
 
 export default {
   components: {
-    ChristmasLights,
     NavigationItem,
     ProgressBar,
   },
