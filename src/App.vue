@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <NavBar v-if="$vuetify.breakpoint.mdAndUp" />
-    <SnowEffect />
     <v-main>
       <router-view :key="$route.fullPath" />
     </v-main>
@@ -11,7 +10,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import SnowEffect from './components/shared/SnowEffect';
 
 export default {
   name: 'App',
@@ -22,7 +20,6 @@ export default {
       ),
     NavBar: () =>
       import(/* webpackChunkName: "navbar" */ '@/components/shared/Navbar'),
-    SnowEffect,
   },
   computed: {
     ...mapState(['darkMode']),
