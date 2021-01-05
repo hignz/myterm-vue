@@ -27,13 +27,13 @@
         </v-menu>
       </template>
     </AppBar>
-    <v-row justify="center">
-      <v-col sm="12" md="12" class="pt-0">
-        <v-row justify="center">
+    <v-row>
+      <v-col sm="12" md="12">
+        <v-row>
           <v-col cols="12" sm="12" lg="4">
             <template v-if="timetable">
               <TimetableHeader />
-              <v-row>
+              <v-row class="my-2">
                 <v-col cols="12" class="text-end">
                   <v-btn-toggle
                     v-model="view"
@@ -53,7 +53,6 @@
                   </v-btn-toggle>
                 </v-col>
               </v-row>
-
               <v-alert v-if="timetable.timedout" outlined dense>
                 <p>
                   The IT's website seems to be
@@ -67,13 +66,8 @@
               </v-alert>
             </template>
           </v-col>
-          <v-col cols="12" sm="12" lg="6" class="pt-1">
+          <v-col cols="12" sm="12" lg="5" class="pt-1">
             <template v-if="timetable && !timetable.empty">
-              <CurrentClass
-                v-if="currentClass && view === 0"
-                :period="currentClass"
-                class="mb-2"
-              />
               <v-list
                 v-if="$vuetify.breakpoint.mdAndUp"
                 class="px-2 pb-0"
@@ -82,31 +76,54 @@
                 style="overflow-y: auto"
                 color="transparent"
               >
+                <CurrentClass
+                  v-if="currentClass && view === 0"
+                  :period="currentClass"
+                  class="mb-2"
+                />
                 <ListTimetable v-if="view === 0" :timetable="timetable.data" />
                 <GridTimetable v-else :timetable="timetable.data" />
               </v-list>
               <template v-else>
+                <CurrentClass
+                  v-if="currentClass && view === 0"
+                  :period="currentClass"
+                  class="mb-2"
+                />
+
                 <ListTimetable v-if="view === 0" :timetable="timetable.data" />
                 <GridTimetable v-else :timetable="timetable.data" />
               </template>
             </template>
             <div
               v-if="(isLoaded && !timetable) || (timetable && timetable.empty)"
-              class="text-center"
+              class="text-center mt-md-16"
             >
-              <v-icon class="my-4 grey--text" x-large>
-                {{ mdiTimetable }}
-              </v-icon>
+              <v-img
+                class="mx-auto mb-6"
+                max-height="250"
+                max-width="250"
+                :src="require('@/assets/undraw_not_found_60pq.svg')"
+              ></v-img>
+
               <p class="grey--text">
                 This timetable doesn't seem to have any classes.
               </p>
               <p class="grey--text">
                 Are you sure you chose the correct course?
               </p>
-              <v-btn x-large color="primary" text :to="{ path: '/' }">
-                Try again
+              <v-btn x-large plain color="primary" :to="{ path: '/' }">
+                Try another
               </v-btn>
             </div>
+          </v-col>
+          <v-col
+            v-if="timetable && $vuetify.breakpoint.mdAndUp"
+            cols="12"
+            sm="12"
+            lg="3"
+          >
+            <AssignmentTracker />
           </v-col>
         </v-row>
       </v-col>
@@ -129,6 +146,7 @@ import TimetableHeader from '@/components/shared/TimetableHeader';
 import timetableMetaInfo from '@/mixins/timetableMetaInfo';
 import ShareBtn from '@/components/shared/ShareBtn';
 import { formatToNow } from '@/utils/date';
+import AssignmentTracker from '@/components/shared/AssignmentTracker';
 
 export default {
   components: {
@@ -142,6 +160,7 @@ export default {
       import(
         /* webpackChunkName: "speeddial" */ '@/components/shared/SpeedDial'
       ),
+    AssignmentTracker,
     ShareBtn,
     ListTimetable,
     GridTimetable,

@@ -5,10 +5,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  data() {
-    return {
-      options: {
+  computed: {
+    ...mapState(['darkMode']),
+    options() {
+      return {
         particles: {
           number: {
             value: 52,
@@ -18,7 +21,7 @@ export default {
             },
           },
           color: {
-            value: '#fff',
+            value: this.darkMode ? '#eee' : '#161b22',
           },
           shape: {
             type: 'circle',
@@ -117,8 +120,8 @@ export default {
           },
         },
         retina_detect: true,
-      },
-    };
+      };
+    },
   },
 };
 </script>

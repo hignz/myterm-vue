@@ -52,13 +52,23 @@
           </v-list>
         </v-card>
       </v-col>
-      <v-col v-else class="text-center mt-4" cols="12" sm="12" md="6">
-        <v-icon class="mb-4 grey--text" size="50">
-          {{ mdiHeartBroken }}
-        </v-icon>
-        <p class="grey--text">You have no saved courses</p>
+      <v-col v-else class="text-center mt-6" cols="12" sm="12" md="6">
+        <v-img
+          class="mx-auto mb-8"
+          :src="require('@/assets/undraw_No_data_re_kwbl.svg')"
+          max-height="200"
+          max-width="200"
+        >
+        </v-img>
+        <p class="grey--text font-weight-bold">
+          Ummm... You have not saved any timetables yet
+        </p>
         <p class="grey--text">
-          To save a course, navigate to a timetable and press the heart icon
+          To save a course, open your timetable and press the
+          <v-icon class="grey--text">
+            {{ mdiHeartOutline }}
+          </v-icon>
+          icon
         </p>
       </v-col>
     </v-row>
@@ -92,7 +102,7 @@
 </template>
 
 <script>
-import { mdiDelete, mdiHeartBroken } from '@mdi/js';
+import { mdiDelete, mdiHeartBroken, mdiHeartOutline } from '@mdi/js';
 import { mapState, mapActions } from 'vuex';
 import AppBar from '@/components/shared/AppBar';
 import genericMetaInfo from '@/mixins/genericMetaInfo';
@@ -108,6 +118,7 @@ export default {
       selectedTimetable: null,
       mdiDelete,
       mdiHeartBroken,
+      mdiHeartOutline,
     };
   },
   computed: {

@@ -2,6 +2,12 @@ import Vuetify from '../plugins/vuetify';
 import * as constants from './constants';
 
 export default {
+  [constants.ADD_ASSIGNMENT](state, value) {
+    state.assignments.push(value);
+  },
+  [constants.REMOVE_ASSIGNMENT](state, value) {
+    state.assignments = state.assignments.filter((el) => el !== value);
+  },
   [constants.REMOVE_TIMETABLE](state, value) {
     state.savedCourses = state.savedCourses.filter(
       (el) => el.id !== value._id && el.id !== value.id

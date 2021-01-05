@@ -1,6 +1,5 @@
 <template>
   <v-app-bar hide-on-scroll flat app extended extension-height="7">
-    <ChristmasLights />
     <v-row align="center">
       <v-btn
         v-if="showBackButton"
@@ -29,11 +28,9 @@
 <script>
 import { mdiArrowLeft } from '@mdi/js';
 import ProgressBar from '@/components/shared/ProgressBar';
-import ChristmasLights from './ChristmasLights';
 
 export default {
   components: {
-    ChristmasLights,
     ProgressBar,
   },
   props: {

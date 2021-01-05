@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More"> </AppBar>
+    <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More"></AppBar>
     <v-tabs v-model="tab" background-color="transparent" centered>
       <v-tab href="#tab-1">ADDITIONAL INFO</v-tab>
       <v-tab href="#tab-2">Breakdown</v-tab>
