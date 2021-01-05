@@ -11,25 +11,29 @@
         >
       </v-col>
     </v-row>
-    <v-row v-for="(row, i) in times" :key="i" no-gutters>
-      <v-col
-        v-for="day in filteredTimetable.length + 1"
-        :key="day"
-        :style="
-          darkMode
-            ? 'border: thin solid rgba(255, 255, 255, 0.12) !important'
-            : 'border: thin solid rgba(220, 220, 220, 1) !important'
-        "
-        class="text-center"
-        :class="{
-          'period pointer': checkForClass(row, day),
-          'class-now': isClassNow(row, day),
-        }"
-        @click="onPeriodSelected(row, day)"
-      >
-        <span v-if="day === 1" class="caption">{{ row }}</span>
-      </v-col>
-    </v-row>
+    <v-card outlined flat>
+      <v-card-text class="pa-0">
+        <v-row v-for="(row, i) in times" :key="i" no-gutters>
+          <v-col
+            v-for="day in filteredTimetable.length + 1"
+            :key="day"
+            :style="
+              darkMode
+                ? 'border: thin solid rgba(255, 255, 255, 0.12) !important'
+                : 'border: thin solid rgba(220, 220, 220, 1) !important'
+            "
+            class="text-center"
+            :class="{
+              'period pointer': checkForClass(row, day),
+              'class-now': isClassNow(row, day),
+            }"
+            @click="onPeriodSelected(row, day)"
+          >
+            <span v-if="day === 1" class="caption">{{ row }}</span>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
     <v-dialog v-if="dialog" v-model="dialog" :width="400">
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
@@ -197,10 +201,10 @@ export default {
 .period {
   background-color: var(--v-primary-base);
 }
-.class-now {
-  background-color: var(--v-primary-darken2);
-}
 .period:hover {
   filter: brightness(75%);
+}
+.class-now {
+  background-color: var(--v-primary-darken2);
 }
 </style>
