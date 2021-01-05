@@ -51,6 +51,24 @@
         </v-avatar>
       </v-chip>
       <HistoryDialog v-if="hasChanged" :timetable="currentTimetable" />
+      <!-- <v-btn plain>Work Due</v-btn> -->
+      <v-dialog v-model="assignmentDialog">
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>{{ mdiBookOpenVariant }}</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <AssignmentTracker />
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text @click="assignmentDialog = !assignmentDialog"
+              >Close</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-spacer />
       <SaveBtn />
       <ShareBtn v-if="$vuetify.breakpoint.mdAndUp" />
@@ -85,13 +103,16 @@ import {
   mdiBell,
   mdiChatOutline,
   mdiChartBoxOutline,
+  mdiBookOpenVariant,
 } from '@mdi/js';
 import { formatToNow } from '@/utils/date';
 import ShareBtn from './ShareBtn';
 import quickLinks from '@/mixins/quickLinks';
+import AssignmentTracker from '@/components/shared/AssignmentTracker';
 
 export default {
   components: {
+    AssignmentTracker,
     HistoryDialog: () =>
       import(
         /* webpackChunkName: "historyDialog" */ '@/components/shared/HistoryDialog'
@@ -109,6 +130,8 @@ export default {
       mdiBell,
       mdiChatOutline,
       mdiChartBoxOutline,
+      mdiBookOpenVariant,
+      assignmentDialog: false,
       formatToNow,
     };
   },

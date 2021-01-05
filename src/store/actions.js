@@ -3,6 +3,12 @@ import http from '../utils/http';
 import * as constants from './constants';
 
 export default {
+  addAssignment({ commit }, assignment) {
+    commit(constants.ADD_ASSIGNMENT, assignment);
+  },
+  removeAssignment({ commit }, assignment) {
+    commit(constants.REMOVE_ASSIGNMENT, assignment);
+  },
   fetchCourses(_, index) {
     return http.get(`/courses?college=${index}`).then((res) => {
       return res.data;
