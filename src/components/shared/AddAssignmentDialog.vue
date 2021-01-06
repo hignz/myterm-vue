@@ -143,7 +143,7 @@ export default {
           this.currentTimetable.data
             .flat()
             .map((el) => el.teacher)
-            .filter((el) => el !== undefined)
+            .filter((e) => e)
         )
       );
     },
@@ -153,7 +153,7 @@ export default {
           this.currentTimetable.data
             .flat()
             .map((el) => el.name)
-            .filter((el) => el !== undefined)
+            .filter((e) => e)
         )
       );
     },
