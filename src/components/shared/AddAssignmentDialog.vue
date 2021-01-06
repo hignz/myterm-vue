@@ -138,24 +138,24 @@ export default {
   computed: {
     ...mapState(['currentTimetable']),
     teachers() {
-      return Array.from(
-        new Set(
+      return [
+        ...new Set(
           this.currentTimetable.data
             .flat()
             .map((el) => el.teacher)
             .filter((e) => e)
-        )
-      );
+        ),
+      ];
     },
     modules() {
-      return Array.from(
-        new Set(
+      return [
+        ...new Set(
           this.currentTimetable.data
             .flat()
             .map((el) => el.name)
             .filter((e) => e)
-        )
-      );
+        ),
+      ];
     },
   },
   methods: {
