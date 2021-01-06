@@ -1,28 +1,26 @@
 <template>
   <div>
     <v-list dense three-line nav>
-      <v-list-item-group>
-        <v-list-item
-          v-for="assignment in assignments"
-          :key="assignment.name"
-          @click.stop="openDeleteDialog(assignment)"
-        >
-          <v-list-item-content>
-            <v-list-item-title>{{ assignment.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{
-              assignment.teacher
-            }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{ assignment.start }} </v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-btn icon @click.stop="openDeleteDialog(assignment)">
-              <v-icon size="20">
-                {{ mdiDelete }}
-              </v-icon>
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
-      </v-list-item-group>
+      <v-list-item
+        v-for="assignment in assignments"
+        :key="assignment.name"
+        @click.stop="openDeleteDialog(assignment)"
+      >
+        <v-list-item-content>
+          <v-list-item-title>{{ assignment.name }}</v-list-item-title>
+          <v-list-item-subtitle v-if="assignment.teacher">{{
+            assignment.teacher
+          }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ assignment.start }} </v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-btn icon @click.stop="openDeleteDialog(assignment)">
+            <v-icon size="20">
+              {{ mdiDelete }}
+            </v-icon>
+          </v-btn>
+        </v-list-item-action>
+      </v-list-item>
     </v-list>
     <v-dialog v-if="showDialog" v-model="showDialog" :width="425">
       <v-card>

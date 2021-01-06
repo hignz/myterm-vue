@@ -52,7 +52,7 @@
       </v-chip>
       <HistoryDialog v-if="hasChanged" :timetable="currentTimetable" />
       <!-- <v-btn plain>Work Due</v-btn> -->
-      <v-dialog v-model="assignmentDialog">
+      <v-dialog v-if="$vuetify.breakpoint.smAndDown" v-model="assignmentDialog">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
             <v-icon>{{ mdiBookOpenVariant }}</v-icon>

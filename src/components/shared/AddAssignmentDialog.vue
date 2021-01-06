@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" width="400">
+  <v-dialog v-model="dialog" width="400" @click:outside="close()">
     <template v-slot:activator="{ on, attrs }">
       <v-btn outlined small v-bind="attrs" v-on="on">
         New
@@ -9,7 +9,7 @@
 
     <v-card>
       <v-card-title class="headline">Add a date</v-card-title>
-      <v-form @submit.prevent="submit()">
+      <v-form ref="form" v-model="valid" @submit.prevent="submit()">
         <v-card-text>
           <v-dialog
             ref="menu"
@@ -27,6 +27,7 @@
                 dense
                 readonly
                 outlined
+                :rules="requiredRules"
                 v-bind="attrs"
                 v-on="on"
               ></v-text-field>
@@ -52,6 +53,7 @@
                 v-model="time"
                 label="Time"
                 readonly
+                :rules="requiredRules"
                 outlined
                 dense
                 v-bind="attrs"
@@ -75,6 +77,7 @@
           <v-text-field
             v-model="title"
             label="Title"
+            :rules="requiredRules"
             outlined
             dense
           ></v-text-field>
@@ -102,10 +105,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text @click="dialog = false">Close</v-btn>
-          <v-btn color="primary" type="submit" text @click="dialog = false">
-            Add
-          </v-btn>
+          <v-btn text @click="close()">Close</v-btn>
+          <v-btn color="primary" type="submit" text>Add</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -114,7 +115,6 @@
 
 <script>
 import { mdiPlus } from '@mdi/js';
-
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -131,6 +131,8 @@ export default {
       tags: null,
       teacher: null,
       module: null,
+      valid: false,
+      requiredRules: [(v) => !!v || 'This field is required'],
     };
   },
   computed: {
@@ -158,23 +160,30 @@ export default {
   },
   methods: {
     ...mapActions(['addAssignment']),
+    close() {
+      this.$refs.form.reset();
+      this.dialog = false;
+    },
     submit() {
-      const x = {
-        name: this.title,
-        start: `${this.dueDate} ${this.time}`,
-        body: this.body,
-        teacher: this.teacher,
-        module: this.module,
-        color: '#ef596f',
-      };
+      if (this.$refs.form.validate()) {
+        const assignment = {
+          name: this.title,
+          start: `${this.dueDate} ${this.time}`,
+          body: this.body,
+          teacher: this.teacher,
+          module: this.module,
+          color: '#ef596f',
+        };
 
-      this.addAssignment(x)
-        .then(() => {
-          this.$toast.success('Assignment added');
-        })
-        .catch(() => {
-          this.$toast.error('Failed to add assignment');
-        });
+        this.addAssignment(assignment)
+          .then(() => {
+            this.close();
+            this.$toast.success('Assignment added');
+          })
+          .catch(() => {
+            this.$toast.error('Failed to add assignment');
+          });
+      }
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
