@@ -3,7 +3,7 @@
     <v-list dense three-line nav>
       <v-list-item
         v-for="assignment in assignments"
-        :key="assignment.name"
+        :key="assignment.id"
         @click.stop="openDeleteDialog(assignment)"
       >
         <v-list-item-content>

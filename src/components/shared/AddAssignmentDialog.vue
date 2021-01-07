@@ -136,7 +136,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['currentTimetable']),
+    ...mapState(['assignments', 'currentTimetable']),
     teachers() {
       return [
         ...new Set(
@@ -165,14 +165,17 @@ export default {
       this.dialog = false;
     },
     submit() {
+      const colors = ['#41D1AB', '#72DDF7', '#ef596f', '#009DF8', '#ff79c6'];
+
       if (this.$refs.form.validate()) {
         const assignment = {
+          id: this.assignments.length + 1,
           name: this.title,
           start: `${this.dueDate} ${this.time}`,
           body: this.body,
           teacher: this.teacher,
           module: this.module,
-          color: '#ef596f',
+          color: colors[this.rnd(0, colors.length - 1)],
         };
 
         this.addAssignment(assignment)
