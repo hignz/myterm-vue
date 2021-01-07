@@ -145,7 +145,6 @@ import GridTimetable from '@/components/shared/GridTimetable';
 import TimetableHeader from '@/components/shared/TimetableHeader';
 import timetableMetaInfo from '@/mixins/timetableMetaInfo';
 import ShareBtn from '@/components/shared/ShareBtn';
-import { formatToNow } from '@/utils/date';
 import AssignmentTracker from '@/components/shared/AssignmentTracker';
 
 export default {
@@ -173,7 +172,6 @@ export default {
       timetable: null,
       mdiTimetable,
       mdiDotsVertical,
-      formatToNow,
       mdiFormatListBulleted,
       mdiGrid,
       view: 0,

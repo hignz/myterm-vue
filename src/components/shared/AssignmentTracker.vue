@@ -84,8 +84,7 @@
               v-model="selectedOpen"
               :close-on-content-click="false"
               :activator="selectedElement"
-              top
-              offset-x
+              left
             >
               <v-card min-width="350px" max-width="500" flat>
                 <v-toolbar dense flat>
@@ -93,7 +92,13 @@
                   <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-card-text>
-                  <p>Due: {{ selectedEvent.start }}</p>
+                  <p v-if="selectedEvent.start">
+                    Due {{ selectedEvent.start }}
+                  </p>
+
+                  <p v-if="selectedEvent.start">
+                    {{ formatToNow(selectedEvent.start, true) }}
+                  </p>
                   <p>
                     {{ selectedEvent.module }}
                   </p>
@@ -131,6 +136,7 @@ import { mdiMenuDown, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { mapState } from 'vuex';
 import AddAssignmentDialog from '@/components/shared/AddAssignmentDialog';
 import AssignmentList from '@/components/shared/AssignmentList';
+import { formatToNow, format } from '@/utils/date';
 
 export default {
   components: { AddAssignmentDialog, AssignmentList },
@@ -138,6 +144,8 @@ export default {
     return {
       currentDate: null,
       focus: '',
+      format,
+      formatToNow,
       mdiMenuDown,
       mdiChevronLeft,
       mdiChevronRight,

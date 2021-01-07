@@ -12,6 +12,9 @@
             assignment.teacher
           }}</v-list-item-subtitle>
           <v-list-item-subtitle>{{ assignment.start }} </v-list-item-subtitle>
+          <v-list-item-subtitle
+            >{{ formatToNow(assignment.start, true) }}
+          </v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-btn icon @click.stop="openDeleteDialog(assignment)">
@@ -45,7 +48,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { mdiDelete, mdiHeartBroken, mdiHeartOutline } from '@mdi/js';
+import { mdiDelete } from '@mdi/js';
+import { formatToNow, format } from '@/utils/date';
 
 export default {
   data() {
@@ -53,8 +57,8 @@ export default {
       showDialog: false,
       selectedAssignment: null,
       mdiDelete,
-      mdiHeartBroken,
-      mdiHeartOutline,
+      formatToNow,
+      format,
     };
   },
   computed: {
