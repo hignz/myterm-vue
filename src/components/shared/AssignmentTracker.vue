@@ -72,11 +72,14 @@
               color="primary darken-2"
               :events="assignments"
               :type="type"
+              first-time="01:00"
+              :weekdays="[1, 2, 3, 4, 5, 6, 0]"
               @click:event="showEvent"
               @click:more="viewDay"
               @click:date="viewDay"
               @change="updateRange"
-            ></v-calendar>
+            >
+            </v-calendar>
             <v-menu
               v-model="selectedOpen"
               :close-on-content-click="false"
@@ -115,7 +118,6 @@
             </v-menu>
           </v-sheet>
         </v-tab-item>
-
         <v-tab-item>
           <AssignmentList />
         </v-tab-item>
