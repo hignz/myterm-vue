@@ -8,11 +8,8 @@ import store from './store';
 import vuetify from '@/plugins/vuetify';
 import './registerServiceWorker';
 import './scss/variables.scss';
-import Particles from 'particles.vue';
 
 Vue.config.productionTip = false;
-
-Vue.use(Particles);
 
 Vue.use(Toast, {
   timeout: 1750,

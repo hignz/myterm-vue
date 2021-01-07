@@ -1,40 +1,49 @@
 <template>
   <div>
-    <v-row no-gutters>
-      <v-col v-for="(label, i) in labels" :key="label" class="text-center">
-        <span
-          class="caption"
-          :class="{
-            'primary--text font-weight-black': i === todaysIndex,
-          }"
-          >{{ label.substring(0, 3) }}</span
-        >
-      </v-col>
-    </v-row>
     <v-card outlined flat>
+      <v-row no-gutters>
+        <v-col v-for="(label, i) in labels" :key="label" class="text-center">
+          <span
+            class="caption"
+            :class="{
+              'primary--text font-weight-black': i === todaysIndex,
+            }"
+            >{{ label.substring(0, 3) }}</span
+          >
+        </v-col>
+      </v-row>
       <v-card-text class="pa-0">
         <v-row v-for="(row, i) in times" :key="i" no-gutters>
-          <v-col
+          <v-tooltip
             v-for="day in filteredTimetable.length + 1"
             :key="day"
-            :style="
-              darkMode
-                ? 'border: thin solid rgba(255, 255, 255, 0.12) !important'
-                : 'border: thin solid rgba(220, 220, 220, 1) !important'
-            "
-            class="text-center"
-            :class="{
-              'period pointer': checkForClass(row, day),
-              'class-now': isClassNow(row, day),
-            }"
-            @click="onPeriodSelected(row, day)"
+            bottom
           >
-            <span v-if="day === 1" class="caption">{{ row }}</span>
-          </v-col>
+            <template v-slot:activator="{ on, attrs }">
+              <v-col
+                :style="
+                  darkMode
+                    ? 'border: thin solid rgba(255, 255, 255, 0.12) !important'
+                    : 'border: thin solid rgba(220, 220, 220, 1) !important'
+                "
+                class="text-center"
+                :class="{
+                  'period pointer': checkForClass(row, day),
+                  'class-now': isClassNow(row, day),
+                }"
+                v-bind="attrs"
+                v-on="on"
+                @click="onPeriodSelected(row, day)"
+              >
+                <span v-if="day === 1" class="caption">{{ row }}</span>
+              </v-col>
+            </template>
+            <span>{{ row }} {{ labels[day - 1] }}</span>
+          </v-tooltip>
         </v-row>
       </v-card-text>
     </v-card>
-    <v-dialog v-if="dialog" v-model="dialog" :width="400">
+    <v-dialog v-if="detailsDialog" v-model="detailsDialog" :width="400">
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
         <v-card-text class="pt-4 pb-0 text-center">
@@ -57,7 +66,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn text @click="dialog = !dialog">Close</v-btn>
+          <v-btn color="primary" text @click="dialog = !dialog">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -78,34 +87,8 @@ export default {
   data() {
     return {
       selectedPeriod: null,
-      dialog: false,
-      times: [
-        '9:00',
-        '9:30',
-        '10:00',
-        '10:30',
-        '11:00',
-        '11:30',
-        '12:00',
-        '12:30',
-        '13:00',
-        '13:30',
-        '14:00',
-        '14:30',
-        '15:00',
-        '15:30',
-        '16:00',
-        '16:30',
-        '17:00',
-        '17:30',
-        '18:00',
-        '18:30',
-        '19:00',
-        '19:30',
-        '20:00',
-        '20:30',
-        '21:00',
-      ],
+      detailsDialog: false,
+      times: [],
       days: [
         '',
         'Monday',
@@ -139,6 +122,14 @@ export default {
     currentTime() {
       return new Date().toLocaleTimeString('en-GB');
     },
+  },
+  created() {
+    for (let index = 9; index < 22; index++) {
+      this.times.push(`${index}:00`);
+      if (index < 21) {
+        this.times.push(`${index}:30`);
+      }
+    }
   },
   methods: {
     checkForClass(time, dayIndex) {
@@ -174,7 +165,7 @@ export default {
       }
 
       this.selectedPeriod = period;
-      this.dialog = true;
+      this.detailsDialog = true;
     },
     isClassNow(time, dayIndex) {
       if (dayIndex - 1 === this.todaysIndex) {

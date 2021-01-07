@@ -56,8 +56,8 @@
               <v-btn fab text small color="grey darken-2" @click="prev">
                 <v-icon>{{ mdiChevronLeft }}</v-icon>
               </v-btn>
-              <v-toolbar-title v-if="$refs.calendar" class="mx-2">
-                {{ $refs.calendar.title }}
+              <v-toolbar-title class="mx-2">
+                {{ currentDate }}
               </v-toolbar-title>
               <v-btn fab text small color="grey darken-2" @click="next">
                 <v-icon>{{ mdiChevronRight }}</v-icon>
@@ -72,16 +72,19 @@
               color="primary darken-2"
               :events="assignments"
               :type="type"
+              first-time="01:00"
+              :weekdays="[1, 2, 3, 4, 5, 6, 0]"
               @click:event="showEvent"
               @click:more="viewDay"
               @click:date="viewDay"
-            ></v-calendar>
+              @change="updateRange"
+            >
+            </v-calendar>
             <v-menu
               v-model="selectedOpen"
               :close-on-content-click="false"
               :activator="selectedElement"
-              top
-              offset-x
+              left
             >
               <v-card min-width="350px" max-width="500" flat>
                 <v-toolbar dense flat>
@@ -89,7 +92,13 @@
                   <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-card-text>
-                  <p>Due: {{ selectedEvent.start }}</p>
+                  <p v-if="selectedEvent.start">
+                    Due {{ selectedEvent.start }}
+                  </p>
+
+                  <p v-if="selectedEvent.start">
+                    {{ formatToNow(selectedEvent.start, true) }}
+                  </p>
                   <p>
                     {{ selectedEvent.module }}
                   </p>
@@ -114,7 +123,6 @@
             </v-menu>
           </v-sheet>
         </v-tab-item>
-
         <v-tab-item>
           <AssignmentList />
         </v-tab-item>
@@ -124,43 +132,47 @@
 </template>
 
 <script>
-import {
-  mdiPencil,
-  mdiDotsVertical,
-  mdiHeart,
-  mdiMenuDown,
-  mdiChevronLeft,
-  mdiChevronRight,
-} from '@mdi/js';
-
-import { mapActions, mapState } from 'vuex';
+import { mdiMenuDown, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
+import { mapState } from 'vuex';
 import AddAssignmentDialog from '@/components/shared/AddAssignmentDialog';
 import AssignmentList from '@/components/shared/AssignmentList';
+import { formatToNow, format } from '@/utils/date';
 
 export default {
   components: { AddAssignmentDialog, AssignmentList },
   data() {
     return {
-      mdiPencil,
-      mdiDotsVertical,
-      mdiHeart,
+      currentDate: null,
+      focus: '',
+      format,
+      formatToNow,
       mdiMenuDown,
       mdiChevronLeft,
       mdiChevronRight,
+      months: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ],
       getStarted: false,
-      menu: false,
-      dueDate: null,
-      focus: '',
+      selectedEvent: {},
+      selectedElement: null,
+      selectedOpen: false,
       type: 'month',
       typeToLabel: {
         month: 'Month',
         week: 'Week',
         day: 'Day',
       },
-      selectedEvent: {},
-      selectedElement: null,
-      selectedOpen: false,
-      events: [],
       tab: null,
     };
   },
@@ -168,7 +180,9 @@ export default {
     ...mapState(['assignments']),
   },
   methods: {
-    ...mapActions([]),
+    updateRange({ start }) {
+      this.currentDate = `${this.months[start.month - 1]} ${start.year}`;
+    },
     viewDay({ date }) {
       this.focus = date;
       this.type = 'day';
