@@ -56,8 +56,8 @@
               <v-btn fab text small color="grey darken-2" @click="prev">
                 <v-icon>{{ mdiChevronLeft }}</v-icon>
               </v-btn>
-              <v-toolbar-title v-if="$refs.calendar" class="mx-2">
-                {{ $refs.calendar.title }}
+              <v-toolbar-title class="mx-2">
+                {{ currentDate }}
               </v-toolbar-title>
               <v-btn fab text small color="grey darken-2" @click="next">
                 <v-icon>{{ mdiChevronRight }}</v-icon>
@@ -75,6 +75,7 @@
               @click:event="showEvent"
               @click:more="viewDay"
               @click:date="viewDay"
+              @change="updateRange"
             ></v-calendar>
             <v-menu
               v-model="selectedOpen"
@@ -124,16 +125,8 @@
 </template>
 
 <script>
-import {
-  mdiPencil,
-  mdiDotsVertical,
-  mdiHeart,
-  mdiMenuDown,
-  mdiChevronLeft,
-  mdiChevronRight,
-} from '@mdi/js';
-
-import { mapActions, mapState } from 'vuex';
+import { mdiMenuDown, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
+import { mapState } from 'vuex';
 import AddAssignmentDialog from '@/components/shared/AddAssignmentDialog';
 import AssignmentList from '@/components/shared/AssignmentList';
 
@@ -141,26 +134,35 @@ export default {
   components: { AddAssignmentDialog, AssignmentList },
   data() {
     return {
-      mdiPencil,
-      mdiDotsVertical,
-      mdiHeart,
+      currentDate: null,
+      focus: '',
       mdiMenuDown,
       mdiChevronLeft,
       mdiChevronRight,
+      months: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ],
       getStarted: false,
-      menu: false,
-      dueDate: null,
-      focus: '',
+      selectedEvent: {},
+      selectedElement: null,
+      selectedOpen: false,
       type: 'month',
       typeToLabel: {
         month: 'Month',
         week: 'Week',
         day: 'Day',
       },
-      selectedEvent: {},
-      selectedElement: null,
-      selectedOpen: false,
-      events: [],
       tab: null,
     };
   },
@@ -168,7 +170,9 @@ export default {
     ...mapState(['assignments']),
   },
   methods: {
-    ...mapActions([]),
+    updateRange({ start }) {
+      this.currentDate = `${this.months[start.month - 1]} ${start.year}`;
+    },
     viewDay({ date }) {
       this.focus = date;
       this.type = 'day';
