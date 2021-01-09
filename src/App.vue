@@ -60,15 +60,20 @@ a.active-nav > span > span.v-icon {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #21252b;
+  background: #0d1117;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #282c34;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #474f57;
   border-radius: 3px;
 }
 </style>
