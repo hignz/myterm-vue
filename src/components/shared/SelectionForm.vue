@@ -1,15 +1,5 @@
 <template>
   <v-form ref="form" v-model="valid" @submit.prevent="openTimetable()">
-    <v-select
-      v-model="selectedCollege"
-      :items="colleges"
-      label="College"
-      dense
-      outlined
-      :disabled="isLoading"
-      :rules="[rules.required]"
-      @change="onCollegeChange()"
-    />
     <v-autocomplete
       v-model="selectedCourse"
       label="Course"
@@ -21,31 +11,34 @@
       :disabled="isLoading"
       spellcheck="false"
       clearable
-      no-data-text="Select a college first..."
+      :prepend-inner-icon="mdiTimetable"
+      no-data-text="Something seems to be broken :("
       dense
       outlined
       open-on-clear
       :rules="[rules.required]"
       return-object
     />
-    <v-btn outlined block color="primary" type="submit" :disabled="!valid">
-      Open
-    </v-btn>
+    <v-btn class="mt-2" outlined block color="primary" type="submit"
+      >Open</v-btn
+    >
   </v-form>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import { getCurrentSemester } from '@/utils/date';
+import { mdiTimetable } from '@mdi/js';
 
 export default {
   data() {
     return {
+      mdiTimetable,
       colleges: ['IT Sligo'],
       courses: [],
       isLoading: false,
       rules: {
-        required: (value) => !!value || 'Required',
+        required: (value) => !!value || 'Please select a course from the list',
       },
       selectedCollege: '',
       selectedCourse: null,
@@ -58,10 +51,13 @@ export default {
       return this.colleges.indexOf(this.selectedCollege);
     },
   },
+  created() {
+    this.populateCourses(0);
+  },
   methods: {
     ...mapActions(['fetchCourses']),
-    onCollegeChange() {
-      this.fetchCourses(this.selectedCollegeIndex)
+    populateCourses(collegeIndex) {
+      this.fetchCourses(collegeIndex)
         .then((res) => {
           this.courses = res;
         })
@@ -70,19 +66,17 @@ export default {
         });
     },
     openTimetable() {
-      if (!this.$refs.form.validate()) {
-        return;
+      if (this.$refs.form.validate()) {
+        const semester = this.getCurrentSemester();
+        this.$router.push({
+          path: 'timetable',
+          query: {
+            code: decodeURIComponent(this.selectedCourse.course),
+            college: 0,
+            sem: semester,
+          },
+        });
       }
-
-      const sem = this.getCurrentSemester();
-      this.$router.push({
-        path: 'timetable',
-        query: {
-          code: decodeURIComponent(this.selectedCourse.course),
-          college: this.selectedCollegeIndex,
-          sem,
-        },
-      });
     },
   },
 };
