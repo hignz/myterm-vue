@@ -3,7 +3,7 @@
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Timetable">
       <template v-slot:icon>
         <ShareBtn />
-        <v-menu offset-y>
+        <v-bottom-sheet>
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
               <v-icon size="28">
@@ -11,7 +11,9 @@
               </v-icon>
             </v-btn>
           </template>
-          <v-list dense>
+          <v-list>
+            <v-subheader>Options</v-subheader>
+
             <v-list-item
               :to="{
                 path: '/timetable/stats',
@@ -21,10 +23,14 @@
                   sem: courseOptions.sem,
                 },
               }"
-              >More</v-list-item
             >
+              <v-icon class="ml-2 mr-6 my-4" color="primary">
+                {{ mdiChartBoxOutline }}
+              </v-icon>
+              <v-list-item-title>Timetable stats</v-list-item-title>
+            </v-list-item>
           </v-list>
-        </v-menu>
+        </v-bottom-sheet>
       </template>
     </AppBar>
     <v-row>
@@ -123,7 +129,11 @@
             sm="12"
             lg="3"
           >
-            <AssignmentTracker />
+            <v-card outlined>
+              <v-card-text class="pt-0">
+                <AssignmentTracker />
+              </v-card-text>
+            </v-card>
           </v-col>
         </v-row>
       </v-col>
@@ -138,6 +148,7 @@ import {
   mdiDotsVertical,
   mdiFormatListBulleted,
   mdiGrid,
+  mdiChartBoxOutline,
 } from '@mdi/js';
 import { mapActions, mapState } from 'vuex';
 import ListTimetable from '@/components/shared/ListTimetable';
@@ -173,6 +184,7 @@ export default {
       mdiTimetable,
       mdiDotsVertical,
       mdiFormatListBulleted,
+      mdiChartBoxOutline,
       mdiGrid,
       view: 0,
       modules: [],

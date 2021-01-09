@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card v-if="!assignments.length && !getStarted" outlined>
+    <div v-if="!assignments.length && !getStarted" outlined>
       <v-card-text class="text-center">
         <!-- <p class="text-h5">Assignment Tracker</p> -->
         <v-skeleton-loader type="image">
@@ -20,8 +20,8 @@
           >Get Started</v-btn
         >
       </v-card-text>
-    </v-card>
-    <v-card v-else outlined>
+    </div>
+    <div v-else outlined>
       <v-tabs v-model="tab">
         <v-tab>Tracker</v-tab>
         <v-tab v-if="assignments.length">Assignments</v-tab>
@@ -65,7 +65,7 @@
               <v-spacer></v-spacer>
             </v-toolbar>
           </v-sheet>
-          <v-sheet height="350" class="ma-4">
+          <v-sheet height="350" class="ma-1">
             <v-calendar
               ref="calendar"
               v-model="focus"
@@ -127,7 +127,7 @@
           <AssignmentList />
         </v-tab-item>
       </v-tabs-items>
-    </v-card>
+    </div>
   </div>
 </template>
 
