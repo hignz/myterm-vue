@@ -18,11 +18,11 @@
                   <v-chip
                     v-for="color in themeColors"
                     :key="color.value"
-                    outlined
+                    filter
+                    :text-color="color.value"
                     @click="changeAccentColor(color)"
                   >
-                    <v-avatar left :color="color.value" />
-                    {{ color.name }}
+                    <v-avatar :color="color.value" />
                   </v-chip>
                   <v-chip
                     pill
