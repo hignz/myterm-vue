@@ -11,7 +11,6 @@
       :disabled="isLoading"
       spellcheck="false"
       clearable
-      :prepend-inner-icon="mdiTimetable"
       no-data-text="Something seems to be broken :("
       dense
       outlined
@@ -28,12 +27,10 @@
 <script>
 import { mapActions } from 'vuex';
 import { getCurrentSemester } from '@/utils/date';
-import { mdiTimetable } from '@mdi/js';
 
 export default {
   data() {
     return {
-      mdiTimetable,
       colleges: ['IT Sligo'],
       courses: [],
       isLoading: false,
