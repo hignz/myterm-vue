@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels v-if="timetable" v-model="arr" multiple flat>
+  <v-expansion-panels v-if="timetable" v-model="arr" multiple flat hover>
     <template v-for="(day, index) in filteredTimetable">
       <v-expansion-panel
         v-if="day && day.length"
