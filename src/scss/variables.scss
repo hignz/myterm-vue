@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 $body-font-family: 'Poppins', sans-serif !important;
+
 @import '~vuetify/src/styles/styles.sass';
 
 $mytermDark: (
@@ -10,9 +11,8 @@ $mytermDark: (
 );
 
 $mytermLight: (
-  'base': #EFEFEF,
-  'lighten-1': #EAEAEA,
-  'lighten-2': #eee,
+  'base': #f6f9fc,
+  'lighten-1': #fff,
 );
 
 $colors: (
@@ -38,7 +38,7 @@ $material-light: map-merge(
     "background": map-get($mytermLight, 'base'),
     'bottom-navigation': map-get($mytermLight, 'base'),
     'cards': map-get($mytermLight, 'lighten-1'),
-    'chips': map-get($mytermLight, 'lighten-2'),
+    'chips': map-get($mytermLight, 'lighten-1'),
     'toolbar': map-get($mytermLight, 'base'),
   )
 );
