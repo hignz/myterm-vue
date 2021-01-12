@@ -12,12 +12,13 @@
       >
         <v-card outlined flat>
           <v-list three-line subheader dense nav>
-            <v-subheader class="font-weight-bold caption mt-2"
-              >TIMETABLES <v-spacer></v-spacer
-              ><span v-if="savedCourses.length > 1" class="mr-3">{{
-                savedCourses.length
-              }}</span></v-subheader
-            >
+            <v-subheader class="font-weight-bold caption mt-2">
+              TIMETABLES
+              <small v-if="savedCourses.length > 1" class="ml-3">
+                ( {{ savedCourses.length }} )
+              </small>
+              <v-spacer></v-spacer>
+            </v-subheader>
 
             <v-list-item
               v-for="(course, index) in savedCourses"

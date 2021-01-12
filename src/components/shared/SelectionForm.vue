@@ -11,13 +11,13 @@
       :disabled="isLoading"
       spellcheck="false"
       clearable
-      no-data-text="Something seems to be broken :("
       dense
       outlined
       open-on-clear
       :rules="[rules.required]"
       return-object
-    />
+    >
+    </v-autocomplete>
     <v-btn class="mt-2" outlined block color="primary" type="submit"
       >Open</v-btn
     >
