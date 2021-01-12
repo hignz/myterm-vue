@@ -71,6 +71,12 @@
                   TIMETABLE CHANGE HISTORY
                 </p>
               </v-card-text>
+              <v-img
+                class="mx-auto"
+                max-height="250"
+                max-width="250"
+                :src="require('@/assets/undraw_under_construction_46pa.svg')"
+              ></v-img>
               <v-data-table :items="[]" no-data-text="No changes found" />
             </v-card>
           </v-col>
