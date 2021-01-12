@@ -3,8 +3,8 @@
     v-model="color"
     show-swatches
     mode="hexa"
-    style="color: white"
     :hide-mode-switch="true"
+    swatches-max-height="160"
     @input="updateAccent()"
   />
 </template>
