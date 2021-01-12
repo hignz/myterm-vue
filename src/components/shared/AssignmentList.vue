@@ -2,8 +2,8 @@
   <div>
     <v-list dense three-line nav>
       <v-list-item
-        v-for="assignment in assignments"
-        :key="assignment.id"
+        v-for="(assignment, index) in assignments"
+        :key="index"
         @click.stop="openDeleteDialog(assignment)"
       >
         <v-list-item-content>

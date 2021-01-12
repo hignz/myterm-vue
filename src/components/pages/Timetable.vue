@@ -102,7 +102,7 @@
               </template>
             </template>
             <div
-              v-if="(isLoaded && !timetable) || (timetable && timetable.empty)"
+              v-if="isLoaded && timetable && timetable.empty"
               class="text-center mt-md-16"
             >
               <v-img
@@ -122,6 +122,22 @@
                 Try another
               </v-btn>
             </div>
+            <div v-if="isLoaded && !timetable" class="text-center mt-md-16">
+              <v-img
+                class="mx-auto mb-6"
+                max-height="250"
+                max-width="250"
+                :src="require('@/assets/undraw_page_not_found_su7k.svg')"
+              ></v-img>
+
+              <p class="grey--text">We could not find that timetable...</p>
+              <p class="grey--text">
+                Are you sure you chose the correct course?
+              </p>
+              <v-btn x-large plain color="primary" :to="{ path: '/' }">
+                Try another
+              </v-btn>
+            </div>
           </v-col>
           <v-col
             v-if="timetable && $vuetify.breakpoint.mdAndUp"
@@ -130,9 +146,7 @@
             lg="3"
           >
             <v-card outlined>
-              <v-card-text class="pt-0">
-                <AssignmentTracker />
-              </v-card-text>
+              <AssignmentTracker />
             </v-card>
           </v-col>
         </v-row>

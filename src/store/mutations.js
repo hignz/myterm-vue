@@ -8,6 +8,12 @@ export default {
   [constants.REMOVE_ASSIGNMENT](state, value) {
     state.assignments = state.assignments.filter((el) => el !== value);
   },
+  [constants.MERGE_ASSIGNMENTS](state, assignments) {
+    state.assignments = state.assignments.concat(assignments);
+  },
+  [constants.OVERWRITE_ASSIGNMENTS](state, assignments) {
+    state.assignments = assignments;
+  },
   [constants.REMOVE_TIMETABLE](state, value) {
     state.savedCourses = state.savedCourses.filter(
       (el) => el.id !== value._id && el.id !== value.id
