@@ -21,6 +21,10 @@ export const routeOptions = [
     name: 'Chat',
   },
   {
+    path: '/import-assignments/:id',
+    name: 'ImportAssignments',
+  },
+  {
     path: '/timetable',
     name: 'Timetable',
     props: true,

@@ -9,10 +9,35 @@ export default {
   removeAssignment({ commit }, assignment) {
     commit(constants.REMOVE_ASSIGNMENT, assignment);
   },
+  mergeAssignments({ commit }, assignments) {
+    commit(constants.MERGE_ASSIGNMENTS, assignments);
+  },
+  overwriteAssignments({ commit }, assignments) {
+    commit(constants.OVERWRITE_ASSIGNMENTS, assignments);
+  },
   fetchCourses(_, index) {
     return http.get(`/courses?college=${index}`).then((res) => {
       return res.data;
     });
+  },
+  fetchAssignmentList(_, assignmentListId) {
+    return http
+      .get(
+        `https://myterm-assignment-tracker.herokuapp.com/v1/assignment/${assignmentListId}`
+      )
+      .then((res) => {
+        return res.data;
+      });
+  },
+  postAssignmentList(_, body) {
+    return http
+      .post(
+        'https://myterm-assignment-tracker.herokuapp.com/v1/assignment',
+        body
+      )
+      .then((res) => {
+        return res.data;
+      });
   },
   fetchTimetable({ commit }, options) {
     commit(constants.SET_FETCHING, true);

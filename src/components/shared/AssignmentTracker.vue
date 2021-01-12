@@ -1,8 +1,7 @@
 <template>
   <div>
-    <v-card v-if="!assignments.length && !getStarted" outlined>
+    <div v-if="!assignments.length && !getStarted" outlined>
       <v-card-text class="text-center">
-        <!-- <p class="text-h5">Assignment Tracker</p> -->
         <v-skeleton-loader type="image">
           <v-img
             class="mx-auto"
@@ -20,8 +19,8 @@
           >Get Started</v-btn
         >
       </v-card-text>
-    </v-card>
-    <v-card v-else outlined>
+    </div>
+    <div v-else outlined>
       <v-tabs v-model="tab">
         <v-tab>Tracker</v-tab>
         <v-tab v-if="assignments.length">Assignments</v-tab>
@@ -30,6 +29,7 @@
         <v-tab-item>
           <v-sheet>
             <v-toolbar flat>
+              <AssignmentShareDialog v-if="assignments.length" />
               <v-spacer></v-spacer>
               <AddAssignmentDialog />
               <v-menu offset-y bottom>
@@ -62,10 +62,9 @@
               <v-btn fab text small color="grey darken-2" @click="next">
                 <v-icon>{{ mdiChevronRight }}</v-icon>
               </v-btn>
-              <v-spacer></v-spacer>
             </v-toolbar>
           </v-sheet>
-          <v-sheet height="350" class="ma-4">
+          <v-sheet height="350" class="ma-2">
             <v-calendar
               ref="calendar"
               v-model="focus"
@@ -127,7 +126,7 @@
           <AssignmentList />
         </v-tab-item>
       </v-tabs-items>
-    </v-card>
+    </div>
   </div>
 </template>
 
@@ -136,10 +135,11 @@ import { mdiMenuDown, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { mapState } from 'vuex';
 import AddAssignmentDialog from '@/components/shared/AddAssignmentDialog';
 import AssignmentList from '@/components/shared/AssignmentList';
+import AssignmentShareDialog from '@/components/shared/AssignmentShareDialog';
 import { formatToNow, format } from '@/utils/date';
 
 export default {
-  components: { AddAssignmentDialog, AssignmentList },
+  components: { AddAssignmentDialog, AssignmentShareDialog, AssignmentList },
   data() {
     return {
       currentDate: null,
@@ -149,6 +149,7 @@ export default {
       mdiMenuDown,
       mdiChevronLeft,
       mdiChevronRight,
+      showShareDialog: false,
       months: [
         'January',
         'February',
@@ -238,5 +239,8 @@ export default {
 }
 ::v-deep.theme--dark.v-toolbar.v-sheet {
   background-color: #161b22 !important;
+}
+::v-deep.theme--light.v-toolbar.v-sheet {
+  background-color: #fff !important;
 }
 </style>

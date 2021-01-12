@@ -116,6 +116,7 @@
 <script>
 import { mdiPlus } from '@mdi/js';
 import { mapActions, mapState } from 'vuex';
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   data() {
@@ -126,11 +127,11 @@ export default {
       title: '',
       body: '',
       time: '',
-      dueDate: null,
+      dueDate: '',
       menu: null,
       tags: null,
-      teacher: null,
-      module: null,
+      teacher: '',
+      module: '',
       valid: false,
       requiredRules: [(v) => !!v || 'This field is required'],
     };
@@ -169,12 +170,12 @@ export default {
 
       if (this.$refs.form.validate()) {
         const assignment = {
-          id: this.assignments.length + 1,
+          id: uuidv4(),
           name: this.title,
           start: `${this.dueDate} ${this.time}`,
-          body: this.body,
-          teacher: this.teacher,
-          module: this.module,
+          body: this.body || '',
+          teacher: this.teacher || '',
+          module: this.module || '',
           color: colors[this.rnd(0, colors.length - 1)],
         };
 

@@ -50,8 +50,11 @@
           }}</span>
         </v-avatar>
       </v-chip>
-      <HistoryDialog v-if="hasChanged" :timetable="currentTimetable" />
-      <!-- <v-btn plain>Work Due</v-btn> -->
+      <HistoryDialog
+        v-if="hasChanged && $vuetify.breakpoint.mdAndUp"
+        :timetable="currentTimetable"
+      />
+      <v-spacer />
       <v-dialog v-if="$vuetify.breakpoint.smAndDown" v-model="assignmentDialog">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
@@ -69,7 +72,6 @@
         </v-card>
       </v-dialog>
 
-      <v-spacer />
       <SaveBtn />
       <ShareBtn v-if="$vuetify.breakpoint.mdAndUp" />
       <v-btn

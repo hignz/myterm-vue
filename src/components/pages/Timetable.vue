@@ -3,7 +3,7 @@
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Timetable">
       <template v-slot:icon>
         <ShareBtn />
-        <v-menu offset-y>
+        <v-bottom-sheet>
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon v-bind="attrs" v-on="on">
               <v-icon size="28">
@@ -11,7 +11,9 @@
               </v-icon>
             </v-btn>
           </template>
-          <v-list dense>
+          <v-list>
+            <v-subheader>Options</v-subheader>
+
             <v-list-item
               :to="{
                 path: '/timetable/stats',
@@ -21,10 +23,14 @@
                   sem: courseOptions.sem,
                 },
               }"
-              >More</v-list-item
             >
+              <v-icon class="ml-2 mr-6 my-4" color="primary">
+                {{ mdiChartBoxOutline }}
+              </v-icon>
+              <v-list-item-title>Timetable stats</v-list-item-title>
+            </v-list-item>
           </v-list>
-        </v-menu>
+        </v-bottom-sheet>
       </template>
     </AppBar>
     <v-row>
@@ -96,7 +102,7 @@
               </template>
             </template>
             <div
-              v-if="(isLoaded && !timetable) || (timetable && timetable.empty)"
+              v-if="isLoaded && timetable && timetable.empty"
               class="text-center mt-md-16"
             >
               <v-img
@@ -116,6 +122,22 @@
                 Try another
               </v-btn>
             </div>
+            <div v-if="isLoaded && !timetable" class="text-center mt-md-16">
+              <v-img
+                class="mx-auto mb-6"
+                max-height="250"
+                max-width="250"
+                :src="require('@/assets/undraw_page_not_found_su7k.svg')"
+              ></v-img>
+
+              <p class="grey--text">We could not find that timetable...</p>
+              <p class="grey--text">
+                Are you sure you chose the correct course?
+              </p>
+              <v-btn x-large plain color="primary" :to="{ path: '/' }">
+                Try another
+              </v-btn>
+            </div>
           </v-col>
           <v-col
             v-if="timetable && $vuetify.breakpoint.mdAndUp"
@@ -123,7 +145,9 @@
             sm="12"
             lg="3"
           >
-            <AssignmentTracker />
+            <v-card outlined>
+              <AssignmentTracker />
+            </v-card>
           </v-col>
         </v-row>
       </v-col>
@@ -138,6 +162,7 @@ import {
   mdiDotsVertical,
   mdiFormatListBulleted,
   mdiGrid,
+  mdiChartBoxOutline,
 } from '@mdi/js';
 import { mapActions, mapState } from 'vuex';
 import ListTimetable from '@/components/shared/ListTimetable';
@@ -173,6 +198,7 @@ export default {
       mdiTimetable,
       mdiDotsVertical,
       mdiFormatListBulleted,
+      mdiChartBoxOutline,
       mdiGrid,
       view: 0,
       modules: [],
