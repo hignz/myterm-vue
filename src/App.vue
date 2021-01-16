@@ -76,4 +76,10 @@ a.active-nav > span > span.v-icon {
   background: #474f57;
   border-radius: 3px;
 }
+
+/* firefox workaround */
+:root {
+  scrollbar-color: #282c34 #0d1117 !important;
+  scrollbar-width: thin !important;
+}
 </style>
