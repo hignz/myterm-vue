@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-center body-2"
+    class="text-center body-2 font-weight-medium"
     :class="{
       'text--disabled': isClassOver,
       'primary--text font-weight-bold': isClassNow,
@@ -9,7 +9,7 @@
     @click="showExtendedInfo = !showExtendedInfo"
   >
     <v-chip v-if="isElective" class="mt-4" small color="error" outlined>
-      <span> Elective </span>
+      <span>Elective</span>
     </v-chip>
     <p v-if="period.startTime" class="mt-4 mb-1">
       {{ period.startTime }} - {{ period.endTime }}
@@ -20,13 +20,7 @@
     <p v-if="showExtendedInfo && hasExtendedInfo" class="mb-1">
       {{ period.activity }}
     </p>
-    <p
-      v-if="period.room"
-      class="mb-1"
-      :class="{
-        'mb-4': !period.teacher,
-      }"
-    >
+    <p v-if="period.room" class="mb-1">
       {{ period.room.split(/ -|- /)[0] }}
     </p>
     <p v-if="!isElective" class="mb-1">
