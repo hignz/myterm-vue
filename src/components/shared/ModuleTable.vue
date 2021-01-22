@@ -2,7 +2,7 @@
   <v-card outlined>
     <v-data-table
       :headers="headers"
-      :items="moduleData"
+      :items="modules"
       :items-per-page="10"
       class="elevation-0"
     />
@@ -12,7 +12,7 @@
 <script>
 export default {
   props: {
-    moduleData: {
+    modules: {
       type: Array,
       default: () => [],
     },

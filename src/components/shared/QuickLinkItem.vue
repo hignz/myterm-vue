@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { openBlank } from '@/utils/link';
+
 export default {
   props: {
     link: {
@@ -21,9 +23,14 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      openBlank,
+    };
+  },
   methods: {
-    openLink(link) {
-      window.open(link, '_blank', 'noopener,noreferrer');
+    openLink(url) {
+      this.openBlank(url);
     },
   },
 };

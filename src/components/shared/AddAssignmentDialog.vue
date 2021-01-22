@@ -115,7 +115,7 @@
 
 <script>
 import { mdiPlus } from '@mdi/js';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import { v4 as uuidv4 } from 'uuid';
 
 export default {
@@ -137,11 +137,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(['assignments', 'currentTimetable']),
+    ...mapState(['assignments', 'currentTimetable', 'showWeekends']),
+    ...mapGetters(['getTimetableByWeekdays']),
     teachers() {
       return [
         ...new Set(
-          this.currentTimetable.data
+          this.getTimetableByWeekdays
             .flat()
             .map((el) => el.teacher)
             .filter((e) => e)
@@ -151,7 +152,7 @@ export default {
     modules() {
       return [
         ...new Set(
-          this.currentTimetable.data
+          this.getTimetableByWeekdays
             .flat()
             .map((el) => el.name)
             .filter((e) => e)
