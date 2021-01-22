@@ -226,17 +226,17 @@ export default {
   background-color: #161b22 !important;
 }
 ::v-deep.theme--dark.v-calendar-weekly .v-calendar-weekly__day.v-outside {
-  background-color: #0d1117 !important;
+  background-color: var(--v-background-base) !important;
 }
 ::v-deep.theme--dark.v-calendar-weekly
   .v-calendar-weekly__head-weekday.v-outside {
-  background-color: #0d1117 !important;
+  background-color: var(--v-background-base) !important;
 }
 ::v-deep.theme--dark.v-calendar-daily {
-  background-color: #161b22 !important;
+  background-color: var(--v-background-base) !important;
 }
 ::v-deep.theme--dark.v-toolbar.v-sheet {
-  background-color: #161b22 !important;
+  background-color: var(--v-background-base) !important;
 }
 ::v-deep.theme--light.v-toolbar.v-sheet {
   background-color: #fff !important;

@@ -199,9 +199,9 @@ export default {
 
 <style>
 .theme--dark.v-picker__body {
-  background-color: #161b22 !important;
+  background-color: var(--v-background-base) !important;
 }
 .theme--dark.v-time-picker-clock {
-  background-color: #474f57 !important;
+  background-color: var(--v-background-lighten1) !important;
 }
 </style>
