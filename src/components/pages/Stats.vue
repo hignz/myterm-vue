@@ -2,26 +2,27 @@
   <v-container fluid>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More"></AppBar>
     <v-tabs v-model="tab" background-color="transparent" centered>
-      <v-tab href="#tab-1">ADDITIONAL INFO</v-tab>
+      <v-tab href="#tab-1">Additional Info</v-tab>
       <v-tab href="#tab-2">Breakdown</v-tab>
     </v-tabs>
     <v-tabs-items v-if="!isLoading" v-model="tab">
       <v-tab-item value="tab-1" :transition="false" :reverse-transition="false">
         <v-row justify="center">
-          <v-col cols="12" sm="12" md="6">
+          <v-col cols="12" sm="12" md="8" lg="8" xl="6">
             <v-card outlined>
-              <v-card-text class="font-weight-black">
-                <v-row>
+              <v-card-text>
+                <v-row justify="center">
                   <v-col cols="12" sm="12" md="6">
-                    <p class="font-weight-black mb-2">
+                    <p class="mb-1 font-weight-medium">
                       {{ timetable.title }}
                     </p>
-                    <p class="caption font-weight-black mb-3">
+                    <p class="caption mb-1 font-weight-medium">
                       {{ timetable.courseCode }}
                     </p>
-                    <p class="caption font-weight-black">
+                    <p class="caption">
                       Semester {{ parseInt(timetable.semester, 10) + 1 }}
                     </p>
+                    <p>9AM Starts: {{ nineAmStarts }}</p>
                   </v-col>
                   <v-col sm="12" md="6">
                     <Sparkline
@@ -41,7 +42,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-btn
-                  outlined
+                  plain
                   color="primary"
                   small
                   @click="openOfficialTimetable()"
@@ -52,10 +53,10 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col cols="12" sm="12" md="3">
+          <v-col cols="12" sm="12" md="4" lg="4" xl="3">
             <v-card outlined flat>
               <v-card-text>
-                <p class="caption font-weight-black">ALL CLASSES</p>
+                <p class="caption font-weight-medium">ALL CLASSES</p>
                 <PieChart
                   v-if="moduleCounts"
                   :chart-data="moduleCounts"
@@ -64,32 +65,33 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" sm="12" md="3">
+          <v-col cols="12" sm="12" md="4" lg="4" xl="3">
             <v-card outlined height="100%">
               <v-card-text>
-                <p class="caption font-weight-black">
+                <p class="caption font-weight-medium">
                   TIMETABLE CHANGE HISTORY
                 </p>
+                <v-img
+                  class="mx-auto"
+                  max-height="250"
+                  max-width="250"
+                  :src="require('@/assets/undraw_under_construction_46pa.svg')"
+                >
+                </v-img>
               </v-card-text>
-              <v-img
-                class="mx-auto"
-                max-height="250"
-                max-width="250"
-                :src="require('@/assets/undraw_under_construction_46pa.svg')"
-              ></v-img>
               <v-data-table :items="[]" no-data-text="No changes found" />
             </v-card>
           </v-col>
         </v-row>
       </v-tab-item>
       <v-row justify="center">
-        <v-col cols="12" sm="12" md="6">
+        <v-col cols="12" sm="12" md="8" lg="8" xl="6">
           <v-tab-item
             value="tab-2"
             :transition="false"
             :reverse-transition="false"
           >
-            <ModuleTable :module-data="moduleTotals" />
+            <ModuleTable :modules="moduleTotals" />
           </v-tab-item>
         </v-col>
       </v-row>
@@ -98,12 +100,13 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import AppBar from '@/components/shared/AppBar';
 import ModuleTable from '@/components/shared/ModuleTable';
 import PieChart from '@/components/shared/PieChart';
 import Sparkline from '@/components/shared/Sparkline';
 import genericMetaInfo from '@/mixins/genericMetaInfo';
+import { openBlank } from '@/utils/link';
 
 export default {
   components: {
@@ -115,21 +118,24 @@ export default {
   mixins: [genericMetaInfo],
   data() {
     return {
-      modules: [],
       timetable: {},
       tab: null,
       isLoading: false,
+      nineAmStarts: 0,
+      openBlank,
     };
   },
   computed: {
     ...mapState(['showWeekends']),
+    ...mapGetters(['getTimetableByWeekdays']),
+
     moduleTotalsPerDay() {
-      return this.modules.map((el) => el.length);
+      return this.getTimetableByWeekdays.map((el) => el.length);
     },
     moduleTotals() {
       const arr = [
         ...new Set(
-          this.modules
+          this.getTimetableByWeekdays
             .flat()
             .filter((e) => !e.break)
             .map((el) => el.name || el.activity)
@@ -139,7 +145,7 @@ export default {
       return arr
         .map((el) => ({
           name: el,
-          count: this.modules
+          count: this.getTimetableByWeekdays
             .flat()
             .filter((elm) => elm.name === el || elm.activity === el).length,
         }))
@@ -154,13 +160,13 @@ export default {
   },
   created() {
     this.isLoading = true;
-
     const { code, college, sem } = this.$route.query;
 
     this.fetchTimetable({ code, college, sem })
       .then((res) => {
         this.timetable = res;
-        this.modules = this.showWeekends ? res.data : res.data.slice(0, 5);
+
+        this.nineAmStarts = this.getNineAmStarts();
       })
       .finally(() => {
         this.isLoading = false;
@@ -169,7 +175,19 @@ export default {
   methods: {
     ...mapActions(['fetchTimetable']),
     openOfficialTimetable() {
-      window.open(this.timetable.url, '_blank', 'noopener,noreferrer');
+      this.openBlank(this.timetable.url);
+    },
+    getNineAmStarts() {
+      let nineAmStarts = 0;
+
+      for (let index = 0; index < this.getTimetableByWeekdays.length; index++) {
+        const day = this.getTimetableByWeekdays[index];
+        if (day.length && day[0].startTime === '9:00') {
+          nineAmStarts += 1;
+        }
+      }
+
+      return nineAmStarts;
     },
   },
 };

@@ -8,7 +8,7 @@
         :class="darkMode ? 'dark-border' : 'light-border'"
       >
         <v-expansion-panel-header
-          class="subtitle-1"
+          class="subtitle-1 font-weight-medium"
           :class="{
             'primary--text font-weight-bold': isCurrentDay(index),
           }"

@@ -5,13 +5,14 @@
       <v-col
         v-if="savedCourses && savedCourses.length"
         cols="12"
-        sm="12"
-        md="6"
-        lg="6"
+        sm="10"
+        md="7"
+        lg="7"
+        xl="5"
         class="pt-0 pt-md-3"
       >
         <v-card outlined flat>
-          <v-list three-line subheader dense nav>
+          <v-list two-line subheader dense nav>
             <v-subheader class="font-weight-bold caption mt-2">
               TIMETABLES
               <small v-if="savedCourses.length > 1" class="ml-3">
@@ -26,20 +27,15 @@
               @click="openTimetable(course)"
             >
               <v-list-item-content>
-                <v-list-item-title class="mb-1 mb-md-0">{{
+                <v-list-item-title class="mb-2">{{
                   course.title
                 }}</v-list-item-title>
                 <v-list-item-subtitle
                   v-if="!course.multiple"
-                  class="caption mb-2 mb-md-0"
+                  class="caption mb-2"
                 >
-                  Semester:
-                  <span class="font-weight-bold">{{
-                    parseInt(course.sem, 10) + 1
-                  }}</span>
-                </v-list-item-subtitle>
-                <v-list-item-subtitle class="caption">
-                  {{ course.college }}
+                  {{ course.college }} &#x25CF; Semester
+                  <span>{{ parseInt(course.sem, 10) + 1 }}</span>
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
