@@ -27,7 +27,6 @@ export default {
   mixins: [navigationItems],
   computed: {
     isIos() {
-      console.log(navigator.platform);
       return /iPad|iPhone|iPod/.test(navigator.platform);
     },
   },
