@@ -1,12 +1,15 @@
 <template>
   <v-card v-if="currentTimetable" outlined flat>
-    <v-card-title style="word-break: keep-all" class="subtitle-1">
+    <v-card-title
+      style="word-break: keep-all"
+      class="subtitle-1 font-weight-medium"
+    >
       {{ currentTimetable.title }}
     </v-card-title>
     <v-card-subtitle>
       <v-menu v-if="$vuetify.breakpoint.mdAndUp" offset-y max-width="200">
         <template v-slot:activator="{ on }">
-          <p class="pointer caption" v-on="on">
+          <p class="pointer caption font-weight-medium" v-on="on">
             {{ currentTimetable.college }}
             <v-icon size="16" color="grey" class="">{{
               mdiChevronDown
@@ -26,7 +29,7 @@
         v-model="bottomSheet"
       >
         <template v-slot:activator="{ on }">
-          <p class="caption" v-on="on">
+          <p class="caption font-weight-medium" v-on="on">
             {{ currentTimetable.college }}
           </p>
         </template>
@@ -42,23 +45,36 @@
       </v-bottom-sheet>
     </v-card-subtitle>
     <v-card-actions>
-      <v-chip class="mr-2" outlined @click="switchSemester()">
+      <span class="ml-2 font-weight-medium text--secondary caption">
         Semester
-        <v-avatar right>
-          <span class="primary--text">{{
-            parseInt(currentTimetable.semester, 10) + 1
-          }}</span>
-        </v-avatar>
-      </v-chip>
-      <HistoryDialog
-        v-if="hasChanged && $vuetify.breakpoint.mdAndUp"
-        :timetable="currentTimetable"
-      />
+      </span>
+      <v-chip-group v-model="semester" mandatory class="ml-3">
+        <v-chip
+          outlined
+          filter
+          :color="semester === 0 ? 'primary' : ''"
+          :filter-icon="mdiSchool"
+          @click="switchSemester(0)"
+          >1</v-chip
+        >
+        <v-chip
+          outlined
+          filter
+          :filter-icon="mdiSchool"
+          :color="semester === 1 ? 'primary' : ''"
+          @click="switchSemester(1)"
+          >2</v-chip
+        >
+      </v-chip-group>
       <v-spacer />
-      <v-dialog v-if="$vuetify.breakpoint.smAndDown" v-model="assignmentDialog">
+      <v-dialog
+        v-if="$vuetify.breakpoint.mdAndDown"
+        v-model="assignmentDialog"
+        width="450"
+      >
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
-            <v-icon>{{ mdiBookOpenVariant }}</v-icon>
+            <v-icon>{{ mdiCalendarMonth }}</v-icon>
           </v-btn>
         </template>
         <v-card>
@@ -105,7 +121,8 @@ import {
   mdiBell,
   mdiChatOutline,
   mdiChartBoxOutline,
-  mdiBookOpenVariant,
+  mdiCalendarMonth,
+  mdiSchool,
 } from '@mdi/js';
 import { formatToNow } from '@/utils/date';
 import ShareBtn from './ShareBtn';
@@ -115,10 +132,6 @@ import AssignmentTracker from '@/components/shared/AssignmentTracker';
 export default {
   components: {
     AssignmentTracker,
-    HistoryDialog: () =>
-      import(
-        /* webpackChunkName: "historyDialog" */ '@/components/shared/HistoryDialog'
-      ),
     SaveBtn,
     ShareBtn,
     QuickLinkItem,
@@ -132,9 +145,11 @@ export default {
       mdiBell,
       mdiChatOutline,
       mdiChartBoxOutline,
-      mdiBookOpenVariant,
+      mdiCalendarMonth,
       assignmentDialog: false,
       formatToNow,
+      semester: null,
+      mdiSchool,
     };
   },
   computed: {
@@ -158,19 +173,20 @@ export default {
       );
     },
   },
+  created() {
+    this.semester = parseInt(this.currentTimetable.semester);
+  },
   methods: {
     ...mapActions(['toggleBottomSheet']),
-    openLink(link) {
-      window.open(link, '_blank', 'noopener,noreferrer');
-    },
-    switchSemester() {
+    switchSemester(index) {
+      this.semester = index;
       this.$router
         .push({
           path: '/timetable',
           query: {
             code: this.courseOptions.code,
             college: this.courseOptions.college,
-            sem: this.courseOptions.sem === '0' ? '1' : '0',
+            sem: index,
           },
         })
         .catch(() => {});
