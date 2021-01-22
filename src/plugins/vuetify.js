@@ -20,7 +20,7 @@ export default new Vuetify({
           : '#72DDF7',
         error: '#FF5252',
         success: '#41D1AB',
-        background: '#0D0F11',
+        background: '#f6f9fc',
       },
       dark: {
         primary: JSON.parse(localStorage.getItem('vuex'))
@@ -28,7 +28,7 @@ export default new Vuetify({
           : '#72DDF7',
         error: '#FF5252',
         success: '#41D1AB',
-        background: '#0D0F11',
+        background: '#0d1117',
       },
     },
   },
