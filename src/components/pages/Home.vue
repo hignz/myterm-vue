@@ -1,20 +1,22 @@
 <template>
   <div>
     <v-container>
-      <AppBar v-if="$vuetify.breakpoint.smAndDown" :show-back-button="false" />
+      <AppBar v-if="$vuetify.breakpoint.smAndDown" :hide="true" />
       <v-row justify="center" class="main mt-24">
-        <v-col sm="8" md="6" lg="4">
-          <p class="display-2 mb-12 text-center">
+        <v-col sm="7" md="6" lg="6" xl="4">
+          <p class="display-2 mb-12 text-center font-weight-medium">
             My<span class="primary--text">Term</span>
           </p>
           <SelectionForm />
         </v-col>
       </v-row>
     </v-container>
-    <footer>
-      <div class="footer text-center white--text">
-        <p class="display-1 mb-4 text-center">MyTerm.me</p>
-        <p class="pb-0 mb-0 subtitle-2">
+    <footer :class="footerTheme">
+      <div class="text-center">
+        <p class="display-1 font-weight-medium">
+          My<span class="primary--text">Term</span>.me
+        </p>
+        <p class="pb-0 mb-0 subtitle-2 font-weight-medium">
           is a service for students of the IT Sligo and Limerick IT that
           provides access to student timetables, save functionality and quick
           access to useful resources such as student email, Moodle and room
@@ -46,6 +48,9 @@ export default {
   mixins: [genericMetaInfo],
   computed: {
     ...mapState(['darkMode']),
+    footerTheme() {
+      return this.darkMode ? 'dark' : 'light';
+    },
   },
 };
 </script>
@@ -60,18 +65,29 @@ export default {
 }
 
 footer {
-  width: 100%;
-  background-color: #090d13;
   padding: 30px;
 }
 
-.footer {
+footer > div {
   max-width: 400px;
   margin: auto;
-  text-align: center;
 }
 
-a {
+footer.dark {
+  background-color: #090d13;
+  border-top: thin solid rgba(255, 255, 255, 0.12) !important;
+}
+
+footer.light {
+  background-color: #fff;
+  border-top: thin solid rgba(220, 220, 220, 1) !important;
+}
+
+footer.light > div > p {
+  color: black;
+}
+
+footer > div > p > a {
   text-decoration: none;
 }
 </style>
