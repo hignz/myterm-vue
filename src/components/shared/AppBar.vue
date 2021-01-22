@@ -1,5 +1,12 @@
 <template>
-  <v-app-bar hide-on-scroll flat app extended extension-height="7">
+  <v-app-bar
+    hide-on-scroll
+    flat
+    app
+    extended
+    extension-height="7"
+    :hidden="hide"
+  >
     <v-row align="center">
       <v-btn
         v-if="showBackButton"
@@ -41,6 +48,10 @@ export default {
     showBackButton: {
       type: Boolean,
       default: true,
+    },
+    hide: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
