@@ -24,7 +24,7 @@ export default {
   computed: {
     ...mapState(['darkMode']),
   },
-  mounted() {
+  created() {
     this.$vuetify.theme.isDark = this.darkMode;
   },
 };
@@ -38,33 +38,28 @@ body {
 
 .active-nav {
   border-top: 1px solid var(--v-primary-base) !important;
-  -webkit-box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
-  -moz-box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
-  box-shadow: 0 -8px 5px -10px var(--v-primary-base) !important;
-}
-
-a.active-nav > span > span.v-icon {
-  color: var(--v-primary-base) !important;
+  -webkit-box-shadow: 0 -6px 7px -10px var(--v-primary-base) !important;
+  -moz-box-shadow: 0 -6px 7px -10px var(--v-primary-base) !important;
+  box-shadow: 0 -6px 7px -10px var(--v-primary-base) !important;
 }
 
 .dark-border {
-  border: thin solid rgba(255, 255, 255, 0.12) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 .light-border {
-  border: thin solid rgba(220, 220, 220, 1) !important;
+  border: 0.5px solid rgba(220, 220, 220, 1) !important;
 }
 
 .pointer {
   cursor: pointer;
 }
-
 ::-webkit-scrollbar {
   width: 9px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d1117;
+  background: var(--v-background-base);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -74,6 +69,11 @@ a.active-nav > span > span.v-icon {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #474f57;
-  border-radius: 3px;
+}
+
+/* firefox workaround */
+:root {
+  scrollbar-color: #282c34 #0d1117 !important;
+  scrollbar-width: thin !important;
 }
 </style>

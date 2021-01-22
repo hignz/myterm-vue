@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { openBlank } from '@/utils/link';
+
 export default {
   filters: {
     toHoursMinutes(value) {
@@ -42,11 +44,12 @@ export default {
           url: 'https://libreserve.itsligo.ie/',
         },
       ],
+      openBlank,
     };
   },
   methods: {
     navigateTo(url) {
-      window.open(url);
+      this.openBlank(url);
     },
   },
 };

@@ -2,14 +2,12 @@
   <div>
     <div v-if="!assignments.length && !getStarted" outlined>
       <v-card-text class="text-center">
-        <v-skeleton-loader type="image">
-          <v-img
-            class="mx-auto"
-            max-height="250"
-            max-width="250"
-            :src="require('@/assets/undraw_completed_tasks_vs6q.svg')"
-          ></v-img>
-        </v-skeleton-loader>
+        <v-img
+          class="mx-auto"
+          max-height="250"
+          max-width="250"
+          :src="require('@/assets/undraw_completed_tasks_vs6q.svg')"
+        ></v-img>
         <p class="text-h5 mt-4">Assignment Tracker</p>
         <p class="mt-4">Never forget another important date!</p>
         <p>
@@ -56,7 +54,7 @@
               <v-btn fab text small color="grey darken-2" @click="prev">
                 <v-icon>{{ mdiChevronLeft }}</v-icon>
               </v-btn>
-              <v-toolbar-title class="mx-2">
+              <v-toolbar-title class="mx-2 font-weight-medium">
                 {{ currentDate }}
               </v-toolbar-title>
               <v-btn fab text small color="grey darken-2" @click="next">
@@ -64,7 +62,7 @@
               </v-btn>
             </v-toolbar>
           </v-sheet>
-          <v-sheet height="350" class="ma-2">
+          <v-sheet height="350" class="ma-4">
             <v-calendar
               ref="calendar"
               v-model="focus"

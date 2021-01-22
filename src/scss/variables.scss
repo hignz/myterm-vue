@@ -1,55 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
 $body-font-family: 'Poppins', sans-serif !important;
 
 @import '~vuetify/src/styles/styles.sass';
 
-$mytermDark: (
+$myTermDark: (
   'base': #0d1117,
   'lighten-1': #161b22,
   'lighten-2': #474f57,
   'darken-1': #090d13,
 );
 
-$mytermLight: (
+$myTermLight: (
   'base': #f6f9fc,
   'lighten-1': #fff,
 );
 
 $colors: (
-  'mytermDark': $mytermDark,
+  'myTermDark': $myTermDark,
+  'myTermLight': $myTermLight,
 ) !default;
 
 $material-dark: map-merge(
   $material-dark,
   (
-    'app-bar': map-get($mytermDark, 'base'),
-    "background": map-get($mytermDark, 'base'),
-    'bottom-navigation': map-get($mytermDark, 'base'),
-    'cards': map-get($mytermDark, 'lighten-1'),
-    'chips': map-get($mytermDark, 'lighten-1'),
-    'toolbar': map-get($mytermDark, 'base'),
+    'app-bar': map-get($myTermDark, 'base'),
+    'background': map-get($myTermDark, 'base'),
+    'bottom-navigation': map-get($myTermDark, 'base'),
+    'cards': map-get($myTermDark, 'base'),
+    'chips': map-get($myTermDark, 'base'),
+    'toolbar': map-get($myTermDark, 'base'),
   )
 );
 
 $material-light: map-merge(
   $material-light,
   (
-    'app-bar': map-get($mytermLight, 'base'),
-    "background": map-get($mytermLight, 'base'),
-    'bottom-navigation': map-get($mytermLight, 'base'),
-    'cards': map-get($mytermLight, 'lighten-1'),
-    'chips': map-get($mytermLight, 'lighten-1'),
-    'toolbar': map-get($mytermLight, 'base'),
+    'app-bar': map-get($myTermLight, 'base'),
+    'background': map-get($myTermLight, 'base'),
+    'bottom-navigation': map-get($myTermLight, 'base'),
+    'cards': map-get($myTermLight, 'base'),
+    'chips': map-get($myTermLight, 'base'),
+    'toolbar': map-get($myTermLight, 'base'),
   )
 );
 
 $vt-color-success: #21b68e;
 $vt-color-error: #FF5252;
 
-@import "vue-toastification/src/scss/_variables";
-@import "vue-toastification/src/scss/_toastContainer";
-@import "vue-toastification/src/scss/_toast";
-@import "vue-toastification/src/scss/_closeButton";
-@import "vue-toastification/src/scss/_progressBar";
-@import "vue-toastification/src/scss/_icon";
-@import "vue-toastification/src/scss/animations/_bounce";
+@import 'vue-toastification/src/scss/_variables';
+@import 'vue-toastification/src/scss/_toastContainer';
+@import 'vue-toastification/src/scss/_toast';
+@import 'vue-toastification/src/scss/_closeButton';
+@import 'vue-toastification/src/scss/_progressBar';
+@import 'vue-toastification/src/scss/_icon';
+@import 'vue-toastification/src/scss/animations/_bounce';

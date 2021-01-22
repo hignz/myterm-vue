@@ -35,26 +35,25 @@
     </AppBar>
     <v-row>
       <v-col sm="12" md="12">
-        <v-row>
-          <v-col cols="12" sm="12" lg="4">
+        <v-row justify="center">
+          <v-col cols="12" sm="12" md="10" lg="4" xl="4">
             <template v-if="timetable">
               <TimetableHeader />
-              <v-row class="my-2">
+              <v-row class="mt-4 mt-md-0">
                 <v-col cols="12" class="text-end">
                   <v-btn-toggle
                     v-model="view"
                     mandatory
                     borderless
                     dense
+                    color="primary"
                     active-class="active-view"
                   >
-                    <v-btn>
-                      <v-icon color="#848484">{{
-                        mdiFormatListBulleted
-                      }}</v-icon>
+                    <v-btn :ripple="false">
+                      <v-icon color="grey">{{ mdiFormatListBulleted }}</v-icon>
                     </v-btn>
-                    <v-btn>
-                      <v-icon color="#848484">{{ mdiGrid }}</v-icon>
+                    <v-btn :ripple="false">
+                      <v-icon color="grey">{{ mdiGrid }}</v-icon>
                     </v-btn>
                   </v-btn-toggle>
                 </v-col>
@@ -72,7 +71,7 @@
               </v-alert>
             </template>
           </v-col>
-          <v-col cols="12" sm="12" lg="5" class="pt-1">
+          <v-col cols="12" sm="12" md="10" lg="4" class="pt-1" xl="5">
             <template v-if="timetable && !timetable.empty">
               <v-list
                 v-if="$vuetify.breakpoint.mdAndUp"
@@ -111,7 +110,6 @@
                 max-width="250"
                 :src="require('@/assets/undraw_not_found_60pq.svg')"
               ></v-img>
-
               <p class="grey--text">
                 This timetable doesn't seem to have any classes.
               </p>
@@ -140,10 +138,11 @@
             </div>
           </v-col>
           <v-col
-            v-if="timetable && $vuetify.breakpoint.mdAndUp"
+            v-if="timetable && $vuetify.breakpoint.lgAndUp"
             cols="12"
             sm="12"
             lg="3"
+            xl="3"
           >
             <v-card outlined>
               <AssignmentTracker />
@@ -201,7 +200,6 @@ export default {
       mdiChartBoxOutline,
       mdiGrid,
       view: 0,
-      modules: [],
     };
   },
   computed: {
@@ -216,7 +214,6 @@ export default {
     this.fetchTimetable(this.courseOptions)
       .then((res) => {
         this.timetable = res;
-        this.modules = this.showWeekends ? res.data : res.data.slice(0, 5);
       })
       .finally(() => {
         this.isLoaded = true;
@@ -233,17 +230,9 @@ export default {
 };
 </script>
 
-<style>
-.active-view.theme--dark > btn {
-  background-color: green !important;
-}
-
-.active-view.theme--dark > span > span {
+<style scoped>
+::v-deep.theme--dark.active-view > span > span,
+::v-deep.theme--light.active-view > span > span {
   color: var(--v-primary-base) !important;
 }
-.active-view.theme--light > span > span {
-  color: var(--v-primary-base) !important;
-}
-
-/* #app > div > main > div > div > div > div > div.row > div > div > button.v-btn.t.v-btn--active.v-btn--contained.theme--dark.v-size--default > span > span */
 </style>

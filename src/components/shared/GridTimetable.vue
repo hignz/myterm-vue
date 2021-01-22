@@ -1,10 +1,14 @@
 <template>
   <div>
-    <v-card outlined flat>
+    <v-card flat>
       <v-row no-gutters>
-        <v-col v-for="(label, i) in labels" :key="label" class="text-center">
+        <v-col
+          v-for="(label, i) in labels"
+          :key="label"
+          class="text-center mr-2"
+        >
           <span
-            class="caption"
+            class="caption font-weight-medium"
             :class="{
               'primary--text font-weight-black': i === todaysIndex,
             }"
@@ -12,8 +16,8 @@
           >
         </v-col>
       </v-row>
-      <v-card-text class="pa-0">
-        <v-row v-for="(row, i) in times" :key="i" no-gutters>
+      <v-card-text class="pa-1">
+        <v-row v-for="(row, i) in times" :key="i" no-gutters class="mt-1">
           <v-tooltip
             v-for="day in filteredTimetable.length + 1"
             :key="day"
@@ -23,10 +27,10 @@
               <v-col
                 :style="
                   darkMode
-                    ? 'border: thin solid rgba(255, 255, 255, 0.12) !important'
-                    : 'border: thin solid rgba(220, 220, 220, 1) !important'
+                    ? 'border: 0.4px solid rgba(255, 255, 255, 0.12) !important'
+                    : 'border: 0.4px solid rgba(220, 220, 220, 1) !important'
                 "
-                class="text-center"
+                class="text-center mr-1"
                 :class="{
                   'period pointer': checkForClass(row, day),
                   'class-now': isClassNow(row, day),
@@ -35,7 +39,9 @@
                 v-on="on"
                 @click="onPeriodSelected(row, day)"
               >
-                <span v-if="day === 1" class="caption">{{ row }}</span>
+                <span v-if="day === 1" class="caption font-weight-medium">{{
+                  row
+                }}</span>
               </v-col>
             </template>
             <span>{{ row }} {{ labels[day - 1] }}</span>
@@ -46,7 +52,7 @@
     <v-dialog v-if="detailsDialog" v-model="detailsDialog" :width="400">
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
-        <v-card-text class="pt-4 pb-0 text-center">
+        <v-card-text class="pt-4 pb-0 text-center font-weight-medium">
           <template v-if="selectedPeriod.type !== 'Elective'">
             <p>
               {{ selectedPeriod.name || selectedPeriod.activity }}

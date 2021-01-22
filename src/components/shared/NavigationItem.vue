@@ -1,6 +1,7 @@
 <template>
   <v-btn
     v-if="item.showOnFirstVisit || (!item.showOnFirstVisit && recentQuery)"
+    :ripple="false"
     :to="{ path: item.route }"
   >
     <span v-if="!showIcon">{{ item.text }}</span>
@@ -31,6 +32,9 @@ export default {
 </script>
 
 <style>
+a.active-nav > span > span.v-icon {
+  color: var(--v-primary-base) !important;
+}
 .v-btn:not(.v-btn--text):not(.v-btn--outlined):focus:before {
   opacity: 0;
 }

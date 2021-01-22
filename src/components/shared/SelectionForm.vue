@@ -12,6 +12,7 @@
       spellcheck="false"
       clearable
       dense
+      placeholder="You can type to find your course"
       outlined
       open-on-clear
       :rules="[rules.required]"

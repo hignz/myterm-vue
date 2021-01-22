@@ -2,7 +2,7 @@
   <v-container>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Settings" />
     <v-row justify="center">
-      <v-col cols="12" sm="12" md="5" lg="6" class="pt-0 pt-md-3">
+      <v-col cols="12" sm="10" md="8" lg="7" xl="5" class="pt-0 pt-md-3">
         <v-card outlined>
           <v-tabs v-model="tab">
             <v-tab>Customization</v-tab>
@@ -14,12 +14,14 @@
               <v-card flat>
                 <v-card-text class="mt-2">
                   <v-row>
-                    <v-col cols="12" sm="12" md="7">
+                    <v-col cols="12" sm="12" md="12" lg="12" xl="8">
                       <p class="font-weight-bold caption">THEME</p>
-                      <p>You can select a dark or light theme below!</p>
+                      <p class="font-weight-medium">
+                        You can select a dark or light theme below!
+                      </p>
                       <v-row>
                         <v-col cols="12" sm="6">
-                          <v-card hover dark @click="setDarkTheme()">
+                          <v-card hover outlined dark @click="setDarkTheme()">
                             <v-card-title>Dark theme</v-card-title>
                             <v-card-text>
                               <p>Click me</p>
@@ -32,7 +34,7 @@
                           </v-card>
                         </v-col>
                         <v-col cols="12" sm="6">
-                          <v-card hover light @click="setLightTheme()">
+                          <v-card hover outlined light @click="setLightTheme()">
                             <v-card-title>Light theme</v-card-title>
                             <v-card-text>
                               <p>Click me</p>
@@ -46,11 +48,18 @@
                         </v-col>
                       </v-row>
                     </v-col>
-                    <v-col cols="12" sm="12" md="12" class="mt-4">
+                    <v-col
+                      cols="12"
+                      sm="12"
+                      md="12"
+                      lg="12"
+                      xl="8"
+                      class="mt-2"
+                    >
                       <p class="font-weight-bold caption">
                         {{ darkMode ? 'DARK' : 'LIGHT' }} ACCENT COLORS
                       </p>
-                      <p>
+                      <p class="font-weight-medium">
                         Choose the accent color below. This color is used
                         throughout the app
                       </p>
