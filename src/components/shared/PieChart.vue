@@ -40,8 +40,7 @@ export default {
         labels: this.chartLabels,
         datasets: [
           {
-            label: 'Skills',
-            borderWidth: 1,
+            borderWidth: 2,
             backgroundColor: this.colors,
             borderColor: '#fff',
             data: this.chartData,
