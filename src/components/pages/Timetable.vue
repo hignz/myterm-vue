@@ -27,7 +27,9 @@
               <v-icon class="ml-2 mr-6 my-4" color="primary">
                 {{ mdiChartBoxOutline }}
               </v-icon>
-              <v-list-item-title>Timetable stats</v-list-item-title>
+              <v-list-item-title class="font-weight-medium"
+                >Timetable stats</v-list-item-title
+              >
             </v-list-item>
           </v-list>
         </v-bottom-sheet>
@@ -39,13 +41,14 @@
           <v-col cols="12" sm="12" md="10" lg="4" xl="4">
             <template v-if="timetable">
               <TimetableHeader />
-              <v-row class="mt-4 mt-md-0">
+              <v-row class="mt-2 mt-md-0">
                 <v-col cols="12" class="text-end">
                   <v-btn-toggle
                     v-model="view"
                     mandatory
-                    borderless
                     dense
+                    borderless
+                    :class="{ 'box-shadow': !darkMode }"
                     color="primary"
                     active-class="active-view"
                   >
@@ -58,12 +61,20 @@
                   </v-btn-toggle>
                 </v-col>
               </v-row>
-              <v-alert v-if="timetable.timedout" outlined dense>
-                <p>
+              <v-alert
+                v-if="timetable.timedout"
+                outlined
+                dense
+                class="mt-4 text-center"
+              >
+                <v-icon class="mb-2" large color="warning">{{
+                  mdiAlertOutline
+                }}</v-icon>
+                <p class="font-weight-medium">
                   The IT's website seems to be
                   <span class="error--text">having issues.</span>
                 </p>
-                <p class="mb-0">
+                <p class="mb-0 font-weight-medium">
                   But don't worry, we salvaged
                   <span class="error--text">the last known timetable</span> for
                   your course.
@@ -110,10 +121,10 @@
                 max-width="250"
                 :src="require('@/assets/undraw_not_found_60pq.svg')"
               ></v-img>
-              <p class="grey--text">
+              <p class="grey--text font-weight-medium">
                 This timetable doesn't seem to have any classes.
               </p>
-              <p class="grey--text">
+              <p class="grey--text font-weight-medium">
                 Are you sure you chose the correct course?
               </p>
               <v-btn x-large plain color="primary" :to="{ path: '/' }">
@@ -128,8 +139,10 @@
                 :src="require('@/assets/undraw_page_not_found_su7k.svg')"
               ></v-img>
 
-              <p class="grey--text">We could not find that timetable...</p>
-              <p class="grey--text">
+              <p class="grey--text font-weight-medium">
+                We could not find that timetable...
+              </p>
+              <p class="grey--text font-weight-medium">
                 Are you sure you chose the correct course?
               </p>
               <v-btn x-large plain color="primary" :to="{ path: '/' }">
@@ -144,7 +157,7 @@
             lg="3"
             xl="3"
           >
-            <v-card outlined>
+            <v-card :class="{ 'box-shadow': !darkMode }" :outlined="darkMode">
               <AssignmentTracker />
             </v-card>
           </v-col>
@@ -162,6 +175,7 @@ import {
   mdiFormatListBulleted,
   mdiGrid,
   mdiChartBoxOutline,
+  mdiAlertOutline,
 } from '@mdi/js';
 import { mapActions, mapState } from 'vuex';
 import ListTimetable from '@/components/shared/ListTimetable';
@@ -195,15 +209,16 @@ export default {
       isLoaded: false,
       timetable: null,
       mdiTimetable,
+      mdiChartBoxOutline,
+      mdiAlertOutline,
       mdiDotsVertical,
       mdiFormatListBulleted,
-      mdiChartBoxOutline,
       mdiGrid,
       view: 0,
     };
   },
   computed: {
-    ...mapState(['recentQuery', 'currentClass']),
+    ...mapState(['recentQuery', 'currentClass', 'darkMode']),
     courseOptions() {
       return Object.keys(this.$route.query).length > 0
         ? this.$route.query

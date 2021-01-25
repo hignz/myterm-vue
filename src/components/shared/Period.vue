@@ -8,9 +8,10 @@
     }"
     @click="showExtendedInfo = !showExtendedInfo"
   >
-    <v-chip v-if="isElective" class="mt-4" small color="error" outlined>
+    <v-chip v-if="isElective" class="mt-4" small color="error" outlined label>
       <span>Elective</span>
     </v-chip>
+
     <p v-if="period.startTime" class="mt-4 mb-1">
       {{ period.startTime }} - {{ period.endTime }}
     </p>

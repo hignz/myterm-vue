@@ -11,7 +11,7 @@
         xl="5"
         class="pt-0 pt-md-3"
       >
-        <v-card outlined flat>
+        <v-card :class="{ 'box-shadow': !darkMode }" :outlined="darkMode">
           <v-list two-line subheader dense nav>
             <v-subheader class="font-weight-bold caption mt-2">
               TIMETABLES
@@ -34,13 +34,14 @@
                   v-if="!course.multiple"
                   class="caption mb-2"
                 >
-                  {{ course.college }} &#x25CF; Semester
+                  {{ course.college }}
+                  &#x25CF; Semester
                   <span>{{ parseInt(course.sem, 10) + 1 }}</span>
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <v-btn icon @click.stop="openDeleteDialog(course)">
-                  <v-icon size="20">
+                  <v-icon size="20" color="error">
                     {{ mdiDelete }}
                   </v-icon>
                 </v-btn>
@@ -60,7 +61,7 @@
         <p class="grey--text font-weight-bold">
           Ummm... You have not saved any timetables yet
         </p>
-        <p class="grey--text">
+        <p class="grey--text font-weight-medium">
           To save a course, open your timetable and press the
           <v-icon class="grey--text">
             {{ mdiHeartOutline }}
@@ -74,7 +75,7 @@
         <v-card-title class="subtitle-1 text-uppercase"
           >Remove course</v-card-title
         >
-        <v-card-text class="mt-4 caption">
+        <v-card-text class="mt-4 caption font-weight-medium">
           <p>
             Are you sure you want to remove
             <span
@@ -82,7 +83,7 @@
               class="white--text font-weight-bold"
               :class="{ 'primary--text': !darkMode }"
             >
-              {{ selectedTimetable.title }} </span
+              {{ selectedTimetable.title }}</span
             >?
           </p>
         </v-card-text>

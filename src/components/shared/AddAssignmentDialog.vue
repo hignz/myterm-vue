@@ -204,4 +204,10 @@ export default {
 .theme--dark.v-time-picker-clock {
   background-color: var(--v-background-lighten1) !important;
 }
+.theme--light.v-picker__body {
+  background-color: var(--v-background-base) !important;
+}
+.theme--light.v-time-picker-clock {
+  background-color: var(--v-background-lighten1) !important;
+}
 </style>

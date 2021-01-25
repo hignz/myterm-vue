@@ -62,7 +62,7 @@
               </v-btn>
             </v-toolbar>
           </v-sheet>
-          <v-sheet height="350" class="ma-4">
+          <v-sheet height="350" class="ma-2 ma-md-4">
             <v-calendar
               ref="calendar"
               v-model="focus"
@@ -236,9 +236,9 @@ export default {
   background-color: var(--v-background-base) !important;
 }
 ::v-deep.theme--dark.v-toolbar.v-sheet {
-  background-color: var(--v-background-base) !important;
+  background-color: var(--v-background--dark-base) !important;
 }
 ::v-deep.theme--light.v-toolbar.v-sheet {
-  background-color: #fff !important;
+  background-color: var(--v-background-light-base) !important;
 }
 </style>

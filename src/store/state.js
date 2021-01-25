@@ -1,5 +1,5 @@
 export default {
-  accentColor: '#72DDF7',
+  accentColor: '#009DF8',
   assignments: [],
   currentClass: null,
   currentTimetable: {},

@@ -2,8 +2,8 @@
   <v-container>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Settings" />
     <v-row justify="center">
-      <v-col cols="12" sm="10" md="8" lg="7" xl="5" class="pt-0 pt-md-3">
-        <v-card outlined>
+      <v-col cols="12" sm="10" md="8" lg="7" xl="5">
+        <v-card :class="{ 'box-shadow': !darkMode }" :outlined="darkMode">
           <v-tabs v-model="tab">
             <v-tab>Customization</v-tab>
             <v-tab>General</v-tab>
@@ -21,7 +21,13 @@
                       </p>
                       <v-row>
                         <v-col cols="12" sm="6">
-                          <v-card hover outlined dark @click="setDarkTheme()">
+                          <v-card
+                            hover
+                            :class="{ 'box-shadow': !darkMode }"
+                            :outlined="darkMode"
+                            dark
+                            @click="setDarkTheme()"
+                          >
                             <v-card-title>Dark theme</v-card-title>
                             <v-card-text>
                               <p>Click me</p>
@@ -34,7 +40,13 @@
                           </v-card>
                         </v-col>
                         <v-col cols="12" sm="6">
-                          <v-card hover outlined light @click="setLightTheme()">
+                          <v-card
+                            hover
+                            :class="{ 'box-shadow': !darkMode }"
+                            :outlined="darkMode"
+                            light
+                            @click="setLightTheme()"
+                          >
                             <v-card-title>Light theme</v-card-title>
                             <v-card-text>
                               <p>Click me</p>
@@ -125,7 +137,7 @@ export default {
   mixins: [genericMetaInfo],
   data: () => ({
     showColorPicker: false,
-    darkColors: ['#41D1AB', '#72DDF7', '#EF596F', '#009DF8', '#F9F871'],
+    darkColors: ['#009DF8', '#41D1AB', '#72DDF7', '#EF596F', '#F9F871'],
     lightColors: ['#009DF8', '#EF596F', '#FF79C6', '#87A890'],
     selectedColorIndex: 0,
     mdiPaletteOutline,

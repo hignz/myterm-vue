@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-container>
-      <AppBar v-if="$vuetify.breakpoint.smAndDown" :hide="true" />
+      <AppBar
+        v-if="$vuetify.breakpoint.smAndDown"
+        v-show="false"
+        :hide="true"
+      />
       <v-row justify="center" class="main mt-24">
         <v-col sm="7" md="6" lg="6" xl="4">
           <p class="display-2 mb-12 text-center font-weight-medium">
@@ -80,7 +84,7 @@ footer.dark {
 
 footer.light {
   background-color: #fff;
-  border-top: thin solid rgba(220, 220, 220, 1) !important;
+  border-top: thin solid rgba(0, 0, 0, 0.12) !important;
 }
 
 footer.light > div > p {

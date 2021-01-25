@@ -1,7 +1,12 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="More"></AppBar>
-    <v-tabs v-model="tab" background-color="transparent" centered>
+    <v-tabs
+      v-model="tab"
+      background-color="transparent"
+      centered
+      :grow="$vuetify.breakpoint.smAndDown"
+    >
       <v-tab href="#tab-1">Additional Info</v-tab>
       <v-tab href="#tab-2">Breakdown</v-tab>
     </v-tabs>
@@ -9,20 +14,27 @@
       <v-tab-item value="tab-1" :transition="false" :reverse-transition="false">
         <v-row justify="center">
           <v-col cols="12" sm="12" md="8" lg="8" xl="6">
-            <v-card outlined>
+            <v-card
+              class="mt-2"
+              :class="{ 'box-shadow': !darkMode }"
+              :outlined="darkMode"
+            >
               <v-card-text>
                 <v-row justify="center">
                   <v-col cols="12" sm="12" md="6">
-                    <p class="mb-1 font-weight-medium">
+                    <p class="mb-1 font-weight-bold">
                       {{ timetable.title }}
                     </p>
+                    <p class="mb-1 font-weight-medium"></p>
                     <p class="caption mb-1 font-weight-medium">
                       {{ timetable.courseCode }}
                     </p>
-                    <p class="caption">
+                    <p class="caption mb-1 font-weight-medium">
                       Semester {{ parseInt(timetable.semester, 10) + 1 }}
                     </p>
-                    <p>9AM Starts: {{ nineAmStarts }}</p>
+                    <p class="caption font-weight-medium">
+                      9AM Starts: {{ nineAmStarts }}
+                    </p>
                   </v-col>
                   <v-col sm="12" md="6">
                     <Sparkline
@@ -54,9 +66,9 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="12" sm="12" md="4" lg="4" xl="3">
-            <v-card outlined flat>
+            <v-card :class="{ 'box-shadow': !darkMode }" :outlined="darkMode">
               <v-card-text>
-                <p class="caption font-weight-medium">ALL CLASSES</p>
+                <p class="caption font-weight-bold">ALL CLASSES</p>
                 <PieChart
                   v-if="moduleCounts"
                   :chart-data="moduleCounts"
@@ -66,7 +78,11 @@
             </v-card>
           </v-col>
           <v-col cols="12" sm="12" md="4" lg="4" xl="3">
-            <v-card outlined height="100%">
+            <v-card
+              :class="{ 'box-shadow': !darkMode }"
+              :outlined="darkMode"
+              height="100%"
+            >
               <v-card-text>
                 <p class="caption font-weight-medium">
                   TIMETABLE CHANGE HISTORY
@@ -85,7 +101,7 @@
         </v-row>
       </v-tab-item>
       <v-row justify="center">
-        <v-col cols="12" sm="12" md="8" lg="8" xl="6">
+        <v-col cols="12" sm="12" md="8" lg="8" xl="6" class="my-2">
           <v-tab-item
             value="tab-2"
             :transition="false"
@@ -126,9 +142,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(['showWeekends']),
+    ...mapState(['showWeekends', 'darkMode']),
     ...mapGetters(['getTimetableByWeekdays']),
-
     moduleTotalsPerDay() {
       return this.getTimetableByWeekdays.map((el) => el.length);
     },

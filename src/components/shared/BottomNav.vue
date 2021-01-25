@@ -44,7 +44,7 @@ export default {
 
 .safe-area >>> .v-btn__content {
   padding-top: 10px !important;
-  padding-bottom: 30px !important;
+  padding-bottom: 33px !important;
   margin-bottom: constant(
     safe-area-inset-bottom
   ) !important; /* move footer up on iPhone X - iOS 11.0 */

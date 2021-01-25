@@ -8,32 +8,31 @@
           class="text-center mr-2"
         >
           <span
-            class="caption font-weight-medium"
+            class="caption"
             :class="{
               'primary--text font-weight-black': i === todaysIndex,
+              'text--secondary font-weight-medium': i !== todaysIndex,
             }"
             >{{ label.substring(0, 3) }}</span
           >
         </v-col>
       </v-row>
-      <v-card-text class="pa-1">
+      <v-card-text class="pa-0">
         <v-row v-for="(row, i) in times" :key="i" no-gutters class="mt-1">
           <v-tooltip
-            v-for="day in filteredTimetable.length + 1"
+            v-for="(day, dayIndex) in filteredTimetable.length + 1"
             :key="day"
+            :disabled="dayIndex === 0 || !checkForClass(row, day)"
             bottom
           >
             <template v-slot:activator="{ on, attrs }">
               <v-col
-                :style="
-                  darkMode
-                    ? 'border: 0.4px solid rgba(255, 255, 255, 0.12) !important'
-                    : 'border: 0.4px solid rgba(220, 220, 220, 1) !important'
-                "
                 class="text-center mr-1"
                 :class="{
                   'period pointer': checkForClass(row, day),
                   'class-now': isClassNow(row, day),
+                  'box-shadow': !darkMode && dayIndex !== 0,
+                  'dark-border': darkMode && dayIndex !== 0,
                 }"
                 v-bind="attrs"
                 v-on="on"
@@ -49,32 +48,32 @@
         </v-row>
       </v-card-text>
     </v-card>
-    <v-dialog v-if="detailsDialog" v-model="detailsDialog" :width="400">
+    <v-dialog v-if="detailsDialog" v-model="detailsDialog" :width="350">
       <v-card>
         <v-card-title class="subtitle-1 text-uppercase">Class</v-card-title>
         <v-card-text class="pt-4 pb-0 text-center font-weight-medium">
           <template v-if="selectedPeriod.type !== 'Elective'">
-            <p>
+            <p class="mb-1">{{ selectedPeriod.day }}</p>
+            <p class="mb-1">
+              {{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}
+            </p>
+            <p class="mb-1">
               {{ selectedPeriod.name || selectedPeriod.activity }}
             </p>
-            <p>{{ selectedPeriod.day }}</p>
-            <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
-            <p>{{ selectedPeriod.room }}</p>
-            <p>{{ selectedPeriod.teacher }}</p>
+            <p class="mb-1">{{ selectedPeriod.room }}</p>
+            <p class="grey--text">{{ selectedPeriod.teacher }}</p>
           </template>
           <template v-else>
-            <v-chip class="mb-4" small color="error" outlined>
+            <v-chip class="mb-1" small color="error" outlined>
               <span>Elective</span>
             </v-chip>
-            <p>{{ selectedPeriod.day }}</p>
+            <p class="mb-1">{{ selectedPeriod.day }}</p>
             <p>{{ selectedPeriod.startTime }} - {{ selectedPeriod.endTime }}</p>
           </template>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" text @click="detailsDialog = false"
-            >Close</v-btn
-          >
+          <v-btn text @click="detailsDialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
