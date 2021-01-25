@@ -1,5 +1,9 @@
 <template>
-  <v-card v-if="currentTimetable" outlined flat>
+  <v-card
+    v-if="currentTimetable"
+    :class="{ 'box-shadow': !darkMode }"
+    :outlined="darkMode"
+  >
     <v-card-title
       style="word-break: keep-all"
       class="subtitle-1 font-weight-medium"
@@ -153,7 +157,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(['currentTimetable', 'recentQuery', 'showBottomSheet']),
+    ...mapState([
+      'currentTimetable',
+      'recentQuery',
+      'showBottomSheet',
+      'darkMode',
+    ]),
     bottomSheet: {
       get() {
         return this.showBottomSheet;

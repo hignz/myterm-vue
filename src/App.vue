@@ -43,17 +43,22 @@ body {
   box-shadow: 0 -6px 7px -10px var(--v-primary-base) !important;
 }
 
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px !important;
+}
+
 .dark-border {
-  border: 0.5px solid rgba(255, 255, 255, 0.12) !important;
+  border: thin solid rgba(255, 255, 255, 0.12) !important;
 }
 
 .light-border {
-  border: 0.5px solid rgba(220, 220, 220, 1) !important;
+  border: thin solid rgba(0, 0, 0, 0.12) !important;
 }
 
 .pointer {
   cursor: pointer;
 }
+
 ::-webkit-scrollbar {
   width: 9px;
 }
@@ -63,7 +68,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #282c34;
+  background: var(--v-scrollbar-base);
   border-radius: 8px;
 }
 

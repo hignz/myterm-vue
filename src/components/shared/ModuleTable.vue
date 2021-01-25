@@ -1,15 +1,18 @@
 <template>
-  <v-card outlined>
+  <v-card :class="{ 'box-shadow': !darkMode }" :outlined="darkMode">
     <v-data-table
       :headers="headers"
       :items="modules"
-      :items-per-page="10"
+      :items-per-page="15"
       class="elevation-0"
+      calculate-widths
     />
   </v-card>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   props: {
     modules: {
@@ -20,10 +23,13 @@ export default {
   data() {
     return {
       headers: [
-        { text: 'Module', value: 'name', align: 'left', width: '70%' },
-        { text: 'Per week', value: 'count', align: 'center', width: '30%' },
+        { text: 'Module', value: 'name', align: 'left' },
+        { text: 'Per week', value: 'count', align: 'center' },
       ],
     };
+  },
+  computed: {
+    ...mapState(['darkMode']),
   },
 };
 </script>

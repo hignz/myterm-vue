@@ -1,11 +1,11 @@
 <template>
-  <v-expansion-panels v-if="timetable" v-model="arr" multiple flat hover>
+  <v-expansion-panels v-if="timetable" v-model="arr" multiple flat>
     <template v-for="(day, index) in filteredTimetable">
       <v-expansion-panel
         v-if="day && day.length"
         :key="index"
-        class="mb-2"
-        :class="darkMode ? 'dark-border' : 'light-border'"
+        class="mb-3"
+        :class="darkMode ? 'dark-border' : 'box-shadow'"
       >
         <v-expansion-panel-header
           class="subtitle-1 font-weight-medium"
