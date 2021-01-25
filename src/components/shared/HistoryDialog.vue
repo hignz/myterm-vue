@@ -17,7 +17,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn class="mr-2" text color="primary" @click="dialog = !dialog"
+        <v-btn class="mr-2" plain color="primary" @click="dialog = !dialog"
           >Close</v-btn
         >
       </v-card-actions>

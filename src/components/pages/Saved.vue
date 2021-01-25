@@ -89,7 +89,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn class="mr-2" text @click="showDialog = !showDialog">
+          <v-btn class="mr-2" plain @click="showDialog = !showDialog">
             Cancel
           </v-btn>
           <v-btn color="error darken-1" @click="deleteCourse()"> Remove </v-btn>
@@ -137,7 +137,6 @@ export default {
     deleteCourse() {
       this.removeTimetable(this.selectedTimetable).then(() => {
         this.showDialog = false;
-
         this.$toast.error('Timetable removed');
       });
     },

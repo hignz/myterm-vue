@@ -109,7 +109,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn
-                    text
+                    plain
                     :color="selectedEvent.color"
                     @click="selectedOpen = false"
                   >
