@@ -3,12 +3,18 @@
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Import Assignments" />
     <v-row justify="center" align="center">
       <v-col sm="12" md="4">
-        <v-card :loading="!isLoaded" outlined>
-          <v-card-title v-if="isLoaded">Import assignment list </v-card-title>
+        <v-card
+          :loading="!isLoaded"
+          :class="{ 'box-shadow': !darkMode }"
+          :outlined="darkMode"
+        >
+          <v-card-title v-if="isLoaded">Import assignment list</v-card-title>
           <v-card-title v-else
             >Trying to find the assignment list...
           </v-card-title>
-          <v-card-subtitle v-if="isLoaded && assignmentList"
+          <v-card-subtitle
+            v-if="isLoaded && assignmentList"
+            class="font-weight-medium"
             >Shared:
             {{ formatToNow(assignmentList.createdAt, true) }}
           </v-card-subtitle>
@@ -16,7 +22,7 @@
           <v-row>
             <v-col sm="12" md="6">
               <v-list v-if="isLoaded && assignmentList" dense subheader>
-                <v-subheader>Your list</v-subheader>
+                <v-subheader class="font-weight-medium">Your list</v-subheader>
                 <v-list-item
                   v-for="(assignment, index) in assignments"
                   :key="index"
@@ -49,7 +55,9 @@
             </v-col>
             <v-col sm="12" md="6">
               <v-list v-if="isLoaded && assignmentList" dense subheader>
-                <v-subheader>List to import</v-subheader>
+                <v-subheader class="font-weight-medium"
+                  >List to import</v-subheader
+                >
                 <v-list-item
                   v-for="(assignment, index) in assignmentList.assignments"
                   :key="index"
@@ -110,7 +118,7 @@
 
                 <v-card-actions>
                   <v-spacer />
-                  <v-btn text @click="overwriteDialog = false">Cancel</v-btn>
+                  <v-btn plain @click="overwriteDialog = false">Cancel</v-btn>
                   <v-btn text color="error" @click="overwrite()"
                     >Overwrite</v-btn
                   >
@@ -143,7 +151,7 @@
 
                 <v-card-actions>
                   <v-spacer />
-                  <v-btn text @click="mergeDialog = false">Cancel</v-btn>
+                  <v-btn plain @click="mergeDialog = false">Cancel</v-btn>
                   <v-btn text color="primary" @click="merge()">Merge</v-btn>
                 </v-card-actions>
               </v-card>
@@ -177,7 +185,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['assignments']),
+    ...mapState(['assignments', 'darkMode']),
   },
   created() {
     this.fetchAssignmentList(this.$route.params.id)

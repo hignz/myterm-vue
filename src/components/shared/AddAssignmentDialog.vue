@@ -34,7 +34,7 @@
             </template>
             <v-date-picker v-model="dueDate" no-title color="primary darken-2">
               <v-spacer></v-spacer>
-              <v-btn text @click="menu = false"> Cancel </v-btn>
+              <v-btn plain @click="menu = false">Cancel</v-btn>
               <v-btn text color="primary" @click="$refs.menu.save(dueDate)">
                 OK
               </v-btn>
@@ -68,7 +68,7 @@
               color="primary darken-2"
             >
               <v-spacer></v-spacer>
-              <v-btn text @click="timeDialog = false"> Cancel </v-btn>
+              <v-btn plain @click="timeDialog = false">Cancel</v-btn>
               <v-btn text color="primary" @click="$refs.timeDialog.save(time)">
                 OK
               </v-btn>
@@ -105,7 +105,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text @click="close()">Close</v-btn>
+          <v-btn plain @click="close()">Close</v-btn>
           <v-btn color="primary" type="submit" text>Add</v-btn>
         </v-card-actions>
       </v-form>

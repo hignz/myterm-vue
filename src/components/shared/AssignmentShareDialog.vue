@@ -55,7 +55,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn text @click="dialog = false">Close</v-btn>
+        <v-btn plain @click="dialog = false">Close</v-btn>
         <v-btn
           v-if="!shareLink"
           text

@@ -85,7 +85,7 @@
           <AssignmentTracker />
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text @click="assignmentDialog = !assignmentDialog"
+            <v-btn plain @click="assignmentDialog = !assignmentDialog"
               >Close</v-btn
             >
           </v-card-actions>
