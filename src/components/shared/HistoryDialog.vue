@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" :width="425">
-    <template v-slot:activator="{ on }">
+    <template #activator="{ on }">
       <v-btn icon v-on="on">
         <v-icon>
           {{ mdiBell }}

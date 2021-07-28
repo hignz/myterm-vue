@@ -1,6 +1,6 @@
 <template>
   <v-bottom-sheet v-model="bottomSheet">
-    <template v-slot:activator="{ on }">
+    <template #activator="{ on }">
       <v-btn v-on="on">
         <v-icon>{{ mdiHeart }}</v-icon>
       </v-btn>

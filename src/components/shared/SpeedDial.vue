@@ -6,7 +6,7 @@
       right
       transition="slide-y-reverse-transition"
     >
-      <template v-slot:activator>
+      <template #activator>
         <v-btn v-model="fab" color="primary darken-2" fab>
           <v-icon>{{ fab ? mdiClose : mdiUnfoldMoreHorizontal }}</v-icon>
         </v-btn>

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Chat">
-      <template v-if="loggedIn" v-slot:icon>
+      <template v-if="loggedIn" #icon>
         <v-btn class="mr-1" icon @click="logout()">
           <v-icon>{{ mdiLogout }}</v-icon>
         </v-btn>

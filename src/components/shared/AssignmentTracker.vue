@@ -31,7 +31,7 @@
               <v-spacer></v-spacer>
               <AddAssignmentDialog />
               <v-menu offset-y bottom>
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-btn small outlined v-bind="attrs" class="ml-2" v-on="on">
                     <span>{{ typeToLabel[type] }}</span>
                     <v-icon right>{{ mdiMenuDown }}</v-icon>
@@ -51,13 +51,27 @@
               </v-menu>
             </v-toolbar>
             <v-toolbar flat dense>
-              <v-btn fab text small color="grey darken-2" @click="prev">
+              <v-btn
+                fab
+                text
+                small
+                color="grey darken-2"
+                title="Previous"
+                @click="prev"
+              >
                 <v-icon>{{ mdiChevronLeft }}</v-icon>
               </v-btn>
               <v-toolbar-title class="mx-2 font-weight-medium">
                 {{ currentDate }}
               </v-toolbar-title>
-              <v-btn fab text small color="grey darken-2" @click="next">
+              <v-btn
+                fab
+                text
+                small
+                color="grey darken-2"
+                title="Next"
+                @click="next"
+              >
                 <v-icon>{{ mdiChevronRight }}</v-icon>
               </v-btn>
             </v-toolbar>

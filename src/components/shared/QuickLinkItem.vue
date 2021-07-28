@@ -4,9 +4,9 @@
       <v-icon v-if="showIcon" class="ml-2 mr-6 my-4" color="primary">
         {{ link.icon }}
       </v-icon>
-      <v-list-item-title class="font-weight-medium">{{
-        link.title
-      }}</v-list-item-title>
+      <v-list-item-title class="font-weight-medium">
+        {{ link.title }}
+      </v-list-item-title>
     </v-list-item>
   </div>
 </template>

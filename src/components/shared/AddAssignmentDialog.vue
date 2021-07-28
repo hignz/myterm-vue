@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" width="400" @click:outside="close()">
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on, attrs }">
       <v-btn outlined small v-bind="attrs" v-on="on">
         New
         <v-icon small class="ml-2">{{ mdiPlus }}</v-icon>
@@ -20,7 +20,7 @@
             persistent
             width="290px"
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-text-field
                 v-model="dueDate"
                 label="Due Date"
@@ -48,7 +48,7 @@
             persistent
             width="290px"
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-text-field
                 v-model="time"
                 label="Time"
@@ -82,7 +82,7 @@
             dense
           ></v-text-field>
           <v-textarea v-model.trim="body" outlined dense clearable auto-grow>
-            <template v-slot:label>
+            <template #label>
               <div>Body</div>
             </template>
           </v-textarea>
