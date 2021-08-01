@@ -4,8 +4,8 @@ $body-font-family: 'Poppins', sans-serif !important;
 @import '~vuetify/src/styles/styles.sass';
 
 $myTermDark: (
-  'base': #0d1117,
-  'lighten-1': #161b22,
+  'base': #0b0e11,
+  'lighten-1': #151a21,
   'lighten-2': #474f57,
   'darken-1': #090d13,
 );
@@ -26,8 +26,8 @@ $material-dark: map-merge(
     'app-bar': map-get($myTermDark, 'base'),
     'background': map-get($myTermDark, 'base'),
     'bottom-navigation': map-get($myTermDark, 'base'),
-    'cards': map-get($myTermDark, 'base'),
-    'chips': map-get($myTermDark, 'base'),
+    'cards': map-get($myTermDark, 'lighten-1'),
+    'chips': map-get($myTermDark, 'lighten-1'),
     'toolbar': map-get($myTermDark, 'base'),
   )
 );
@@ -45,7 +45,7 @@ $material-light: map-merge(
 );
 
 $vt-color-success: #21b68e;
-$vt-color-error: #FF5252;
+$vt-color-error: #ff5252;
 
 @import 'vue-toastification/src/scss/_variables';
 @import 'vue-toastification/src/scss/_toastContainer';

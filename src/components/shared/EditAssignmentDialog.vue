@@ -13,7 +13,7 @@
             persistent
             width="290px"
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-text-field
                 v-model="dueDate"
                 label="Due Date"
@@ -40,7 +40,7 @@
             persistent
             width="290px"
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-text-field
                 v-model="time"
                 label="Time"
@@ -72,7 +72,7 @@
             dense
           ></v-text-field>
           <v-textarea v-model.trim="body" outlined dense clearable auto-grow>
-            <template v-slot:label>
+            <template #label>
               <div>Body</div>
             </template>
           </v-textarea>

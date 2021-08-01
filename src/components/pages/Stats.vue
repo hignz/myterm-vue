@@ -214,10 +214,6 @@ export default {
   opacity: 0 !important;
 }
 
-.theme--dark.v-tabs .v-tab:hover::before {
-  opacity: 0 !important;
-}
-
 .theme--dark.v-tabs-items,
 .theme--light.v-tabs-items {
   background-color: transparent !important;

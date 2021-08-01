@@ -2,7 +2,7 @@ export default {
   metaInfo() {
     if (this.isLoading || this.notFound || !this.timetable) {
       return {
-        title: 'Not found | MyTerm',
+        title: 'MyTerm',
       };
     }
 

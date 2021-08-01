@@ -3,6 +3,7 @@
     v-if="item.showOnFirstVisit || (!item.showOnFirstVisit && recentQuery)"
     :ripple="false"
     :to="{ path: item.route }"
+    :title="item.text"
   >
     <span v-if="!showIcon">{{ item.text }}</span>
     <v-icon v-if="showIcon">

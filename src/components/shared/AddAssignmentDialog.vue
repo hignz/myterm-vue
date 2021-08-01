@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" width="400" @click:outside="close()">
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on, attrs }">
       <v-btn outlined small v-bind="attrs" v-on="on">
         New
         <v-icon small class="ml-2">{{ mdiPlus }}</v-icon>
@@ -20,7 +20,7 @@
             persistent
             width="290px"
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-text-field
                 v-model="dueDate"
                 label="Due Date"
@@ -32,7 +32,7 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="dueDate" no-title color="primary darken-2">
+            <v-date-picker v-model="dueDate" no-title color="primary">
               <v-spacer></v-spacer>
               <v-btn plain @click="menu = false">Cancel</v-btn>
               <v-btn text color="primary" @click="$refs.menu.save(dueDate)">
@@ -48,7 +48,7 @@
             persistent
             width="290px"
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-text-field
                 v-model="time"
                 label="Time"
@@ -82,7 +82,7 @@
             dense
           ></v-text-field>
           <v-textarea v-model.trim="body" outlined dense clearable auto-grow>
-            <template v-slot:label>
+            <template #label>
               <div>Body</div>
             </template>
           </v-textarea>
@@ -199,15 +199,15 @@ export default {
 
 <style>
 .theme--dark.v-picker__body {
-  background-color: var(--v-background-base) !important;
+  background-color: var(--v-background-darken) !important;
 }
 .theme--dark.v-time-picker-clock {
-  background-color: var(--v-background-lighten1) !important;
+  background-color: var(--v-background-darken) !important;
 }
 .theme--light.v-picker__body {
   background-color: var(--v-background-base) !important;
 }
 .theme--light.v-time-picker-clock {
-  background-color: var(--v-background-lighten1) !important;
+  background-color: var(--v-background-base) !important;
 }
 </style>

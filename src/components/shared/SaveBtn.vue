@@ -8,6 +8,7 @@
       heartbeat: isSaved && !isFab,
       'primary darken-2': isFab,
     }"
+    title="Favourite"
     @click="save()"
   >
     <v-icon :color="iconColor">{{
@@ -60,9 +61,13 @@ export default {
   methods: {
     ...mapActions(['saveTimetable', 'removeTimetable']),
     save() {
-      this.isSaved
-        ? this.removeTimetable(this.currentTimetable)
-        : this.saveTimetable(this.currentTimetable);
+      if (this.isSaved) {
+        this.removeTimetable(this.currentTimetable);
+        this.$toast.error('Removed from favourites');
+      } else {
+        this.saveTimetable(this.currentTimetable);
+        this.$toast.success('Added to favourites');
+      }
     },
   },
 };

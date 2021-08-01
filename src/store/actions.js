@@ -15,45 +15,39 @@ export default {
   overwriteAssignments({ commit }, assignments) {
     commit(constants.OVERWRITE_ASSIGNMENTS, assignments);
   },
-  fetchCourses(_, index) {
-    return http.get(`/courses?college=${index}`).then((res) => {
-      return res.data;
-    });
+  async fetchCourses(_, index) {
+    return (await http.get(`/courses?college=${index}`)).data;
   },
-  fetchAssignmentList(_, assignmentListId) {
-    return http
-      .get(
+  async fetchAssignmentList(_, assignmentListId) {
+    return (
+      await http.get(
         `https://myterm-assignment-tracker.herokuapp.com/v1/assignment/${assignmentListId}`
       )
-      .then((res) => {
-        return res.data;
-      });
+    ).data;
   },
-  postAssignmentList(_, body) {
-    return http
-      .post(
+  async postAssignmentList(_, body) {
+    return (
+      await http.post(
         'https://myterm-assignment-tracker.herokuapp.com/v1/assignment',
         body
       )
-      .then((res) => {
-        return res.data;
-      });
+    ).data;
   },
-  fetchTimetable({ commit }, options) {
+  async fetchTimetable({ commit }, query) {
     commit(constants.SET_FETCHING, true);
     commit(constants.SET_CURRENT_CLASS, null);
-    const { code, college, sem } = options;
 
-    return http
-      .get(`/timetables/?code=${code}&college=${college}${`&sem=${sem}`}`)
-      .then((res) => {
-        commit(constants.SET_CURRENT_TIMETABLE, res.data);
-        commit(constants.SET_RECENT_QUERY, options);
-        return res.data;
-      })
-      .finally(() => {
-        commit(constants.SET_FETCHING, false);
-      });
+    try {
+      const { code, college, sem } = query;
+      const { data } = await http.get(
+        `/timetables/?code=${code}&college=${college}${`&sem=${sem}`}`
+      );
+      commit(constants.SET_CURRENT_TIMETABLE, data);
+      commit(constants.SET_RECENT_QUERY, query);
+      return data;
+    } finally {
+      commit(constants.SET_FETCHING, false);
+    }
   },
   removeTimetable({ commit }, item) {
     commit(constants.REMOVE_TIMETABLE, item);

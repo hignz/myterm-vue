@@ -40,7 +40,11 @@
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
-                <v-btn icon @click.stop="openDeleteDialog(course)">
+                <v-btn
+                  icon
+                  title="Delete"
+                  @click.stop="openDeleteDialog(course)"
+                >
                   <v-icon size="20" color="error">
                     {{ mdiDelete }}
                   </v-icon>

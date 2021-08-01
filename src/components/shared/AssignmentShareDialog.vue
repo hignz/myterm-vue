@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" :width="425" persistent>
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on, attrs }">
       <v-btn
         v-if="assignments.length && $vuetify.breakpoint.xlOnly"
         outlined

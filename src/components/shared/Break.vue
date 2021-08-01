@@ -1,6 +1,6 @@
 <template>
   <v-menu bottom origin="center center" transition="scale-transition" absolute>
-    <template v-slot:activator="{ on }">
+    <template #activator="{ on }">
       <p class="text-center primary--text pt-4" v-on="on">
         Break {{ period.breakLength | toHoursMinutes }}
       </p>

@@ -94,7 +94,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-dialog v-model="overwriteDialog" :width="425">
-              <template v-slot:activator="{ on, attrs }">
+              <template #activator="{ on, attrs }">
                 <v-btn text color="error" v-bind="attrs" v-on="on"
                   >Overwrite</v-btn
                 >
@@ -127,7 +127,7 @@
             </v-dialog>
 
             <v-dialog v-model="mergeDialog" :width="425">
-              <template v-slot:activator="{ on, attrs }">
+              <template #activator="{ on, attrs }">
                 <v-btn text color="primary" v-bind="attrs" v-on="on"
                   >Merge</v-btn
                 >
@@ -228,5 +228,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

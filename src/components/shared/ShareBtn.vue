@@ -6,6 +6,7 @@
     :class="{
       'primary darken-2': isFab,
     }"
+    title="Share"
     @click="canUseNavigator ? openShareMenu() : copyUrlToClipboard()"
   >
     <v-icon>

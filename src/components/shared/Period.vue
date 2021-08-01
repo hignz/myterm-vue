@@ -24,10 +24,10 @@
     <p v-if="period.room" class="mb-1">
       {{ period.room.split(/ -|- /)[0] }}
     </p>
-    <p v-if="!isElective" class="mb-1">
+    <p v-if="!isElective" class="mb-1" :class="{ 'mb-4': !period.teacher }">
       {{ period.type }}
     </p>
-    <p v-if="period.teacher" class="grey--text">
+    <p v-if="period.teacher" class="grey--text mb-4">
       {{ period.teacher }}
     </p>
   </div>

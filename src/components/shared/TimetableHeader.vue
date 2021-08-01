@@ -12,12 +12,10 @@
     </v-card-title>
     <v-card-subtitle>
       <v-menu v-if="$vuetify.breakpoint.mdAndUp" offset-y max-width="200">
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <p class="pointer caption font-weight-medium" v-on="on">
             {{ currentTimetable.college }}
-            <v-icon size="16" color="grey" class="">{{
-              mdiChevronDown
-            }}</v-icon>
+            <v-icon size="16" color="grey">{{ mdiChevronDown }}</v-icon>
           </p>
         </template>
         <v-list dense>
@@ -32,7 +30,7 @@
         v-if="$vuetify.breakpoint.smAndDown"
         v-model="bottomSheet"
       >
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <p class="caption font-weight-medium" v-on="on">
             {{ currentTimetable.college }}
           </p>
@@ -49,35 +47,47 @@
       </v-bottom-sheet>
     </v-card-subtitle>
     <v-card-actions>
-      <span class="ml-2 font-weight-medium text--secondary caption">
-        Semester
-      </span>
+      <span class="ml-2 font-weight-medium text--secondary caption"
+        >Semester</span
+      >
       <v-chip-group v-model="semester" mandatory class="ml-3">
         <v-chip
+          v-for="(n, i) in 2"
+          :key="i"
           outlined
           filter
-          :color="semester === 0 ? 'primary' : ''"
+          :color="semester === i ? 'primary' : ''"
           :filter-icon="mdiSchool"
-          @click="switchSemester(0)"
-          >1</v-chip
-        >
-        <v-chip
-          outlined
-          filter
-          :filter-icon="mdiSchool"
-          :color="semester === 1 ? 'primary' : ''"
-          @click="switchSemester(1)"
-          >2</v-chip
+          @click="switchSemester(i)"
+          >{{ n }}</v-chip
         >
       </v-chip-group>
+      <v-btn
+        icon
+        :to="{
+          name: 'Chat',
+          params: {
+            id: courseOptions.code,
+          },
+        }"
+      >
+        <v-icon>{{ mdiChatOutline }}</v-icon>
+      </v-btn>
+
       <v-spacer />
       <v-dialog
         v-if="$vuetify.breakpoint.mdAndDown"
         v-model="assignmentDialog"
         width="450"
       >
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
+        <template #activator="{ on, attrs }">
+          <v-btn
+            icon
+            v-bind="attrs"
+            title="Assignment Tracker"
+            aria-label="Assignment Tracker"
+            v-on="on"
+          >
             <v-icon>{{ mdiCalendarMonth }}</v-icon>
           </v-btn>
         </template>
@@ -97,6 +107,7 @@
       <v-btn
         v-if="$vuetify.breakpoint.mdAndUp"
         icon
+        title="Stats"
         :to="{
           path: '/timetable/stats',
           query: {

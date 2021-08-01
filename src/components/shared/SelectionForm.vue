@@ -55,6 +55,7 @@ export default {
   methods: {
     ...mapActions(['fetchCourses']),
     populateCourses(collegeIndex) {
+      this.isLoading = true;
       this.fetchCourses(collegeIndex)
         .then((res) => {
           this.courses = res;

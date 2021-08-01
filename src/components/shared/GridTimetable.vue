@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card flat>
-      <v-row no-gutters>
+    <v-card :class="{ 'box-shadow': !darkMode }" :outlined="darkMode">
+      <v-row align="center" no-gutters>
         <v-col
           v-for="(label, i) in labels"
           :key="label"
@@ -17,7 +17,7 @@
           >
         </v-col>
       </v-row>
-      <v-card-text class="pa-0">
+      <v-card-text class="mb-2 py-0 pl-0">
         <v-row v-for="(row, i) in times" :key="i" no-gutters class="mt-1">
           <v-tooltip
             v-for="(day, dayIndex) in filteredTimetable.length + 1"
@@ -25,7 +25,7 @@
             :disabled="dayIndex === 0 || !checkForClass(row, day)"
             bottom
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-col
                 class="text-center mr-1"
                 :class="{

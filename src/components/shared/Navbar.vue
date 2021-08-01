@@ -9,7 +9,7 @@
       </template>
     </v-btn-toggle>
 
-    <template v-slot:extension>
+    <template #extension>
       <ProgressBar style="top: -4px" />
     </template>
   </v-app-bar>
