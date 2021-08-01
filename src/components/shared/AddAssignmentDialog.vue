@@ -32,7 +32,7 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="dueDate" no-title color="primary darken-2">
+            <v-date-picker v-model="dueDate" no-title color="primary">
               <v-spacer></v-spacer>
               <v-btn plain @click="menu = false">Cancel</v-btn>
               <v-btn text color="primary" @click="$refs.menu.save(dueDate)">
@@ -199,15 +199,15 @@ export default {
 
 <style>
 .theme--dark.v-picker__body {
-  background-color: var(--v-background-base) !important;
+  background-color: var(--v-background-darken) !important;
 }
 .theme--dark.v-time-picker-clock {
-  background-color: var(--v-background-lighten1) !important;
+  background-color: var(--v-background-darken) !important;
 }
 .theme--light.v-picker__body {
   background-color: var(--v-background-base) !important;
 }
 .theme--light.v-time-picker-clock {
-  background-color: var(--v-background-lighten1) !important;
+  background-color: var(--v-background-base) !important;
 }
 </style>

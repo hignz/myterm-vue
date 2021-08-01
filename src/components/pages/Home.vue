@@ -59,39 +59,36 @@ export default {
 };
 </script>
 
-<style scoped>
-.mt-24 {
-  margin-top: 5rem;
-}
-
+<style lang="scss" scoped>
 .main {
   height: 100vh;
 }
 
 footer {
   padding: 30px;
+
+  > div {
+    max-width: 400px;
+    margin: auto;
+
+    > p > a {
+      text-decoration: none;
+    }
+  }
+
+  &.light {
+    background-color: #fff;
+    border-top: thin solid rgba(0, 0, 0, 0.12) !important;
+    color: black;
+  }
+
+  &.dark {
+    background-color: #151a21;
+    border-top: thin solid rgba(255, 255, 255, 0.12) !important;
+  }
 }
 
-footer > div {
-  max-width: 400px;
-  margin: auto;
-}
-
-footer.dark {
-  background-color: #090d13;
-  border-top: thin solid rgba(255, 255, 255, 0.12) !important;
-}
-
-footer.light {
-  background-color: #fff;
-  border-top: thin solid rgba(0, 0, 0, 0.12) !important;
-}
-
-footer.light > div > p {
-  color: black;
-}
-
-footer > div > p > a {
-  text-decoration: none;
+.mt-24 {
+  margin-top: 5rem;
 }
 </style>

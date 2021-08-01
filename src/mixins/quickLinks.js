@@ -40,8 +40,7 @@ export default {
           },
           {
             title: 'Online Grades',
-            url:
-              'https://ssb.ancheim.ie/its/app/twbkwbis.P_GenMenu?name=homepage',
+            url: 'https://ssb.ancheim.ie/its/app/twbkwbis.P_GenMenu?name=homepage',
             icon: mdiCounter,
           },
           {

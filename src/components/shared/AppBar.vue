@@ -18,16 +18,10 @@
         {{ title }}
       </v-btn>
       <v-spacer />
-      <template>
-        <slot name="icon" />
-      </template>
+      <slot name="icon" />
     </v-row>
-    <template v-if="this.$slots.default" v-slot:extension>
-      <slot />
-    </template>
-
-    <template v-slot:extension>
-      <ProgressBar style="top: -2px" />
+    <template #extension>
+      <ProgressBar />
     </template>
   </v-app-bar>
 </template>
