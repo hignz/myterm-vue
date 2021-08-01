@@ -1,11 +1,11 @@
 <template>
   <v-container>
     <AppBar v-if="$vuetify.breakpoint.smAndDown" title="Timetable">
-      <template v-slot:icon>
+      <template #icon>
         <ShareBtn />
         <v-bottom-sheet>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn icon v-bind="attrs" v-on="on">
+          <template #activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" title="More" v-on="on">
               <v-icon size="28">
                 {{ mdiDotsVertical }}
               </v-icon>
@@ -44,6 +44,7 @@
               <v-row class="mt-2 mt-md-0">
                 <v-col cols="12" class="text-end">
                   <v-btn-toggle
+                    v-if="!timetable.empty"
                     v-model="view"
                     mandatory
                     dense
@@ -52,10 +53,10 @@
                     color="primary"
                     active-class="active-view"
                   >
-                    <v-btn :ripple="false">
+                    <v-btn :ripple="false" title="List">
                       <v-icon color="grey">{{ mdiFormatListBulleted }}</v-icon>
                     </v-btn>
-                    <v-btn :ripple="false">
+                    <v-btn :ripple="false" title="Grid">
                       <v-icon color="grey">{{ mdiGrid }}</v-icon>
                     </v-btn>
                   </v-btn-toggle>
@@ -82,14 +83,16 @@
               </v-alert>
             </template>
           </v-col>
-          <v-col cols="12" sm="12" md="10" lg="4" class="pt-1" xl="5">
+          <v-col cols="12" sm="12" md="10" lg="4" xl="5" class="pt-1">
             <template v-if="timetable && !timetable.empty">
               <v-list
                 v-if="$vuetify.breakpoint.mdAndUp"
-                class="px-2 pb-0"
                 dense
+                class="px-2 pb-0"
                 height="92vh"
                 style="overflow-y: auto"
+                :outlined="darkMode"
+                :flat="!darkMode"
                 color="transparent"
               >
                 <CurrentClass
@@ -113,7 +116,7 @@
             </template>
             <div
               v-if="isLoaded && timetable && timetable.empty"
-              class="text-center mt-md-16"
+              class="text-center"
             >
               <v-img
                 class="mx-auto mb-6"
@@ -204,6 +207,11 @@ export default {
     TimetableHeader,
   },
   mixins: [timetableMetaInfo],
+  beforeRouteLeave(to, from, next) {
+    this.setFetching(false);
+    this.setCurrentClass(null);
+    next();
+  },
   data() {
     return {
       isLoaded: false,
@@ -230,17 +238,15 @@ export default {
       .then((res) => {
         this.timetable = res;
       })
+      .catch(() => {
+        this.$toast.error('Something went wrong');
+      })
       .finally(() => {
         this.isLoaded = true;
       });
   },
   methods: {
     ...mapActions(['fetchTimetable', 'setFetching', 'setCurrentClass']),
-  },
-  beforeRouteLeave(to, from, next) {
-    this.setFetching(false);
-    this.setCurrentClass(null);
-    next();
   },
 };
 </script>
