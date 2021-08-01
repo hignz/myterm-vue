@@ -47,16 +47,11 @@
               <v-col md="10">
                 <ChatBox />
               </v-col>
-              <v-col
-                v-if="$vuetify.breakpoint.mdAndUp"
-                md="2"
-                class="pl-0"
-                style="border-left: 1px solid #3b3e44"
-              >
+              <v-col v-if="$vuetify.breakpoint.mdAndUp" md="2" class="pl-0">
                 <v-list
                   dense
                   height="100%"
-                  style="max-height: 80vh"
+                  style="max-height: 80vh; border-left: 1px solid #3b3e44"
                   class="overflow-y-auto"
                 >
                   <ChatUserListItem
@@ -79,7 +74,7 @@
       transition="dialog-bottom-transition"
     >
       <v-card>
-        <v-toolbar flat outlined>
+        <v-toolbar flat outlined color="transparent">
           <v-btn icon @click="dialog = false">
             <v-icon>{{ mdiClose }}</v-icon>
           </v-btn>
