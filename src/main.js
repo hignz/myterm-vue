@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueGtag from 'vue-gtag';
 import Toast from 'vue-toastification';
-import VueSocketIO from 'vue-socket.io';
+// import VueSocketIO from 'vue-socket.io';
 import 'vue-toastification/dist/index.css';
 import App from './App';
 import router from './router';
@@ -17,12 +17,12 @@ Vue.use(Toast, {
   position: 'top-right',
 });
 
-Vue.use(
-  new VueSocketIO({
-    debug: true,
-    connection: 'https://myterm-socket.herokuapp.com/',
-  })
-);
+// Vue.use(
+//   new VueSocketIO({
+//     debug: true,
+//     connection: 'https://myterm-socket.herokuapp.com/',
+//   })
+// );
 
 Vue.use(
   VueGtag,

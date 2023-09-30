@@ -16,10 +16,10 @@ export const routeOptions = [
     name: 'Stats',
     props: true,
   },
-  {
-    path: '/chat/:id',
-    name: 'Chat',
-  },
+  // {
+  //   path: '/chat/:id',
+  //   name: 'Chat',
+  // },
   {
     path: '/import-assignments/:id',
     name: 'ImportAssignments',

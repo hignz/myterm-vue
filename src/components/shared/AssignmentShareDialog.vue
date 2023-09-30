@@ -25,14 +25,17 @@
       <v-card-title class="subtitle-1 text-uppercase"
         >Assignment Share</v-card-title
       >
-      <v-card-text>
-        <v-img
-          v-if="!shareLink"
+      <v-card-text class="text-center">
+        <!-- <v-img
+          
           class="mx-auto mb-8"
           max-height="250"
           max-width="250"
           :src="require('@/assets/undraw_share_link_qtxe.svg')"
-        ></v-img>
+        ></v-img> -->
+        <v-row justify="center">
+          <ShareLink v-if="!shareLink" />
+        </v-row>
         <p v-if="!shareLink">Share your assignment list with others!</p>
         <p v-if="!shareLink">
           Get a shareable link to send to your friends so they can import your
@@ -41,11 +44,11 @@
         <v-text-field
           v-if="shareLink"
           v-model="shareLink"
-          class="mt-4"
+          class="mt-8"
           label="Share link"
           outlined
           dense
-          disabled
+          read-only=""
         >
         </v-text-field>
         <p v-if="shareLink">
@@ -75,8 +78,10 @@
 <script>
 import { mapActions, mapState } from 'vuex';
 import { mdiShareAllOutline, mdiClipboard } from '@mdi/js';
+import ShareLink from '@/components/shared/svg/ShareLink';
 
 export default {
+  components: { ShareLink },
   data() {
     return {
       dialog: false,

@@ -36,7 +36,7 @@
       </template>
     </AppBar>
     <v-row>
-      <v-col sm="12" md="12">
+      <v-col sm="12">
         <v-row justify="center">
           <v-col cols="12" sm="12" md="10" lg="4" xl="4">
             <template v-if="timetable">
@@ -83,7 +83,7 @@
               </v-alert>
             </template>
           </v-col>
-          <v-col cols="12" sm="12" md="10" lg="4" xl="5" class="pt-1">
+          <v-col cols="12" sm="12" md="10" lg="5" xl="5" class="pt-1">
             <template v-if="timetable && !timetable.empty">
               <v-list
                 v-if="$vuetify.breakpoint.mdAndUp"
@@ -211,6 +211,17 @@ export default {
     this.setFetching(false);
     this.setCurrentClass(null);
     next();
+  },
+  setup() {
+    // const { share, isSupported } = useShare();
+    // share({
+    //   title: 'Hello',
+    //   text: 'Hello my friend!',
+    //   url: location.href,
+    // });
+    // return {
+    //   location,
+    // };
   },
   data() {
     return {
