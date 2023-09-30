@@ -62,7 +62,7 @@
           >{{ n }}</v-chip
         >
       </v-chip-group>
-      <v-btn
+      <!-- <v-btn
         icon
         :to="{
           name: 'Chat',
@@ -72,7 +72,7 @@
         }"
       >
         <v-icon>{{ mdiChatOutline }}</v-icon>
-      </v-btn>
+      </v-btn> -->
 
       <v-spacer />
       <v-dialog

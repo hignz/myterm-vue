@@ -36,7 +36,7 @@ export default {
       courses: [],
       isLoading: false,
       rules: {
-        required: (value) => !!value || 'Please select a course from the list',
+        // required: (value) => !!value || 'Please select a course from the list',
       },
       selectedCollege: '',
       selectedCourse: null,

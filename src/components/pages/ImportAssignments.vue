@@ -111,8 +111,8 @@
                     assignments with the imported ones.
                   </p>
                   <p>
-                    You will the assignments that you created. Are you sure you
-                    want to do this?
+                    You will overwrite the assignments that you created. Are you
+                    sure you want to do this?
                   </p>
                 </v-card-text>
 

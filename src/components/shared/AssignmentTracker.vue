@@ -2,12 +2,13 @@
   <div>
     <div v-if="!assignments.length && !getStarted" outlined>
       <v-card-text class="text-center">
-        <v-img
+        <!-- <v-img
           class="mx-auto"
           max-height="250"
           max-width="250"
           :src="require('@/assets/undraw_completed_tasks_vs6q.svg')"
-        ></v-img>
+        ></v-img> -->
+        <CompletedTasks />
         <p class="text-h5 mt-4">Assignment Tracker</p>
         <p class="mt-4">Never forget another important date!</p>
         <p>
@@ -97,7 +98,7 @@
               :activator="selectedElement"
               left
             >
-              <v-card min-width="350px" max-width="500" flat>
+              <v-card max-width="500" flat>
                 <v-toolbar dense flat>
                   <v-toolbar-title>{{ selectedEvent.name }}</v-toolbar-title>
                   <v-spacer></v-spacer>
@@ -146,12 +147,18 @@
 import { mdiMenuDown, mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { mapState } from 'vuex';
 import AddAssignmentDialog from '@/components/shared/AddAssignmentDialog';
+import CompletedTasks from '@/components/shared/svg/CompletedTasks';
 import AssignmentList from '@/components/shared/AssignmentList';
 import AssignmentShareDialog from '@/components/shared/AssignmentShareDialog';
 import { formatToNow, format } from '@/utils/date';
 
 export default {
-  components: { AddAssignmentDialog, AssignmentShareDialog, AssignmentList },
+  components: {
+    AddAssignmentDialog,
+    AssignmentShareDialog,
+    AssignmentList,
+    CompletedTasks,
+  },
   data() {
     return {
       currentDate: null,
